@@ -1,0 +1,111 @@
+*,html{ box-sizing: border-box; }
+.bg-navbar{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    font-size: larger;background: rgb(13, 167, 159);
+}
+.bg-navbar .text-brand{
+    color:rgba(11, 11, 44, 0.993);
+     padding:10px;
+}
+.bg-navbar .nav-item{
+    color:rgba(11, 11, 44, 0.424)!important;
+}
+
+p{margin:0;} 
+.bg-navbar .bg-nav{
+  border-radius: 10px;
+  padding:5px;
+}
+.bg-none{background: none; border: none;}
+
+.bg-navbar .nav-item:hover{
+    background: rgb(112, 111, 27);
+  }
+.mt-body{ margin-top:42.1px !important; }
+  .body-img{
+     /* background-image: url(./pic/pexels-ave-calvar-martinez-4279015.jpg); */
+      position: relative;
+      top:40px;
+  }
+  .text-big{
+      font-size:1.1rem;
+  }
+  .btn-gray{
+      background-color: rgb(8, 43, 107);
+  }
+
+  .top-img{ height:60vh;background-image:url(./pic/lib_1.jpg);
+    background-repeat: repeat-x;background-size:auto;background-attachment: fixed; }
+
+.bg-jumbtron{
+    background-color: rgba(226, 229, 229, 0.966) !important;
+    border-radius: none !important;
+   opacity:0.9;
+}
+.bg-start{
+    background: rgb(209, 209, 209);
+}
+.bg-start-new{
+    background: rgba(199, 187, 187, 0.979);
+}
+.border-custom{
+    border: 1px solid gray;
+    border-left: 8px solid rgb(209, 142, 18) !important;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+.footer{
+    /*height:50vh; */
+    color: rgb(207, 214, 207) !important;
+} 
+.bg-footer{
+    background: rgba(7, 54, 54, 0.781);
+}
+.about-bg{
+    color:rgb(218, 228, 177);
+    
+    /*height:90vh; */
+    background-image: url(../src/pic/pexels-ave-calvar-martinez-4279015.jpg);
+    background-size:contain;
+    background-attachment: fixed;
+    
+}
+.custom-color{
+    font-size: 25px !important;
+}
+.bg-new{
+    background-color: rgb(240, 216, 81) !important;
+    padding:2px !important;
+}
+.card{
+    background:rgb(0, 0, 0);
+    opacity: 0.6;
+}
+.card-header{
+    color: rgb(245, 178, 9) !important;
+    font-size: 19px;
+}
+.card-text{
+    color: white !important;
+    font-weight:550;
+}
+.text-logo{ color: teal; }
+.bg-logo{ background-color: rgb(233, 245, 245);opacity:0.25; }
+/*.height-100{ height:90vh; }*/
+.alert-success{ background: rgb(225, 238, 238) !important; }
+
+.card-custom{ opacity:0.6;background: rgba(78, 82, 81, 0.979) !important ; }
+.card-custom .card-text{ color: rgb(255, 255, 255) !important; }
+.bg-developer{
+    background-image: url(../src/pic/pexels-ave-calvar-martinez-4279015.jpg);
+    background-size:contain;
+    background-attachment: fixed;
+}
+.color-dev{
+    color: wheat !important;
+    font-weight:bold;
+    font-size: 21px;
+}
+.opacity{ opacity:2;background-color:rgba(163, 163, 157, 0.089) ; }
