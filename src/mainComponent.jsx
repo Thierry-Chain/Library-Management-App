@@ -7,6 +7,13 @@ import About from './components/about';
 import Developers from './components/developer';
 import Login from './components/user/login';
 import Register from './components/user/register';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure()
+const notify=(msg)=>{
+  toast.success(msg , { position:toast.POSITION.BOTTOM_RIGHT } )
+}
 
 
 
@@ -27,7 +34,7 @@ const toggleRegister = () => setRegister(!register);
        </Switch>
        </div>
        <Login login={login} onToggle={toggleLogin} />
-       <Register register={register} onToggle={toggleRegister}  />
+       <Register register={register} onToggle={toggleRegister} notify={notify} />
         </React.Fragment>
     )
 }
