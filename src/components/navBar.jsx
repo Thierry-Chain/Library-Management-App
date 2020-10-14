@@ -52,9 +52,10 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
-        <DropdownItem>List</DropdownItem>
+        <NavLink to="/loggedIn/studentList"><DropdownItem>List</DropdownItem></NavLink>
         <DropdownItem>Add New</DropdownItem>
-        <DropdownItem>Borrowers</DropdownItem>
+  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers</DropdownItem></NavLink>      
+        
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -67,9 +68,9 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Teachers</b></p></DropdownItem>
-        <DropdownItem>List</DropdownItem>
+    <NavLink to="/loggedIn/teachersList"><DropdownItem>List</DropdownItem></NavLink>        
         <DropdownItem>Add New</DropdownItem>
-        <DropdownItem>Borrowers</DropdownItem>
+  <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem>Borrowers</DropdownItem></NavLink>  
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -81,15 +82,15 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
-        <DropdownItem>List</DropdownItem>
+      <NavLink to="/loggedIn/bookList"><DropdownItem>List</DropdownItem></NavLink>
         <DropdownItem>Add New</DropdownItem>
-        <DropdownItem>Borrowerd</DropdownItem>
+  <NavLink to="/loggedIn/bookBorrowed"><DropdownItem>Borrowed</DropdownItem></NavLink>
       </DropdownMenu>
     </Dropdown>
    </NavItem>
      
-   <NavItem onClick={toggleModal}>
-     <NavLink to="/settings"  className="nav-link nav-item p-2 bg-none">Settings</NavLink>    
+   <NavItem>
+     <NavLink to="/loggedIn/settings"  className="nav-link nav-item p-2 bg-none">Settings</NavLink>    
   </NavItem>
 
      <NavItem onClick={toggleModal}>
