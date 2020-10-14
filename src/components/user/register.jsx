@@ -23,7 +23,11 @@ const handleSubmit=(e)=>{
  if(names==='' || email==='' || pword==='' || pword1===''){
 seterrors('Fill Empty Space')
   return false
- }else{
+ }else if(names.length>13){
+  seterrors('Chose shorter name')
+  return false
+ }
+ else{
    const data=JSON.stringify({name:names,email,password:pword,password1:pword1})
 const config={
   url:`${location}/user/register`,

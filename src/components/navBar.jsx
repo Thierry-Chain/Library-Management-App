@@ -18,7 +18,7 @@ const NavBar = (props) => {
   const register =props.register
   const dispatch=useDispatch()
   const logout=()=>{
-    dispatch(fullLogout());toggleModal()
+    dispatch(fullLogout());toggleModal();toggle()
   }
   const auth = useSelector(state => state.user.auth)
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,7 +39,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
   <span className="badge d-none d-sm-inline"><Spinner type="grow" color="warning" size="sm" />
   </span> {getUserName()}</NavbarBrand> : <NavbarBrand className="text-brand" to="/">My Library</NavbarBrand>
  const collapse=auth ?   <Collapse isOpen={isOpen} navbar>
- <Nav className="mr-auto bg-nav" navbar onClick={toggleSmart} >
+ <Nav className="mr-auto bg-nav" navbar >
 
    <NavItem>
      <NavLink className="nav-link nav-item p-2"  to="/loggedIn">Home</NavLink>
@@ -47,10 +47,10 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
 
    <NavItem>
    <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
-   <DropdownToggle  tag="span" data-toggle="dropdown" >
-       <p onMouseOver={toggleDrop} className="nav-link nav-item p-2" >Students ^</p>
+   <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer" >
+       <p className="nav-link nav-item p-2" >Students ^</p>
       </DropdownToggle>
-      <DropdownMenu>
+      <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
         <DropdownItem>List</DropdownItem>
         <DropdownItem>Add New</DropdownItem>
@@ -62,10 +62,10 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
 
    <NavItem>
    <Dropdown isOpen={dropdownOpenT} toggle={toggleDropT}>
-   <DropdownToggle  tag="span" data-toggle="dropdown" >
-       <p onMouseOver={toggleDropT} className="nav-link nav-item p-2" >Teachers ^</p>
+   <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer">
+       <p className="nav-link nav-item p-2" >Teachers ^</p>
       </DropdownToggle>
-      <DropdownMenu>
+      <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Teachers</b></p></DropdownItem>
         <DropdownItem>List</DropdownItem>
         <DropdownItem>Add New</DropdownItem>
@@ -76,10 +76,10 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
 
    <NavItem>
    <Dropdown isOpen={dropdownOpenB} toggle={toggleDropB}>
-   <DropdownToggle  tag="span" data-toggle="dropdown" >
-       <p onMouseOver={toggleDropB} className="nav-link nav-item p-2" >Books ^</p>
+   <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer">
+       <p className="nav-link nav-item p-2" >Books ^</p>
       </DropdownToggle>
-      <DropdownMenu>
+      <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
         <DropdownItem>List</DropdownItem>
         <DropdownItem>Add New</DropdownItem>
@@ -88,6 +88,10 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
     </Dropdown>
    </NavItem>
      
+   <NavItem onClick={toggleModal}>
+     <NavLink to="/settings"  className="nav-link nav-item p-2 bg-none">Settings</NavLink>    
+  </NavItem>
+
      <NavItem onClick={toggleModal}>
      <button className="nav-link nav-item p-2 bg-none">Logout</button>    
      </NavItem>
@@ -135,8 +139,8 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
         <ModalHeader toggle={toggleModal}><div className="text-center text-info">Are you sure to logout ?</div></ModalHeader>
         <div className="d-flex justify-content-center p-3">
 
-          <button className="btn btn-md btn-success mr-4"><b className="text-light" onClick={logout}>Logout</b></button>
-          <button className="btn btn-md btn-danger ml-4"><b className="text-light" onClick={toggleModal}>Cancel</b></button>
+          <button className="btn btn-success mr-4" onClick={logout}><b className="text-light" >Logout</b></button>
+          <button className="btn btn-danger ml-4"><b className="text-light" onClick={toggleModal}>Cancel</b></button>
 
         </div>
         

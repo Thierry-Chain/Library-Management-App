@@ -113,3 +113,27 @@ p{margin:0;}
     background-color: rgb(226, 241, 237);
     color: rgb(9, 15, 1);
 }
+.dropdown-pointer{
+    cursor: pointer !important;
+}
+.bg-table{
+    background:rgba(109, 165, 153, 0.664);
+}
+tr:hover{
+background-color:rgba(139, 192, 180, 0.308) !important;
+}
+
+.bg-color{
+    background: rgb(213, 218, 218);
+}
+.box{
+    border-left: 6px solid rgb(230, 67, 39);
+    border-top-right-radius:4px;
+    border-bottom-right-radius:4px;
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px;
+    border-right: 1px solid rgb(114, 113, 113);
+    border-top:1px solid rgba(134, 131, 131, 0.753);
+    border-bottom:1px solid rgba(170, 167, 167, 0.794);
+    box-shadow: 3px 3px 5px 4px rgb(61, 61, 61);
+}

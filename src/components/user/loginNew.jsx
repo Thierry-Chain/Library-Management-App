@@ -5,7 +5,7 @@ import * as userActions from '../../redux/users/action'
 import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
-    state = { email:'irambonta@gmail.com',pword:'1234Aa' };
+    state = { email:'thierry1@gmail.com',pword:'12345A' };
 componentDidUpdate(prevProps,prevState) {
     const previousAuth=prevProps.auth
     const nextAuth=this.props.auth
@@ -13,10 +13,12 @@ componentDidUpdate(prevProps,prevState) {
     if (previousAuth===false && nextAuth===true) {
        this.props.onToggle()
        this.props.history.push('/loggedIn')
+       this.props.notify('successfull logged in')
     }
     if (previousAuth===true && nextAuth===false) {
       //this.props.onToggle()
       this.props.history.push('/')
+      this.props.notify('successfully logged out')
    }
 }
 handleSubmit=(e)=>{

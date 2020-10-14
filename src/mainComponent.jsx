@@ -40,7 +40,7 @@ const toggleRegister = () => setRegister(!register);
            <Route path="/" component={NotFound} />
        </Switch>
        </div>
-       <Login login={login} onToggle={toggleLogin} />
+       <Login login={login} onToggle={toggleLogin} notify={notify} />
        <Register register={register} onToggle={toggleRegister} notify={notify} />
         </React.Fragment>
     )

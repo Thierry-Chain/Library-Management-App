@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 
 const Login = (props) => {
   //const [names, setNames] = useState('')
-  const [email, setEmail] = useState('irambonta@gmail.com')
+  const [email, setEmail] = useState('thierry1@gmail.com')
   const [pword, setPword] = useState('1234Aa')
   //const [pword1, setPword1] = useState('')
   const error=useSelector(state=>state.user.error)
