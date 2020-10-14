@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import {useSelector,useDispatch} from  'react-redux'
+import { getUserName } from '../redux/users/saveUser'
 import {
-  Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavbarText
+  Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavbarText,Spinner,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom'
+import {fullLogout} from '../redux/users/action'
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
   const toggleSmart = () => {
     if (isOpen===true) 
@@ -14,13 +16,86 @@ const NavBar = (props) => {
   };
   const login =props.login
   const register =props.register
+  const dispatch=useDispatch()
+  const logout=()=>{
+    dispatch(fullLogout());toggleModal()
+  }
+  const auth = useSelector(state => state.user.auth)
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [modal, setModal] = useState(false);
 
-  return (
-    <div className="container-fluid">
-      <Navbar light expand="lg">
-        <NavbarBrand className="text-brand" to="/">My Library</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
+  const toggleModal = () => setModal(!modal);
+  const toggleDrop = () => setDropdownOpen(prevState => !prevState);
+
+  const [dropdownOpenT, setDropdownOpenT] = useState(false);
+
+  const toggleDropT = () => setDropdownOpenT(prevState => !prevState);
+
+  const [dropdownOpenB, setDropdownOpenB] = useState(false);
+
+  const toggleDropB = () => setDropdownOpenB(prevState => !prevState);
+  
+const brand =auth ?  <NavbarBrand className="text-brand" to="/">
+  <span className="badge d-none d-sm-inline"><Spinner type="grow" color="warning" size="sm" />
+  </span> {getUserName()}</NavbarBrand> : <NavbarBrand className="text-brand" to="/">My Library</NavbarBrand>
+ const collapse=auth ?   <Collapse isOpen={isOpen} navbar>
+ <Nav className="mr-auto bg-nav" navbar onClick={toggleSmart} >
+
+   <NavItem>
+     <NavLink className="nav-link nav-item p-2"  to="/loggedIn">Home</NavLink>
+   </NavItem>
+
+   <NavItem>
+   <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
+   <DropdownToggle  tag="span" data-toggle="dropdown" >
+       <p onMouseOver={toggleDrop} className="nav-link nav-item p-2" >Students ^</p>
+      </DropdownToggle>
+      <DropdownMenu>
+      <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
+        <DropdownItem>List</DropdownItem>
+        <DropdownItem>Add New</DropdownItem>
+        <DropdownItem>Borrowers</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+   </NavItem>
+
+
+   <NavItem>
+   <Dropdown isOpen={dropdownOpenT} toggle={toggleDropT}>
+   <DropdownToggle  tag="span" data-toggle="dropdown" >
+       <p onMouseOver={toggleDropT} className="nav-link nav-item p-2" >Teachers ^</p>
+      </DropdownToggle>
+      <DropdownMenu>
+      <DropdownItem header><p className="text-info"><b>Teachers</b></p></DropdownItem>
+        <DropdownItem>List</DropdownItem>
+        <DropdownItem>Add New</DropdownItem>
+        <DropdownItem>Borrowers</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+   </NavItem>
+
+   <NavItem>
+   <Dropdown isOpen={dropdownOpenB} toggle={toggleDropB}>
+   <DropdownToggle  tag="span" data-toggle="dropdown" >
+       <p onMouseOver={toggleDropB} className="nav-link nav-item p-2" >Books ^</p>
+      </DropdownToggle>
+      <DropdownMenu>
+      <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
+        <DropdownItem>List</DropdownItem>
+        <DropdownItem>Add New</DropdownItem>
+        <DropdownItem>Borrowerd</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+   </NavItem>
+     
+     <NavItem onClick={toggleModal}>
+     <button className="nav-link nav-item p-2 bg-none">Logout</button>    
+     </NavItem>
+
+ </Nav>
+
+ <NavbarText>Online library management</NavbarText>
+</Collapse> :  <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto bg-nav" navbar onClick={toggleSmart} >
 
             <NavItem>
@@ -45,9 +120,28 @@ const NavBar = (props) => {
             </NavItem>
               
           </Nav>
+         
           <NavbarText>Online library management</NavbarText>
         </Collapse>
+  return (
+    <div className="container-fluid">
+      <Navbar light expand="lg">
+       {brand}
+        <NavbarToggler onClick={toggle} />
+        {collapse}     
       </Navbar>
+    
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggleModal}><div className="text-center text-info">Are you sure to logout ?</div></ModalHeader>
+        <div className="d-flex justify-content-center p-3">
+
+          <button className="btn btn-md btn-success mr-4"><b className="text-light" onClick={logout}>Logout</b></button>
+          <button className="btn btn-md btn-danger ml-4"><b className="text-light" onClick={toggleModal}>Cancel</b></button>
+
+        </div>
+        
+      </Modal>
+
     </div>
   );
 }

@@ -109,3 +109,7 @@ p{margin:0;}
     font-size: 21px;
 }
 .opacity{ opacity:2;background-color:rgba(163, 163, 157, 0.089) ; }
+.bg-input{
+    background-color: rgb(226, 241, 237);
+    color: rgb(9, 15, 1);
+}
