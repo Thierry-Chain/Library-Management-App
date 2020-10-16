@@ -59,7 +59,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
         <NavLink to="/loggedIn/studentList"><DropdownItem>List <sup className="badge badge-danger">{allStudents}</sup></DropdownItem></NavLink>
-        <DropdownItem>Add New +</DropdownItem>
+       
   <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{allStdBorrowed}</sup></DropdownItem></NavLink>      
         
       </DropdownMenu>
@@ -75,7 +75,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Teachers</b></p></DropdownItem>
     <NavLink to="/loggedIn/teachersList"><DropdownItem>List <sup className="badge badge-danger">{allTeachers}</sup></DropdownItem></NavLink>        
-        <DropdownItem>Add New +</DropdownItem>
+      
   <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{alltchBorrowed}</sup></DropdownItem></NavLink>  
       </DropdownMenu>
     </Dropdown>
@@ -89,7 +89,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
       <NavLink to="/loggedIn/bookList"><DropdownItem>List <sup className="badge badge-danger">{allBooks}</sup></DropdownItem></NavLink>
-        <DropdownItem>Add New +</DropdownItem>
+       
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -134,7 +134,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
           <NavbarText>Online library management</NavbarText>
         </Collapse>
   return (
-    <div className="container-fluid">
+    <div className="container-fluid px-0">
       <Navbar light expand="lg">
        {brand}
         <NavbarToggler onClick={toggle} />

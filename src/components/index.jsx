@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { Jumbotron } from 'reactstrap';
-import { Link} from 'react-router-dom'
+import { Link,withRouter} from 'react-router-dom'
 import Footer from './footer';
 function FirstPage(props) {
 const login=props.login
@@ -53,4 +54,4 @@ const register=props.register
     )
 }
 
-export default FirstPage
+export default withRouter(FirstPage)

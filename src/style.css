@@ -125,6 +125,8 @@ background-color:rgba(139, 192, 180, 0.308) !important;
 
 .bg-color{
     background: rgb(213, 218, 218);
+    padding-right:0px !important;
+    padding-left:0px !important;
 }
 .bg-color-1{
     background: rgb(162, 167, 167);
@@ -143,3 +145,25 @@ background-color:rgba(139, 192, 180, 0.308) !important;
 .text-color{
     color: rgb(7, 66, 66);
 }
+.bg-pc{
+    background-color: rgba(238, 238, 238, 0.801);
+   background-attachment: fixed;
+   height: 100vh;
+}
+.text-dark{
+    color: rgb(7, 7, 68);
+}
+.head{
+    background: rgb(218, 251, 250)!important;
+}
+.bg-line{
+    background-color: rgb(165, 163, 163);
+}
+.p-line{
+    padding:3px;
+    border-radius: 3px;
+}
+.w{
+    width:16.2% !important; 
+}
+.w-2{ width: 10.2% !important; }

@@ -26,7 +26,7 @@ class Main extends Component {
     if (this.props.auth===false) {
       this.props.history.push('/')
    } 
-   this.props.history.push('/loggedIn')
+   //this.props.history.push('/loggedIn')
 
    }
   

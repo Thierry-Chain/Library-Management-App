@@ -22,7 +22,7 @@ class Home extends Component {
    
   </div>
      
-     <div className="container-fluid bg-color my-0">
+     <div className="container-fluid bg-color my-0 p-0">
        <div className="div container">
   
        <p className="h2 text-center mb-0"> ^ My Status</p> <br/>
