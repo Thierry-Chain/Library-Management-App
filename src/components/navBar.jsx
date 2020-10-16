@@ -34,12 +34,11 @@ const NavBar = (props) => {
   const [dropdownOpenB, setDropdownOpenB] = useState(false);
 
   const toggleDropB = () => setDropdownOpenB(prevState => !prevState);
-  const allStudents=500
-  const allStdBorrowed=250
-  const allTeachers=100
-  const alltchBorrowed=50
-  const allBooks=900
-  const allBooksBorrowed=450
+  const allStudents=useSelector(state => state.students.list.length)
+  const allStdBorrowed=useSelector(state => state.students.borrowers.length)
+  const allTeachers=useSelector(state => state.teachers.list.length)
+  const alltchBorrowed=useSelector(state => state.teachers.borrowers.length)
+  const allBooks=useSelector(state => state.books.list.length)
   
 const brand =auth ?  <NavbarBrand className="text-brand" to="/">
  
@@ -91,7 +90,6 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
       <NavLink to="/loggedIn/bookList"><DropdownItem>List <sup className="badge badge-danger">{allBooks}</sup></DropdownItem></NavLink>
         <DropdownItem>Add New +</DropdownItem>
-  <NavLink to="/loggedIn/bookBorrowed"><DropdownItem>Borrowed <sup className="badge badge-danger">{allBooksBorrowed}</sup></DropdownItem></NavLink>
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -148,7 +146,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
         <div className="d-flex justify-content-center p-3">
 
           <button className="btn btn-success mr-4" onClick={logout}><b className="text-light" >Logout</b></button>
-          <button className="btn btn-danger ml-4"><b className="text-light" onClick={toggleModal}>Cancel</b></button>
+          <button className="btn btn-danger ml-4" onClick={toggleModal}><b className="text-light" >Cancel</b></button>
 
         </div>
         

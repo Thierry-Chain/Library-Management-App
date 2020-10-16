@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {Jumbotron} from 'reactstrap'
+import { connect } from 'react-redux'
 import Footer from '../footer'
 class Home extends Component {
     render() { 
-      const allStudents=100
-      const allTeachers=100
-      const allBooks=100
-      const allBorrowedBooks=100
+      const allStudents=this.props.allStudents
+      const allTeachers=this.props.allTeachers
+      const allBooks=this.props.allBooks
+      const allBorrowedBooks=this.props.allBorrowedBooks
+
       return ( <section className="mt-5 bg-light mt-body">
   <div className="text-center ">
   <Jumbotron className="mb-0">
@@ -28,26 +30,26 @@ class Home extends Component {
     <thead className="bg-table">
       <tr>
         <th scope="col">State</th>
-        <th scope="col">Quantity</th>
+        <th scope="col">Quantity or number</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Students</td>
-        <td>{allStudents}</td>
+        <td><b>{allStudents}</b></td>
       </tr>
       <tr>
         <td>Teachers</td>
-        <td>{allTeachers}</td>
+        <td><b>{allTeachers}</b></td>
       </tr>
       <tr>
         <td>Books</td>
-        <td>{allBooks}</td>
+        <td><b>{allBooks}</b></td>
       </tr>
   
       <tr id="1">
         <td>Borrowed Books</td>
-        <td>{allBorrowedBooks}</td>
+        <td><b>{allBorrowedBooks}</b></td>
       </tr>
   
     </tbody>
@@ -84,5 +86,12 @@ class Home extends Component {
       </section> );
     }
 }
- 
-export default Home;
+ const mapStateToProps= (state)=>{
+return {
+allStudents:state.students.list.length,
+allTeachers:state.teachers.list.length,
+allBooks:state.books.list.length,
+allBorrowedBooks:state.books.borrowed.length
+}
+ }
+export default connect(mapStateToProps)(Home);

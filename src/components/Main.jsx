@@ -10,12 +10,19 @@ import TeachersBorrowers from './loggedIn/teacher/teachersBorrowers'
 import BooksList from './loggedIn/book/bookList'
 import BooksBorrowed from './loggedIn/book/bookBorrowed'
 import Settings from './loggedIn/settings'
-import {fetchList,fetchBorrowers} from '../redux/students/actions'
+import * as studentAction from '../redux/students/actions'
+import * as teachersAction from '../redux/teachers/actions'
+import * as booksAction from '../redux/books/actions'
+
 
 class Main extends Component {
   componentDidMount() {
    this.props.fetchList()
+   this.props.fetchTeacherList()
    this.props.fetchBorrowers()
+   this.props.fetchTeacherBorrowers()
+   this.props.fetchBooks()
+   this.props.fetchBorrowedBooks()
     if (this.props.auth===false) {
       this.props.history.push('/')
    } 
@@ -51,9 +58,12 @@ auth:state.user.auth
 } 
 const mapDispatchToProps=(dispatch)=>{
   return{
-fetchList:()=>dispatch(fetchList()),
-fetchBorrowers:()=>dispatch(fetchBorrowers())   
-
+fetchList:()=>dispatch(studentAction.fetchList()),
+fetchBorrowers:()=>dispatch(studentAction.fetchBorrowers()),
+fetchTeacherList:()=> dispatch(teachersAction.fetchList()),
+fetchTeacherBorrowers:()=> dispatch(teachersAction.fetchBorrowers()),
+fetchBooks:()=> dispatch(booksAction.fetchList()),
+fetchBorrowedBooks:()=>dispatch(booksAction.fetchBorrowed() )
   }
 } 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Main));
