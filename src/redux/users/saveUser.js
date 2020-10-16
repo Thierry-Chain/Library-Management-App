@@ -4,6 +4,7 @@ const saveUser = (user)=>{
         more:user,
         error:'' }
     localStorage.setItem('state',JSON.stringify(state))
+    localStorage.setItem('token',JSON.stringify(user.token))
     
 }
 const getUser =()=>{
@@ -19,5 +20,7 @@ const getUserName =()=>{
   const userObj= JSON.parse(localStorage.getItem('state') )
    return userObj.more.user._id
  }
+
+
 
     export {saveUser,getUser,getUserName,getUserId}
