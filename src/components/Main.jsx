@@ -10,28 +10,34 @@ import TeachersBorrowers from './loggedIn/teacher/teachersBorrowers'
 import BooksList from './loggedIn/book/bookList'
 import BooksBorrowed from './loggedIn/book/bookBorrowed'
 import Settings from './loggedIn/settings'
+import {fetchList,fetchBorrowers} from '../redux/students/actions'
 
 class Main extends Component {
   componentDidMount() {
-  if (this.props.auth===false) {
-    this.props.history.push('/')
-  }  }
+   this.props.fetchList()
+   this.props.fetchBorrowers()
+    if (this.props.auth===false) {
+      this.props.history.push('/')
+   } 
+   this.props.history.push('/loggedIn')
+
+   }
   
   state = {  }
   render() { 
     return (
 <React.Fragment>
-<switch>
+<Switch>
 <Route exact path="/loggedIn" component={Home} />
-<Route exact path="/loggedIn/studentList" component={StudentList} />
-<Route exact path="/loggedIn/studentBorrowers" component={StudentBorrowers} />
-<Route exact path="/loggedIn/teachersList" component={TeachersList} />
-<Route exact path="/loggedIn/teachersBorrowers" component={TeachersBorrowers} />
+<Route path="/loggedIn/studentList" component={StudentList} />
+<Route path="/loggedIn/studentBorrowers" component={StudentBorrowers} />
+<Route path="/loggedIn/teachersList" component={TeachersList} />
+<Route path="/loggedIn/teachersBorrowers" component={TeachersBorrowers} />
 
-<Route exact path="/loggedIn/bookList" component={BooksList} />
-<Route exact path="/loggedIn/bookBorrowed" component={BooksBorrowed} />
-<Route exact path="/loggedIn/settings" component={Settings} />
-</switch>
+<Route path="/loggedIn/bookList" component={BooksList} />
+<Route path="/loggedIn/bookBorrowed" component={BooksBorrowed} />
+<Route path="/loggedIn/settings" component={Settings} />
+</Switch>
 </React.Fragment>)
   
 
@@ -45,7 +51,9 @@ auth:state.user.auth
 } 
 const mapDispatchToProps=(dispatch)=>{
   return{
-fullLogin:(user)=>dispatch()    
+fetchList:()=>dispatch(fetchList()),
+fetchBorrowers:()=>dispatch(fetchBorrowers())   
+
   }
 } 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Main));

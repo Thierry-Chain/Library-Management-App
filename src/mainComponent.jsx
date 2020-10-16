@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import NavBar from './components/navBar';
 import FirstPage from './components';
 import {Route,Switch} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 import About from './components/about';
 import Developers from './components/developer';
 //import Login from './components/user/login';
@@ -27,13 +28,15 @@ const [login, setLogin] = useState(false);
 const [register, setRegister] = useState(false);
 const toggleLogin = () => setLogin(!login); 
 const toggleRegister = () => setRegister(!register);
+const auth = useSelector(state => state.user.auth)
+const firstRoute= auth ? <Route exact path="/" component={Main} />  : <Route exact path="/" login={toggleLogin} component={ 
+        ()=> <FirstPage login={toggleLogin} register={toggleRegister} /> } />;
     return (
         <React.Fragment>
             <div className="p-0 m-0">
         <section className="bg-navbar fixed-top"><NavBar login={toggleLogin} register={toggleRegister} /></section><br/>
        <Switch>
-<Route exact path="/" login={toggleLogin} component={ 
-    ()=> <FirstPage login={toggleLogin} register={toggleRegister} /> } />
+{firstRoute}
            <Route  path="/about" component={About} />
            <Route  path="/developers" component={Developers} />
            <Route  path="/loggedIn" component={Main} />

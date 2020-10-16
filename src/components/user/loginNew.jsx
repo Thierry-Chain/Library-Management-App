@@ -5,7 +5,8 @@ import * as userActions from '../../redux/users/action'
 import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
-    state = { email:'thierry1@gmail.com',pword:'12345A' };
+    state = { email:'irambonta@gmail.com',pword:'1234Aa' };
+  
 componentDidUpdate(prevProps,prevState) {
     const previousAuth=prevProps.auth
     const nextAuth=this.props.auth

@@ -15,4 +15,9 @@ const getUserName =()=>{
    return userObj.more.user.name
  }
 
-    export {saveUser,getUser,getUserName}
+ const getUserId =()=>{
+  const userObj= JSON.parse(localStorage.getItem('state') )
+   return userObj.more.user._id
+ }
+
+    export {saveUser,getUser,getUserName,getUserId}

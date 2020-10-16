@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import {useSelector,useDispatch} from  'react-redux'
 import { getUserName } from '../redux/users/saveUser'
 import {
-  Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavbarText,Spinner,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, ModalBody, ModalFooter
-} from 'reactstrap';
+  Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavbarText,Spinner,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader} from 'reactstrap';
 import { NavLink } from 'react-router-dom'
 import {fullLogout} from '../redux/users/action'
 const NavBar = (props) => {
@@ -21,6 +20,7 @@ const NavBar = (props) => {
     dispatch(fullLogout());toggleModal();toggle()
   }
   const auth = useSelector(state => state.user.auth)
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modal, setModal] = useState(false);
 
@@ -34,8 +34,15 @@ const NavBar = (props) => {
   const [dropdownOpenB, setDropdownOpenB] = useState(false);
 
   const toggleDropB = () => setDropdownOpenB(prevState => !prevState);
+  const allStudents=500
+  const allStdBorrowed=250
+  const allTeachers=100
+  const alltchBorrowed=50
+  const allBooks=900
+  const allBooksBorrowed=450
   
 const brand =auth ?  <NavbarBrand className="text-brand" to="/">
+ 
   <span className="badge d-none d-sm-inline"><Spinner type="grow" color="warning" size="sm" />
   </span> {getUserName()}</NavbarBrand> : <NavbarBrand className="text-brand" to="/">My Library</NavbarBrand>
  const collapse=auth ?   <Collapse isOpen={isOpen} navbar>
@@ -48,13 +55,13 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
    <NavItem>
    <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
    <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer" >
-       <p className="nav-link nav-item p-2" >Students ^</p>
+<p className="nav-link nav-item p-2" >Students <sup className="badge badge-danger">{allStudents}</sup> ^ </p>
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
-        <NavLink to="/loggedIn/studentList"><DropdownItem>List</DropdownItem></NavLink>
-        <DropdownItem>Add New</DropdownItem>
-  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers</DropdownItem></NavLink>      
+        <NavLink to="/loggedIn/studentList"><DropdownItem>List <sup className="badge badge-danger">{allStudents}</sup></DropdownItem></NavLink>
+        <DropdownItem>Add New +</DropdownItem>
+  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{allStdBorrowed}</sup></DropdownItem></NavLink>      
         
       </DropdownMenu>
     </Dropdown>
@@ -64,13 +71,13 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
    <NavItem>
    <Dropdown isOpen={dropdownOpenT} toggle={toggleDropT}>
    <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer">
-       <p className="nav-link nav-item p-2" >Teachers ^</p>
+       <p className="nav-link nav-item p-2" >Teachers <sup className="badge badge-danger">{allTeachers}</sup> ^</p>
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Teachers</b></p></DropdownItem>
-    <NavLink to="/loggedIn/teachersList"><DropdownItem>List</DropdownItem></NavLink>        
-        <DropdownItem>Add New</DropdownItem>
-  <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem>Borrowers</DropdownItem></NavLink>  
+    <NavLink to="/loggedIn/teachersList"><DropdownItem>List <sup className="badge badge-danger">{allTeachers}</sup></DropdownItem></NavLink>        
+        <DropdownItem>Add New +</DropdownItem>
+  <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{alltchBorrowed}</sup></DropdownItem></NavLink>  
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -78,13 +85,13 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
    <NavItem>
    <Dropdown isOpen={dropdownOpenB} toggle={toggleDropB}>
    <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer">
-       <p className="nav-link nav-item p-2" >Books ^</p>
+       <p className="nav-link nav-item p-2" >Books <sup className="badge badge-danger">{allBooks}</sup> ^</p>
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
-      <NavLink to="/loggedIn/bookList"><DropdownItem>List</DropdownItem></NavLink>
-        <DropdownItem>Add New</DropdownItem>
-  <NavLink to="/loggedIn/bookBorrowed"><DropdownItem>Borrowed</DropdownItem></NavLink>
+      <NavLink to="/loggedIn/bookList"><DropdownItem>List <sup className="badge badge-danger">{allBooks}</sup></DropdownItem></NavLink>
+        <DropdownItem>Add New +</DropdownItem>
+  <NavLink to="/loggedIn/bookBorrowed"><DropdownItem>Borrowed <sup className="badge badge-danger">{allBooksBorrowed}</sup></DropdownItem></NavLink>
       </DropdownMenu>
     </Dropdown>
    </NavItem>

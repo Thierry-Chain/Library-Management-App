@@ -11,10 +11,11 @@ class Home extends Component {
   <div className="text-center ">
   <Jumbotron className="mb-0">
           
-            <h1 className="display-4 text-info">Smart library vip</h1>
-            <p className="py-1 bg-info mx-auto w-50"></p>
+            <h1 className="display-4 text-color h1">Smart library vip</h1>
+            <p className="py-1 bg-color-1 mx-auto w-50"></p>
             <p className="lead py-3">This is internal part of this smart library where you can perfom its main functions in order to manage your physical library.</p>
-         
+      <p className="lead py-3">Click the button bellow to see how to perform some operations.</p>
+         <a href="#1" className="btn btn-md btn-info py-2 text-big"><b>How it works ?</b></a>
         </Jumbotron>
    
   </div>
@@ -44,7 +45,7 @@ class Home extends Component {
         <td>{allBooks}</td>
       </tr>
   
-      <tr>
+      <tr id="1">
         <td>Borrowed Books</td>
         <td>{allBorrowedBooks}</td>
       </tr>
@@ -52,7 +53,7 @@ class Home extends Component {
     </tbody>
   </table>
   <p className="h2 text-center mb-0"> ^ Start using library</p> <br/>  
-  <div className="row py-4">
+  <div className="row py-4" >
   
   <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
   <p className="h3 text-sucess text-center">The first requirement ?</p>

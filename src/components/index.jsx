@@ -4,9 +4,7 @@ import { Link} from 'react-router-dom'
 import Footer from './footer';
 function FirstPage(props) {
 const login=props.login
-
 const register=props.register
-
     return (
         <section className="body-img pt-1" > 
         <div className="container-fluid p-0">
