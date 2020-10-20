@@ -104,7 +104,6 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
 
  </Nav>
 
- <NavbarText>Online library management</NavbarText>
 </Collapse> :  <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto bg-nav" navbar onClick={toggleSmart} >
 
@@ -134,7 +133,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
           <NavbarText>Online library management</NavbarText>
         </Collapse>
   return (
-    <div className="container-fluid px-0">
+    <div className="container-fluid px-0 d-print-none">
       <Navbar light expand="lg">
        {brand}
         <NavbarToggler onClick={toggle} />

@@ -13,22 +13,42 @@ import Settings from './loggedIn/settings'
 import * as studentAction from '../redux/students/actions'
 import * as teachersAction from '../redux/teachers/actions'
 import * as booksAction from '../redux/books/actions'
+import NotFound from './noFound'
+import Edit from './loggedIn/student/edit'
+import Lend from './loggedIn/student/lend'
 
 
 class Main extends Component {
+  /* componentWillMount() {
+    if (this.props.auth===false||this.props.auth===null||this.props.auth===undefined) {
+      this.props.history.push('/')
+   } 
+   if (this.props.auth === true) {
+     //this can be removed if the fisrst router is changed after hosting
+    //this.props.history.push('/loggedIn')
+   }
+  
+  } */
+  UNSAFE_componentWillMount(){
+    if (this.props.auth===false||this.props.auth===null||this.props.auth===undefined) {
+      this.props.history.push('/')
+   } 
+   if (this.props.auth === true) {
+     //this can be removed if the fisrst router is changed after hosting
+    //this.props.history.push('/loggedIn')
+   }
+  }
   componentDidMount() {
-   this.props.fetchList()
+    if (this.props.auth === true) {
+  this.props.fetchList()
    this.props.fetchTeacherList()
    this.props.fetchBorrowers()
    this.props.fetchTeacherBorrowers()
    this.props.fetchBooks()
    this.props.fetchBorrowedBooks()
-    if (this.props.auth===false) {
-      this.props.history.push('/')
+     }
    } 
-   //this.props.history.push('/loggedIn')
-
-   }
+  
   
   state = {  }
   render() { 
@@ -44,6 +64,11 @@ class Main extends Component {
 <Route path="/loggedIn/bookList" component={BooksList} />
 <Route path="/loggedIn/bookBorrowed" component={BooksBorrowed} />
 <Route path="/loggedIn/settings" component={Settings} />
+<Route path="/loggedIn/edit/:studentId" component={Edit} />
+<Route path="/loggedIn/lend/:studentId/:lend" component={Lend} />
+
+<Route path="/loggedIn/:any" component={NotFound} />
+
 </Switch>
 </React.Fragment>)
   

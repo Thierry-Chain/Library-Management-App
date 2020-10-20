@@ -19,9 +19,15 @@ switch (action.type) {
 
     case actionTypes.FETCH_BORROWERS_REQUEST:
         return { ...state,loadingBorrowers:true }     
-
+ 
     case actionTypes.FETCH_BORROWERS_PASS:
     return { ...state,loadingBorrowers:false,borrowers:action.payload }
+
+   case actionTypes.ADD_STUDENT_FAIL:
+      return { ...state,errors:action.payload }
+
+      case actionTypes.ADD_STUDENT_PASSED:
+      return { ...state,errors:'' }
     
 
     default:

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
-import {location,headers} from '../../locations'
+import {location,headers,authHeader} from '../../locations'
 import {getUserId} from '../users/saveUser'
 // student list data 
 const fetchListRequest=()=>{
@@ -57,7 +57,7 @@ axios(config).then((resp)=>resp.data)
 })
     }
 }
-
+ 
 export const fetchBorrowers = ()=>{
     return (dispatch)=>{
         dispatch(fetchBorrowersRequest())
@@ -73,5 +73,67 @@ axios(config).then((resp)=>resp.data)
 .catch((resp)=>{
     dispatch(fetchListFailure(resp.response.data.message))
 })
+    }
+}
+
+const addStudentFail=(error)=>{
+    return{
+        type:actionTypes.ADD_STUDENT_FAIL,
+        payload:error
+    }
+}
+export const addStudentPassed=()=>{
+    return{
+        type:actionTypes.ADD_STUDENT_PASSED
+    }
+}
+
+export const addNewStudent= (student)=>{
+    return (dispatch)=> {
+        const data=student
+        const config={
+          url:`${location}/student/${getUserId()}`,
+          method:'post',
+          headers:authHeader,data
+        }
+        axios(config).then((resp)=>{
+            dispatch(fetchList())
+            dispatch(addStudentPassed())
+        }).catch((error)=>{
+            dispatch(addStudentFail(error.response.data.message))
+        })
+    }
+}
+
+export const deleteTheStudent= (studentId)=>{
+    return (dispatch)=> {
+        const config={
+          url:`${location}/student/${getUserId()}/${studentId}`,
+          method:'delete',
+          headers:authHeader
+        }
+        axios(config).then((resp)=>{
+            dispatch(fetchList())
+           // console.log(resp)
+        }).catch((error)=>{
+            dispatch(addStudentFail(error.response.data.message))
+            console.log(error.response)
+        })
+    }
+}
+
+export const editStudentData= (data,studentId)=>{
+    return (dispatch)=> {
+        const config={
+          url:`${location}/student/${getUserId()}/${studentId}`,
+          method:'patch',
+          headers:authHeader,data
+        }
+        axios(config).then(()=>{
+          dispatch(fetchList())
+          dispatch(addStudentPassed())
+        }).catch((error)=>{
+            dispatch(addStudentFail(error.response.data.message))
+        })
     }
 }
