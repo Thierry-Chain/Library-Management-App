@@ -17,6 +17,19 @@ const fetchListSuccess=(list)=>{
     }
 }
 
+const fetchRecordRequest=()=>{
+    return {
+        type:actionTypes.FETCH_RECORDS_REQUEST
+    }
+}
+
+const fetchRecordPass=(records)=>{
+    return {
+        type:actionTypes.FETCH_RECORDS_PASS,
+        payload:records
+    }
+}
+
 const fetchListFailure=(error)=>{
     return {
         type:actionTypes.FETCH_ERROR,
@@ -156,7 +169,26 @@ export const lendbook= (data,studentId)=>{
     }
 }
 
-export const retunBook= (data,studentId)=>{
+export const fetchRecords=()=>{
+    return (dispatch)=>{
+        dispatch(fetchRecordRequest())
+        const config={
+            url:`${location}/student/record/${getUserId()}`,
+            method:'post',
+            header:headers
+        }
+        axios(config).then((resp)=>resp.data)
+        .then((list)=>{
+         dispatch(fetchRecordPass(list))
+        } )
+        .catch((error)=>{
+            console.log(error.response.data)
+            dispatch(addStudentFail(error.response.data.message))
+        })
+    }
+}
+
+export const returnBook= (data,studentId)=>{
     return (dispatch)=> {
         const config={
           url:`${location}/student/record/${getUserId()}/${studentId}`,

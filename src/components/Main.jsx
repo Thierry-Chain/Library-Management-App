@@ -16,19 +16,10 @@ import * as booksAction from '../redux/books/actions'
 import NotFound from './noFound'
 import Edit from './loggedIn/student/edit'
 import Lend from './loggedIn/student/lend'
+import Records from './loggedIn/student/records'
 
 
 class Main extends Component {
-  /* componentWillMount() {
-    if (this.props.auth===false||this.props.auth===null||this.props.auth===undefined) {
-      this.props.history.push('/')
-   } 
-   if (this.props.auth === true) {
-     //this can be removed if the fisrst router is changed after hosting
-    //this.props.history.push('/loggedIn')
-   }
-  
-  } */
   UNSAFE_componentWillMount(){
     if (this.props.auth===false||this.props.auth===null||this.props.auth===undefined) {
       this.props.history.push('/')
@@ -46,17 +37,18 @@ class Main extends Component {
    this.props.fetchTeacherBorrowers()
    this.props.fetchBooks()
    this.props.fetchBorrowedBooks()
+   this.props.fetchRecords()
      }
    } 
   
   
-  state = {  }
   render() { 
     return (
 <React.Fragment>
 <Switch>
 <Route exact path="/loggedIn" component={Home} />
 <Route path="/loggedIn/studentList" component={StudentList} />
+<Route path="/loggedIn/students/records" component={Records} />
 <Route path="/loggedIn/studentBorrowers" component={StudentBorrowers} />
 <Route path="/loggedIn/teachersList" component={TeachersList} />
 <Route path="/loggedIn/teachersBorrowers" component={TeachersBorrowers} />
@@ -88,7 +80,8 @@ fetchBorrowers:()=>dispatch(studentAction.fetchBorrowers()),
 fetchTeacherList:()=> dispatch(teachersAction.fetchList()),
 fetchTeacherBorrowers:()=> dispatch(teachersAction.fetchBorrowers()),
 fetchBooks:()=> dispatch(booksAction.fetchList()),
-fetchBorrowedBooks:()=>dispatch(booksAction.fetchBorrowed() )
+fetchBorrowedBooks:()=>dispatch(booksAction.fetchBorrowed() ) ,
+fetchRecords:()=>dispatch(studentAction.fetchRecords() )
   }
 } 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Main));

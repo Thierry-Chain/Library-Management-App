@@ -47,7 +47,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
  const collapse=auth ?   <Collapse isOpen={isOpen} navbar>
  <Nav className="mr-auto bg-nav" navbar >
 
-   <NavItem>
+   <NavItem onClick={toggleSmart}>
      <NavLink className="nav-link nav-item p-2"  to="/loggedIn">Home</NavLink>
    </NavItem>
 
@@ -60,7 +60,9 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
       <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
         <NavLink to="/loggedIn/studentList"><DropdownItem>List <sup className="badge badge-danger">{allStudents}</sup></DropdownItem></NavLink>
        
-  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{allStdBorrowed}</sup></DropdownItem></NavLink>      
+  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{allStdBorrowed}</sup></DropdownItem></NavLink>    
+
+  <NavLink to="/loggedIn/students/records"><DropdownItem>Records</DropdownItem></NavLink>      
         
       </DropdownMenu>
     </Dropdown>
@@ -77,6 +79,8 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
     <NavLink to="/loggedIn/teachersList"><DropdownItem>List <sup className="badge badge-danger">{allTeachers}</sup></DropdownItem></NavLink>        
       
   <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{alltchBorrowed}</sup></DropdownItem></NavLink>  
+
+  <NavLink to="/loggedIn/teachers/records"><DropdownItem>Records</DropdownItem></NavLink>
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -94,7 +98,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
     </Dropdown>
    </NavItem>
      
-   <NavItem>
+   <NavItem onClick={toggleSmart}>
      <NavLink to="/loggedIn/settings"  className="nav-link nav-item p-2 bg-none">Settings</NavLink>    
   </NavItem>
 

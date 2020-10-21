@@ -2,9 +2,11 @@ import * as actionTypes from './actionTypes'
 const initialState={
    loadingList:false,
    loadingBorrowers:false,
+   loadingRecords:false,
     list:{},
     borrowers:{},
-    errors:''
+    errors:'',
+    records:[]
 }
 const studentReducer=(state=initialState,action)=>{
 switch (action.type) {
@@ -26,8 +28,13 @@ switch (action.type) {
    case actionTypes.ADD_STUDENT_FAIL:
       return { ...state,errors:action.payload }
 
-      case actionTypes.ADD_STUDENT_PASSED:
+   case actionTypes.ADD_STUDENT_PASSED:
       return { ...state,errors:'' }
+   case actionTypes.FETCH_RECORDS_REQUEST:
+         return { ...state,loadingRecords:true } 
+         
+   case actionTypes.FETCH_RECORDS_PASS:
+         return { ...state,loadingRecords:false,records:action.payload }       
     
 
     default:

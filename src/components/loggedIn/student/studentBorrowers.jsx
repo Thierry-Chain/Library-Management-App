@@ -145,7 +145,7 @@ loading:state.students.loadingBorrowers
  }
  const mapDispatchToProps=(dispatch)=>{
    return {
-     returnBook:(data,studentId)=>dispatch(studentActions.retunBook(data,studentId))
+     returnBook:(data,studentId)=>dispatch(studentActions.returnBook(data,studentId))
    }
  }
 export default connect(mapStateToProps,mapDispatchToProps)(StudentBorrowers);
