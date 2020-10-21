@@ -137,3 +137,38 @@ export const editStudentData= (data,studentId)=>{
         })
     }
 }
+
+export const lendbook= (data,studentId)=>{
+    return (dispatch)=> {
+        const config={
+          url:`${location}/student/lend/${getUserId()}/${studentId}`,
+          method:'post',
+          headers:authHeader,data
+        }
+        axios(config).then(()=>{
+            dispatch(fetchList())
+            dispatch(fetchBorrowers())
+            dispatch(addStudentPassed())
+        }).catch((error)=>{
+            
+            dispatch(addStudentFail(error.response.data.message))
+        })
+    }
+}
+
+export const retunBook= (data,studentId)=>{
+    return (dispatch)=> {
+        const config={
+          url:`${location}/student/record/${getUserId()}/${studentId}`,
+          method:'post',
+          headers:authHeader,data
+        }
+        axios(config).then(()=>{
+           dispatch(fetchList())
+           dispatch(fetchBorrowers())
+        }).catch((error)=>{
+            alert('Book is not returned Please Restart')
+        dispatch(addStudentFail(error.response.data.message))
+        })
+    }
+}

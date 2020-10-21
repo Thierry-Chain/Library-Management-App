@@ -1,15 +1,26 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import uuid from 'uuid/v1'
 import Loading from '../loading'
 import {Alert} from 'reactstrap'
+import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
+import * as studentActions from '../../../redux/students/actions'
 
 
 class StudentBorrowers extends Component {
-    state = { word:''}
-
+    state = { word:'',studentIdToReturn:'',bookTypeToReturn:'',bookIdToReturn:'',bookNameToReturn:'',studentNameToReturn:'',modal:false}
+toggle=()=>{
+this.setState({modal:!this.state.modal})
+}
+handleReturn=()=>{
+  let {studentIdToReturn,bookTypeToReturn:bookType,bookIdToReturn:bookId,bookNameToReturn:bookName}=this.state
+ const data={
+  bookType,bookId,bookName,
+ }
+ this.props.returnBook(data,studentIdToReturn)
+this.toggle()
+}
  handleChange=(e)=>{
 this.setState({word:e.target.value})
  }
@@ -30,15 +41,18 @@ this.setState({word:e.target.value})
  let table=filteredData.length ?  <table className="table table-bordered table-responsive w-100" id="borrowers">
  <thead className="w-100">
    <tr className="w-100">
-     <th scope="col" className="w">Firstname</th>
-     <th scope="col" className="w">Lastname</th>
-     <th scope="col" className="w">Class</th>
-     <th scope="col" className="">Gender</th>
-     <th scope="col" className="w">Book-name</th>
-     <th scope="col" className="w">Book-id</th>
-     <th scope="col" className="w d-print-none">More</th>
+     <th scope="col" className="w-2">Firstname</th>
+     <th scope="col" className="w-2">Lastname</th>
+     <th scope="col" className="">Class</th>
+     <th scope="col" className="">G</th>
+     <th scope="col" className="w-3">Book-name</th>
+     <th scope="col" className="">Book-id</th>
+     <th scope="col" className="w-2">Book Type</th>
+     <th scope="col" className="">Date</th>
+
+    
      
-     <th scope="col" className="w d-print-none">Action</th>
+     <th scope="col" className="d-print-none">Action</th>
     
 
 
@@ -54,8 +68,21 @@ this.setState({word:e.target.value})
        <td className="p-1">{borrower.gender}</td>
      <td className="p-1">{borrower.bookName}</td>
      <td className="p-1">{borrower.bookId}</td>
-       <td className="p-1 d-print-none"><button className="btn btn-outline-info w-75 py-0">Return</button></td>
-      <td className="p-1 d-print-none"><NavLink to={`/detail/${borrower.studentId}`}>More +</NavLink></td> 
+     <td className="p-1">{borrower.bookType}</td>
+     <td className="p-1">{borrower.dateBorrowed}</td>
+
+
+       <td className="p-1 d-print-none" onClick={()=>{
+this.toggle()
+this.setState({
+  studentIdToReturn:borrower.studentId,
+  bookTypeToReturn:borrower.bookType,
+  bookIdToReturn:borrower.bookId,
+  bookNameToReturn:borrower.bookName,
+  studentNameToReturn:borrower.firstName + '  '+borrower.lastName
+})
+       }}><button className="btn btn-outline-info w-100 py-0">Return</button></td>
+     
      </tr>
      )
  })}
@@ -94,6 +121,19 @@ this.setState({word:e.target.value})
         </div>
        
         </div>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <ModalHeader className="text-info" toggle={this.toggle}>Are You Sure to Return this Book ?</ModalHeader>
+        <ModalBody>
+<p className="text-center text-big"><b>Book Name : </b><span className="text-lead text-monospace">{this.state.bookNameToReturn}</span></p>
+<p className="text-center text-big"><b>Book Id : </b><span className="text-lead text-monospace">{this.state.bookIdToReturn}</span></p>
+<p className="text-center text-big"><b>Book type : </b><span className="text-lead text-monospace">{this.state.bookTypeToReturn}</span></p>
+
+<p className="text-center text-big"><b>From : </b><span className="text-lead text-monospace">{this.state.studentNameToReturn}</span></p>
+        </ModalBody>
+<div className="d-flex p-3">
+  <button onClick={this.handleReturn} className="btn btn-md btn-info m-auto text-big">Return</button>
+  </div>       
+      </Modal>
         </section> );
     }
 }
@@ -103,4 +143,9 @@ borrowers:state.students.borrowers,
 loading:state.students.loadingBorrowers
      }
  }
-export default connect(mapStateToProps)(StudentBorrowers);
+ const mapDispatchToProps=(dispatch)=>{
+   return {
+     returnBook:(data,studentId)=>dispatch(studentActions.retunBook(data,studentId))
+   }
+ }
+export default connect(mapStateToProps,mapDispatchToProps)(StudentBorrowers);
