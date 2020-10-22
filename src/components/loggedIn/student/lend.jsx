@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Alert } from 'reactstrap'
 import * as studentActions from '../../../redux/students/actions'  
-
+import Select from 'react-select'
 
 class Lend extends Component {
   state={bookType:'',bookId:'',bookName:'',$bookType:'',$bookId:'',$bookName:'',$$bookType:'',$$bookId:'',$$bookName:''}
@@ -42,7 +42,6 @@ handleSubmitTwoBooks= (e)=>{
   //console.log(bookType,bookId,bookName,$bookType,$bookId,$bookName)
 }
     render() {
-
 const bookRemaining=Number(this.props.match.params.lend )
 const errorMessage=this.props.error ?<Alert color="danger">{this.props.error}</Alert>:null
 const allData= bookRemaining === 2 ? 
@@ -68,10 +67,7 @@ const allData= bookRemaining === 2 ?
 
 <div className="col-11 mx-auto col-sm-6 my-2">
 <input  name="bookType" value={this.state.bookType}  onChange={this.handleAllChanges} type="text" className="form-control" placeholder="Book Type"/>
-</div>
-{/* <Select id="inputState"  options={null}   onChange={this.handleChangeNew} className="form-control col-11 mx-auto col-sm-6 my-2 border-0" placeholder="Select Book Type">
-
-</Select>   */}  
+</div>   
 
 </div>
 
@@ -93,9 +89,6 @@ const allData= bookRemaining === 2 ?
 <input  name="$bookType" value={this.state.$bookType}  onMouseUp={this.handleAllChanges} onChange={this.handleAllChanges} type="text" className="form-control" placeholder="Book Type"/>
 </div>
 
-{/* <Select id="inputState"  options={null}   onChange={this.handleChangeNew} className="form-control col-11 mx-auto col-sm-6 my-2 border-0" placeholder="Select Book Type">
-
-</Select>   */}  
 
 </div>
 
@@ -132,9 +125,6 @@ const allData= bookRemaining === 2 ?
 <input  name="$$bookType" value={this.state.$$bookType} required onChange={this.handleAllChanges} type="text" className="form-control" placeholder="Book Type"/>
 </div>
 
-{/*<Select id="inputState"  options={null}   onChange={this.handleChangeNew} className="form-control col-11 mx-auto col-sm-6 my-2 border-0" placeholder="Select Book Type">
-
-</Select>   */}  
 
 </div>
 

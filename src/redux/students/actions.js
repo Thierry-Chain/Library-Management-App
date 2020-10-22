@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
-import {location,headers,authHeader} from '../../locations'
+import {location,headers} from '../../locations'
+import authHeader from '../authHeader' 
 import {getUserId} from '../users/saveUser'
 // student list data 
 const fetchListRequest=()=>{
@@ -125,12 +126,10 @@ export const deleteTheStudent= (studentId)=>{
           method:'delete',
           headers:authHeader
         }
-        axios(config).then((resp)=>{
+        axios(config).then(()=>{
             dispatch(fetchList())
-           // console.log(resp)
         }).catch((error)=>{
             dispatch(addStudentFail(error.response.data.message))
-            console.log(error.response)
         })
     }
 }
@@ -142,6 +141,7 @@ export const editStudentData= (data,studentId)=>{
           method:'patch',
           headers:authHeader,data
         }
+        console.log(config)
         axios(config).then(()=>{
           dispatch(fetchList())
           dispatch(addStudentPassed())
@@ -161,6 +161,7 @@ export const lendbook= (data,studentId)=>{
         axios(config).then(()=>{
             dispatch(fetchList())
             dispatch(fetchBorrowers())
+            dispatch(fetchRecords())
             dispatch(addStudentPassed())
         }).catch((error)=>{
             

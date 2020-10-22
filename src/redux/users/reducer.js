@@ -25,7 +25,10 @@ switch (action.type) {
         return{
             ...state,auth:false,error:'',more:{}
         }
-
+    case actionTypes.INVALID_CREDENTIALS:
+    return{
+        auth:false, more:{}, error:''
+    }
     default:
        return state
 }

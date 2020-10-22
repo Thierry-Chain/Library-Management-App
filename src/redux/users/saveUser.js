@@ -14,7 +14,7 @@ const getUser =()=>{
 const getUserName =()=>{
   const userObj= JSON.parse(localStorage.getItem('state') )
    return userObj.more.user.name
- }
+ } 
 
  const getUserId =()=>{
   const userObj= JSON.parse(localStorage.getItem('state') )

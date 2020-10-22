@@ -1,6 +1,6 @@
 import  * as actionNames from './actionTypes.js' 
 import axios from 'axios'
-import { location,headers } from '../../locations'
+import { location,headers,/*authHeader*/ } from '../../locations'
 import { saveUser } from './saveUser'
 
 const frontendLogin= (user)=>{
@@ -25,6 +25,7 @@ const logoutFrontend=()=>{
 
 const fullLogin=(user)=>{
     return (dispatch)=>{
+      
 const data=JSON.stringify(user)        
 const config={
     url:`${location}/user/login`,
@@ -47,6 +48,34 @@ const fullLogout=()=>{
      dispatch(logoutFrontend())
      localStorage.clear()
      //backend logout   
+    } 
+}
+const redirect=()=>{
+    return {
+        type:actionNames.INVALID_CREDENTIALS
     }
 }
-export { frontendLogin,fullLogin,fullLogout } 
+const checkUserCredentials=()=>{
+    return(dispatch)=>{
+     const authHeader={
+        'Content-Type':'application/json',
+        'auth-token':`${JSON.parse(localStorage.getItem('token'))}`
+     }   
+        const config={
+            url:`${location}/user/`,
+            method:'get',
+            headers:authHeader
+        }
+        //console.log('auth config',config)
+    axios(config).then(()=>console.log('ok Smart Library'))    
+    .catch(error=>{
+        dispatch(redirect())
+        if (error.response.data.message==='Ivalid user credentials!!') {
+            dispatch(redirect())
+            //console.log(error.response.data.message)   
+            
+        }
+    })
+    }
+}
+export { frontendLogin,fullLogin,fullLogout,checkUserCredentials } 

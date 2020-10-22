@@ -156,6 +156,14 @@ background-color:rgba(139, 192, 180, 0.308) !important;
 .head{
     background: rgb(226, 250, 249)!important;
 }
+.head-1{
+    background: rgba(176, 212, 212, 0.452)!important;
+    border-bottom-left-radius:38%;
+    border-bottom-right-radius:38%;
+}
+.badge-bg{
+    background-color:tomato;
+}
 .bg-line{
     background-color: rgb(165, 163, 163);
 }

@@ -10,6 +10,7 @@ import TeachersBorrowers from './loggedIn/teacher/teachersBorrowers'
 import BooksList from './loggedIn/book/bookList'
 import BooksBorrowed from './loggedIn/book/bookBorrowed'
 import Settings from './loggedIn/settings'
+import * as userActions from '../redux/users/action'
 import * as studentAction from '../redux/students/actions'
 import * as teachersAction from '../redux/teachers/actions'
 import * as booksAction from '../redux/books/actions'
@@ -30,7 +31,8 @@ class Main extends Component {
    }
   }
   componentDidMount() {
-    if (this.props.auth === true) {
+    if (this.props.auth === true) {   
+      this.props.checkUserCredentials()
   this.props.fetchList()
    this.props.fetchTeacherList()
    this.props.fetchBorrowers()
@@ -75,6 +77,7 @@ auth:state.user.auth
 } 
 const mapDispatchToProps=(dispatch)=>{
   return{
+checkUserCredentials:()=>dispatch(userActions.checkUserCredentials()),
 fetchList:()=>dispatch(studentAction.fetchList()),
 fetchBorrowers:()=>dispatch(studentAction.fetchBorrowers()),
 fetchTeacherList:()=> dispatch(teachersAction.fetchList()),

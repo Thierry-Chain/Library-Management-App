@@ -124,7 +124,11 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
               <button className="nav-link nav-item p-2 bg-none">Register</button>
             </NavItem>
 
-            <NavItem onClick={()=>login()}>
+            <NavItem onClick={()=>{
+              login()
+              localStorage.clear()
+            }
+            }>
               <button className="nav-link nav-item p-2 bg-none">Login</button>
             </NavItem>
 

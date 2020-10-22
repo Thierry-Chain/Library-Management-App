@@ -2,7 +2,7 @@ import React from 'react'
 
 function Developers() {
     return (
-        <section className="mt-body height-100 bg-developer">
+        <section className="mt-body height-100m bg-developer">
         <div className="div bg-logo">
           <p className="p-2 display-3 text-center text-logo">Stack Fielders Team</p>
         </div>
@@ -27,7 +27,7 @@ function Developers() {
 <div className="card-header">Location</div>
 <div className="card-body">
   <p className="card-text text-big">Country : <b>Rwanda</b></p>
-  <p className="card-text text-big">Service : <b>Websites / Webapplication development</b></p>
+  <p className="card-text text-big">Service : <b>Websites / Web-application development</b></p>
 </div>
 </div>
 </div>

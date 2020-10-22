@@ -4,7 +4,7 @@ const initialState={
    loadingBorrowers:false,
     list:{},
     borrowers:{},
-    errors:''
+    errors:'' 
 }
 const teacherReducer=(state=initialState,action)=>{
 switch (action.type) {
@@ -15,15 +15,17 @@ switch (action.type) {
     return { ...state,loadingList:false,errors:action.payload }  
     
     case actionTypes.FETCH_LIST_PASS:
-       return { ...state,loadingList:false,list:action.payload }
+       return { ...state,loadingList:false,list:action.payload,errors:'' }
 
     case actionTypes.FETCH_BORROWERS_REQUEST:
         return { ...state,loadingBorrowers:true }     
 
     case actionTypes.FETCH_BORROWERS_PASS:
-    return { ...state,loadingBorrowers:false,borrowers:action.payload }
-    
-
+    return { ...state,loadingBorrowers:false,borrowers:action.payload,errors:'' }
+    case actionTypes.ADD_TEACHER_PASSED:
+      return { ...state,errors:'' } 
+   case actionTypes.ADD_TEACHER_FAIL:
+      return { ...state,errors:action.payload } 
     default:
        return state
 }

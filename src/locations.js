@@ -5,6 +5,6 @@ export const headers={
 }
 const token=localStorage.getItem('token')
 export const authHeader={
-    'Content-Type':'application/json',   
- 'auth-token':JSON.parse(token)
+    'Content-Type':'application/json',  
+ 'auth-token':`${JSON.parse(token)}`
 }
