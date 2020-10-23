@@ -14,7 +14,7 @@ switch (action.type) {
     case actionTypes.FETCH_ERROR:
     return { ...state,loadingList:false,errors:action.payload }  
     
-    case actionTypes.FETCH_LIST_PASS:
+    case actionTypes.FETCH_LIST_PASS: 
        return { ...state,loadingList:false,list:action.payload,errors:'' }
 
     case actionTypes.FETCH_BORROWERS_REQUEST:

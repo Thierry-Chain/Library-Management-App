@@ -6,12 +6,12 @@ import Loading from '../loading'
 import {Alert} from 'reactstrap'
 import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import * as studentActions from '../../../redux/students/actions'
-
+import moment from 'moment'
 
 class StudentBorrowers extends Component {
     state = { word:'',studentIdToReturn:'',bookTypeToReturn:'',bookIdToReturn:'',bookNameToReturn:'',studentNameToReturn:'',modal:false}
 toggle=()=>{
-this.setState({modal:!this.state.modal})
+this.setState({modal:!this.state.modal}) 
 }
 handleReturn=()=>{
   let {studentIdToReturn,bookTypeToReturn:bookType,bookIdToReturn:bookId,bookNameToReturn:bookName}=this.state
@@ -69,7 +69,7 @@ this.setState({word:e.target.value})
      <td className="p-1">{borrower.bookName}</td>
      <td className="p-1">{borrower.bookId}</td>
      <td className="p-1">{borrower.bookType}</td>
-     <td className="p-1">{borrower.dateBorrowed}</td>
+     <td className="p-1">{moment(borrower.dateBorrowed).format("L")}</td>
 
 
        <td className="p-1 d-print-none" onClick={()=>{
@@ -115,7 +115,7 @@ this.setState({
        <div className="d-flex mb-2 mt-n1 d-print-none">
        <button onClick={this.printPage} className="text-monospace mx-auto btn btn-info p-1 btn-sm"> Print this page </button>  
        </div>
-     
+      
     <div className="container">
        {allTable}
         </div>

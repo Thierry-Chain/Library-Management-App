@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {useSelector} from 'react-redux'
 import Loading from '../loading'
 import uuid from 'uuid/v1'
+import moment from 'moment'
 function Records(props) {
     const [search, setsearch] = useState('')
     const list = useSelector(state => state.students.records)
@@ -50,7 +51,7 @@ function Records(props) {
      <th scope="col" className="w">Book name</th>
      <th scope="col" className="w-2">Book id</th>
      <th scope="col" className="w">Book type</th>
-     <th scope="col" className="">Date returned</th>
+     <th scope="col" className="">Date</th>
 
    </tr>
  </thead>
@@ -66,7 +67,7 @@ function Records(props) {
        <td className="p-1">{student.bookName}</td>
        <td className="p-1">{student.bookId}</td>
        <td className="p-1">{student.bookType}</td>
-       <td className="p-1">{student.dateReturned}</td>
+       <td className="p-1">{moment(student.dateReturned).format("L")}</td>
        
      </tr>
      )

@@ -32,7 +32,7 @@ class Main extends Component {
   }
   componentDidMount() {
     if (this.props.auth === true) {   
-      this.props.checkUserCredentials()
+  this.props.checkUserCredentials()
   this.props.fetchList()
    this.props.fetchTeacherList()
    this.props.fetchBorrowers()

@@ -14,7 +14,7 @@ const ADD_TEACHER_PASSED='ADD_TEACHER_PASSED'
 
 //delete the TEACHER
 const DELETE_TEACHER='DELETE_TEACHER'
-
+ 
 //edit the TEACHER data
 const EDIT_TEACHER='EDIT_TEACHER'
 //lend book to the TEACHER
