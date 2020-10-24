@@ -1,26 +1,26 @@
 import React,{useState} from 'react'
-import {useSelector} from 'react-redux' 
+import {useSelector} from 'react-redux'
 import Loading from '../loading'
 import uuid from 'uuid/v1'
 import moment from 'moment'
-function Records(props) {
+
+function RecordsTeacher() {
     const [search, setsearch] = useState('')
-    const list = useSelector(state => state.students.records)
-   const filteredData=list.filter(student=>{
+    const list = useSelector(state => state.teachers.records)
+   const filteredData=list.filter(teacher=>{
     return (
-        student.firstName.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        student.lastName.toLowerCase().indexOf(search.toLowerCase()) !== -1||
-        student.Class.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        teacher.firstName.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        teacher.lastName.toLowerCase().indexOf(search.toLowerCase()) !== -1
       )
    })
       
-    const loadingRecords = useSelector(state => state.students.loadingRecords)
+    const loadingRecords = useSelector(state => state.teachers.loadingRecords)
    
     const allData=loadingRecords ? <Loading/>:
     <div>
         <div className="bg-secodary pt-2 head">
            <div className="d-flex bg-head justify-content-center">
-<p className="text-center text-dark h2">Students Library records </p>
+<p className="text-center text-dark h2">Teachers records </p>
            </div>
            <p className="w-50 mx-auto p-line bg-line"></p>
            </div>
@@ -44,30 +44,32 @@ function Records(props) {
         <caption className="caption text-center">Powered by smart library</caption>
  <thead className="w-100">
    <tr className="w-100">
-     <th scope="col" className="w">Firstname</th>
-     <th scope="col" className="w">Lastname</th>
-     <th scope="col" className="">Class</th>
+     <th scope="col" className="w-16">Firstname</th>
+     <th scope="col" className="w-16">Lastname</th>
      <th scope="col" className="">Gender</th>
-     <th scope="col" className="w">Book name</th>
-     <th scope="col" className="w-2">Book id</th>
-     <th scope="col" className="w">Book type</th>
+     <th scope="col" className="">Phone</th>
+     <th scope="col" className="w-16">Book-name</th>
+     <th scope="col" className="w-16">Book-type</th>
+     <th scope="col" className="">Number</th>
      <th scope="col" className="">Date</th>
+
 
    </tr>
  </thead>
  <tbody>
- {filteredData.map((student)=>{
+ {filteredData.map((teacher)=>{
      return(
        
        <tr key={uuid()}>
-       <td className="p-1">{student.firstName}</td>
-       <td className="p-1">{student.lastName}</td>
-     <td className="p-1">{student.Class}</td>
-       <td className="p-1">{student.gender}</td>
-       <td className="p-1">{student.bookName}</td>
-       <td className="p-1">{student.bookId}</td>
-       <td className="p-1">{student.bookType}</td>
-       <td className="p-1">{moment(student.dateReturned).format("L")}</td>
+       <td className="p-1">{teacher.firstName}</td>
+       <td className="p-1">{teacher.lastName}</td>
+       <td className="p-1">{teacher.gender}</td>
+       <td className="p-1">{teacher.phone}</td>
+       <td className="p-1">{teacher.bookName}</td>
+       <td className="p-1">{teacher.bookType}</td>
+       <td className="p-1">{teacher.numOfBooks}</td>
+
+       <td className="p-1">{moment(teacher.dateReturned).format("L")}</td>
        
      </tr>
      )
@@ -86,4 +88,4 @@ function Records(props) {
     )
 }
 
-export default Records
+export default RecordsTeacher

@@ -181,3 +181,9 @@ background-color:rgba(139, 192, 180, 0.308) !important;
 .font-f{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+.w-15{
+width:16%;
+}
+.w-16 {
+    width: 17.2%;
+}

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
+import * as bookActions from '../books/actions'
 import {
     redirect
 } from '../users/action'
@@ -148,7 +149,7 @@ export const deleteTeacher = (teacherId) => {
             headers: authHeader
         }
         // console.log(config)
-        axios(config).then((resp) => {
+        axios(config).then(() => {
             dispatch(fetchList())
 
         }).catch((error) => {
@@ -182,6 +183,7 @@ export const editTeacherData = (data, teacherId) => {
         }
         axios(config).then(() => {
             dispatch(fetchList())
+            dispatch(fetchBorrowers())
             dispatch(addTeacherPassed())
         }).catch((error) => {
             dispatch(addTeacherFail(error.response.data.message))
@@ -223,5 +225,73 @@ export const lendbook = (data, teacherId) => {
 
             }
         })
+    }
+}
+export const returnBook = (data, teacherId) => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+        /// console.log('auth-header with store students', authHeader)
+        const config = {
+            url: `${location}/teacher/record/${getUserId()}/${teacherId}`,
+            method: 'post',
+            headers: authHeader,
+            data
+        }
+        axios(config).then(() => {
+            dispatch(fetchBorrowers())
+            //dispatch(fetchrecords)
+        }).catch((error) => {
+            /*console.log(error.response.data.message)*/
+            dispatch(addTeacherFail(error.response.data.message))
+            if (error.response.data.message === 'Ivalid user credentials!!') {
+                alert('Book is not returned Please Reload Now')
+                dispatch(redirect())
+                //console.log(error.response.data.message)   
+
+            }
+        })
+    }
+}
+
+const fetchRecordsRequest = () => {
+    return {
+        type: actionTypes.FETCH_RECORDS_REQUEST
+    }
+}
+const fetchRecordsPassTeacher = (list) => {
+    return {
+        type: actionTypes.FETCH_RECORDS_PASS,
+        payload: list
+    }
+}
+
+export const fetchTeacherRecords = () => {
+    return (dispatch) => {
+        dispatch(fetchRecordsRequest())
+        const config = {
+            url: `${location}/teacher/record/${getUserId()}`,
+            method: 'post',
+            header: headers
+        }
+        axios(config).then((resp) => resp.data)
+            .then((list) => {
+                dispatch(fetchRecordsPassTeacher(list))
+            })
+            .catch((error) => {
+
+                if (error.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(redirect())
+                    //console.log(error.response.data.message)   
+
+                }
+                dispatch(addTeacherFail(error.response.data.message))
+            })
     }
 }

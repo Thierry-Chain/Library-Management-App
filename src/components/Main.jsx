@@ -18,6 +18,8 @@ import NotFound from './noFound'
 import Edit from './loggedIn/student/edit'
 import Lend from './loggedIn/student/lend'
 import Records from './loggedIn/student/records'
+import RecordsTeachers from './loggedIn/teacher/records'
+
 
 
 class Main extends Component {
@@ -40,6 +42,7 @@ class Main extends Component {
    this.props.fetchBooks()
    this.props.fetchBorrowedBooks()
    this.props.fetchRecords()
+   this.props.fetchTeacherRecord()
      }
    } 
   
@@ -50,14 +53,15 @@ class Main extends Component {
 <Switch>
 <Route exact path="/loggedIn" component={Home} />
 <Route path="/loggedIn/studentList" component={StudentList} />
-<Route path="/loggedIn/students/records" component={Records} />
+<Route path="/loggedIn/bookList" component={BooksList} />
+<Route path="/loggedIn/settings" component={Settings} />
 <Route path="/loggedIn/studentBorrowers" component={StudentBorrowers} />
 <Route path="/loggedIn/teachersList" component={TeachersList} />
-<Route path="/loggedIn/teachersBorrowers" component={TeachersBorrowers} />
-
-<Route path="/loggedIn/bookList" component={BooksList} />
 <Route path="/loggedIn/bookBorrowed" component={BooksBorrowed} />
-<Route path="/loggedIn/settings" component={Settings} />
+
+<Route path="/loggedIn/students/records" component={Records} />
+<Route path="/loggedIn/teachers/records" component={RecordsTeachers} />
+<Route path="/loggedIn/teachersBorrowers" component={TeachersBorrowers} />
 <Route path="/loggedIn/edit/:studentId" component={Edit} />
 <Route path="/loggedIn/lend/:studentId/:lend" component={Lend} />
 
@@ -84,7 +88,8 @@ fetchTeacherList:()=> dispatch(teachersAction.fetchList()),
 fetchTeacherBorrowers:()=> dispatch(teachersAction.fetchBorrowers()),
 fetchBooks:()=> dispatch(booksAction.fetchList()),
 fetchBorrowedBooks:()=>dispatch(booksAction.fetchBorrowed() ) ,
-fetchRecords:()=>dispatch(studentAction.fetchRecords() )
+fetchRecords:()=>dispatch(studentAction.fetchRecords() ),
+fetchTeacherRecord:()=>dispatch(teachersAction.fetchTeacherRecords())
   }
 } 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Main));

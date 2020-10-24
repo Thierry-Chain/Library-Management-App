@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
+import * as bookActions from '../books/actions'
 import {
     location,
     headers
@@ -155,6 +156,8 @@ export const deleteTheStudent = (studentId) => {
         }
         axios(config).then(() => {
             dispatch(fetchList())
+            dispatch(bookActions.fetchList())
+            dispatch(bookActions.fetchBorrowed())
         }).catch((error) => {
             dispatch(addStudentFail(error.response.data.message))
         })
@@ -210,6 +213,9 @@ export const lendbook = (data, studentId) => {
             dispatch(fetchBorrowers())
             dispatch(fetchRecords())
             dispatch(addStudentPassed())
+            dispatch(bookActions.fetchList())
+            dispatch(bookActions.fetchBorrowed())
+
         }).catch((error) => {
 
             dispatch(addStudentFail(error.response.data.message))
@@ -256,6 +262,8 @@ export const returnBook = (data, studentId) => {
         axios(config).then(() => {
             dispatch(fetchList())
             dispatch(fetchBorrowers())
+            dispatch(bookActions.fetchList())
+            dispatch(bookActions.fetchBorrowed())
         }).catch((error) => {
             alert('Book is not returned Please Restart')
             dispatch(addStudentFail(error.response.data.message))

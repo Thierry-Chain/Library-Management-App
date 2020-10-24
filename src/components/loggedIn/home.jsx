@@ -48,7 +48,7 @@ class Home extends Component {
       </tr>
   
       <tr id="1">
-        <td>Borrowed Books</td>
+        <td>Students Borrowed</td>
         <td><b>{allBorrowedBooks}</b></td>
       </tr>
   
@@ -59,21 +59,21 @@ class Home extends Component {
   
   <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
   <p className="h3 text-sucess text-center">The first requirement ?</p>
-  In order to start using this smart library you must firstly enter the books you have and their number if you can't count them just imagine the number of books that is bigger than the actual books you have in your physical library
+  <p className="text-big">In order to start using this smart library you must firstly enter the books you have and their number if you can't count them just imagine the number of books that is bigger than the actual books you have in your physical library</p>
     </div>
   
     <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
   <p className="h3 text-sucess text-center">How to lend a book ?</p>
-  Firstly click to the student or teacher menu in the navigation bar and select student or teacher and then search student or teacher you want and click to <span className="text-info">Lend</span> button and type the books informations .
+  <p className="text-big">Firstly click to the student or teacher menu in the navigation bar and select student or teacher and then search student or teacher you want and click to <span className="text-info">Lend</span> button and type the books informations .</p>
     </div> <br/>
     <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
   <p className="h3 text-sucess text-center">How to lend a return a book  ?</p>
-  Firstly click to the student or teacher menu in the navigation bar and select borrowers and then search student or teacher you want and click to <span className="text-info">Return </span> button select the book returned . 
+  <p className="text-big">Firstly click to the student or teacher menu in the navigation bar and select borrowers and then search student or teacher you want and click to <span className="text-info">Return </span> button select the book returned . </p>
     </div><br/>
   
     <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
   <p className="h3 text-sucess text-center">How to change user information  ?</p>
-  Click to the settings menu in the navigation bar and type in your email and password then continue to explore user settings
+  <p className="text-big">Click to the settings menu in the navigation bar and type in your email and password then continue to explore user settings</p>
     </div><br/>
   
   </div>
