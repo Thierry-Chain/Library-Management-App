@@ -1,76 +1,198 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
-import { location,headers } from '../../locations'
-import { getUserId } from '../users/saveUser'
-// student list data 
-const fetchListRequest=()=>{
-    return {
-        type:actionTypes.FETCH_LIST_REQUEST
-    }
-}  
+import {
+    location,
+    headers
+} from '../../locations'
+import {
+    getUserId
+} from '../users/saveUser'
+import store from '../store'
+import * as studentActions from '../students/actions'
+import * as teacherActions from '../teachers/actions'
+import * as userActions from '../users/action'
 
-const fetchListSuccess=(list)=>{
+// student list data 
+const fetchListRequest = () => {
     return {
-        type:actionTypes.FETCH_LIST_PASS,
-        payload:list
+        type: actionTypes.FETCH_LIST_REQUEST
     }
 }
 
-const fetchListFailure=(error)=>{
+const fetchListSuccess = (list) => {
     return {
-        type:actionTypes.FETCH_ERROR,
-        payload:error
+        type: actionTypes.FETCH_LIST_PASS,
+        payload: list
+    }
+}
+
+const fetchListFailure = (error) => {
+    return {
+        type: actionTypes.FETCH_ERROR,
+        payload: error
     }
 }
 
 // borrowed books list data
-const fetchBorrowedRequest=()=>{
+const fetchBorrowedRequest = () => {
     return {
-        type:actionTypes.FETCH_BORROWED_REQUEST
+        type: actionTypes.FETCH_BORROWED_REQUEST
     }
 }
 
-const fetchBorrowedSuccess=(borrowed)=>{
+const fetchBorrowedSuccess = (borrowed) => {
     return {
-        type:actionTypes.FETCH_BORROWED_PASS,
-        payload:borrowed
+        type: actionTypes.FETCH_BORROWED_PASS,
+        payload: borrowed
+    }
+}
+export const clearErros = () => {
+    return {
+        type: actionTypes.CLEAR_ERRORS
     }
 }
 
-
-export const fetchList = ()=>{
-    return (dispatch)=>{
+export const fetchList = () => {
+    return (dispatch) => {
         dispatch(fetchListRequest())
-const config={
-    url:`${location}/book/${getUserId()}`,
-    method:'get',
-    header:headers
-}
-axios(config).then((resp)=>resp.data)
-.then((list)=>{
-    dispatch(fetchListSuccess(list))
-} )
-.catch((resp)=>{
-    dispatch(fetchListFailure(resp.response.data.message))
-})
+        const config = {
+            url: `${location}/book/${getUserId()}`,
+            method: 'get',
+            header: headers
+        }
+        axios(config).then((resp) => resp.data)
+            .then((list) => {
+                dispatch(fetchListSuccess(list))
+            })
+            .catch((resp) => {
+                dispatch(fetchListFailure(resp.response.data.message))
+                if (resp.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+
+            })
     }
 }
 
-export const fetchBorrowed = ()=>{
-    return (dispatch)=>{
+export const fetchBorrowed = () => {
+    return (dispatch) => {
         dispatch(fetchBorrowedRequest())
-const config={
-    url:`${location}/student/borrowedBook/${getUserId()}`,
-    method:'get',
-    header:headers
+        const config = {
+            url: `${location}/student/borrowedBook/${getUserId()}`,
+            method: 'get',
+            header: headers
+        }
+        axios(config).then((resp) => resp.data)
+            .then((books) => {
+                dispatch(fetchBorrowedSuccess(books))
+            })
+            .catch((resp) => {
+                dispatch(fetchListFailure(resp.response.data.message))
+                if (resp.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+
+            })
+    }
 }
-axios(config).then((resp)=>resp.data)
-.then((books)=>{
-    dispatch(fetchBorrowedSuccess(books))
-} )
-.catch((resp)=>{
-    dispatch(fetchListFailure(resp.response.data.message))
-})
+
+export const addNewBookToDb = (book) => {
+    return (dispatch) => {
+        const data = book
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+
+        const config = {
+            url: `${location}/book/${getUserId()}`,
+            method: 'post',
+            headers: authHeader,
+            data
+        }
+        axios(config).then(() => {
+            dispatch(fetchList())
+        }).catch((error) => {
+
+            if (error.response.data.message === 'Ivalid user credentials!!') {
+                dispatch(userActions.redirect())
+            }
+
+            dispatch(fetchListFailure(error.response.data.message))
+        })
+    }
+}
+export const editBookData = (bookData, bookId) => {
+    return (dispatch) => {
+        const data = bookData
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+
+        const config = {
+            url: `${location}/book/${getUserId()}/${bookId}`,
+            method: 'patch',
+            headers: authHeader,
+            data
+        }
+        axios(config).then(() => {
+            dispatch(fetchList())
+            dispatch(studentActions.fetchList())
+            dispatch(teacherActions.fetchList())
+            dispatch(studentActions.fetchBorrowers())
+            dispatch(teacherActions.fetchBorrowers())
+            dispatch(studentActions.fetchRecords())
+            dispatch(teacherActions.fetchTeacherRecords())
+        }).catch((error) => {
+            if (error.response.data.message === 'Ivalid user credentials!!') {
+                dispatch(userActions.redirect())
+            }
+
+            dispatch(fetchListFailure(error.response.data.message))
+        })
+    }
+}
+
+export const deleteBook = (bookId) => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+
+        const config = {
+            url: `${location}/book/${getUserId()}/${bookId}`,
+            method: 'delete',
+            headers: authHeader
+        }
+        axios(config).then((resp) => {
+            dispatch(fetchList())
+            dispatch(studentActions.fetchList())
+            dispatch(teacherActions.fetchList())
+            dispatch(studentActions.fetchBorrowers())
+            dispatch(teacherActions.fetchBorrowers())
+            dispatch(studentActions.fetchRecords())
+            dispatch(teacherActions.fetchTeacherRecords())
+        }).catch((error) => {
+            if (error.response.data.message === 'Ivalid user credentials!!') {
+                dispatch(userActions.redirect())
+            }
+
+            dispatch(fetchListFailure(error.response.data.message))
+        })
     }
 }
