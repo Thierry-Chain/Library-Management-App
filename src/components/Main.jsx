@@ -19,6 +19,7 @@ import Edit from './loggedIn/student/edit'
 import Lend from './loggedIn/student/lend'
 import Records from './loggedIn/student/records'
 import RecordsTeachers from './loggedIn/teacher/records'
+import Finalists from './loggedIn/student/finalists'
 
 
 
@@ -43,6 +44,7 @@ class Main extends Component {
    this.props.fetchBorrowedBooks()
    this.props.fetchRecords()
    this.props.fetchTeacherRecord()
+   this.props.fetchFinalist()
      }
    } 
   
@@ -58,7 +60,7 @@ class Main extends Component {
 <Route path="/loggedIn/studentBorrowers" component={StudentBorrowers} />
 <Route path="/loggedIn/teachersList" component={TeachersList} />
 <Route path="/loggedIn/bookBorrowed" component={BooksBorrowed} />
-
+<Route path="/loggedIn/finalists" component={Finalists}></Route>
 <Route path="/loggedIn/students/records" component={Records} />
 <Route path="/loggedIn/teachers/records" component={RecordsTeachers} />
 <Route path="/loggedIn/teachersBorrowers" component={TeachersBorrowers} />
@@ -89,7 +91,8 @@ fetchTeacherBorrowers:()=> dispatch(teachersAction.fetchBorrowers()),
 fetchBooks:()=> dispatch(booksAction.fetchList()),
 fetchBorrowedBooks:()=>dispatch(booksAction.fetchBorrowed() ) ,
 fetchRecords:()=>dispatch(studentAction.fetchRecords() ),
-fetchTeacherRecord:()=>dispatch(teachersAction.fetchTeacherRecords())
+fetchTeacherRecord:()=>dispatch(teachersAction.fetchTeacherRecords()),
+fetchFinalist:()=>dispatch(studentAction.fetchFinalists())
   }
 } 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Main));

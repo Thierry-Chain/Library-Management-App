@@ -1,63 +1,230 @@
-const options = [
-    { value: 's1', label: 's1' },
-      { value: 's1A', label: 's1A' },
-      { value: 's1B', label: 's1B' },
-  
-      { value: 's2', label: 's2' },
-      { value: 's2A', label: 's2A' },
-      { value: 's2B', label: 's2B' },
-  
-      { value: 's3', label: 's3' },
-      { value: 's3A', label: 's3A' },
-      { value: 's3B', label: 's3B' },
-  
-      {value:'s4MPC',label:'s4MPC'},
-      {value:'s4MPC_A',label:'s4MPC_A'},
-      {value:'s4MPC_B',label:'s4MPC_B'},
-      {value:'s4MCB',label:'s4MCB'},
-      {value:'s4MCB_A',label:'s4MCB_A'},
-      {value:'s4MCB_B',label:'s4MCB_B'},
-      {value:'s4PCB',label:'s4PCB'},
-      {value:'s4PCB_A',label:'s4PCB_A'},
-      {value:'s4PCB_B',label:'s4PCB_B'},
-      {value:'s4PCM',label:'s4PCM'},
-      {value:'s4PCM_A',label:'s4PCM_A'},
-      {value:'s4PCM_B',label:'s4PCM_B'},
-      {value:'s4PCM',label:'s4PCM'},
-      {value:'s4PCM_A',label:'s4PCM_A'},
-      {value:'s4PCM_B',label:'s4PCM_B'},
-  
-      {value:'s5MPC',label:'s5MPC'},
-      {value:'s5MPC_A',label:'s5MPC_A'},
-      {value:'s5MPC_B',label:'s5MPC_B'},
-      {value:'s5MCB',label:'s5MCB'},
-      {value:'s5MCB_A',label:'s5MCB_A'},
-      {value:'s5MCB_B',label:'s5MCB_B'},
-      {value:'s5PCB',label:'s5PCB'},
-      {value:'s5PCB_A',label:'s5PCB_A'},
-      {value:'s5PCB_B',label:'s5PCB_B'},
-      {value:'s5PCM',label:'s5PCM'},
-      {value:'s5PCM_A',label:'s5PCM_A'},
-      {value:'s5PCM_B',label:'s5PCM_B'},
-      {value:'s5PCM',label:'s5PCM'},
-      {value:'s5PCM_A',label:'s5PCM_A'},
-      {value:'s5PCM_B',label:'s5PCM_B'},
-  
-      {value:'s6MPC',label:'s6MPC'},
-      {value:'s6MPC_A',label:'s6MPC_A'},
-      {value:'s6MPC_B',label:'s6MPC_B'},
-      {value:'s6MCB',label:'s6MCB'},
-      {value:'s6MCB_A',label:'s6MCB_A'},
-      {value:'s6MCB_B',label:'s6MCB_B'},
-      {value:'s6PCB',label:'s6PCB'},
-      {value:'s6PCB_A',label:'s6PCB_A'},
-      {value:'s6PCB_B',label:'s6PCB_B'},
-      {value:'s6PCM',label:'s6PCM'},
-      {value:'s6PCM_A',label:'s6PCM_A'},
-      {value:'s6PCM_B',label:'s6PCM_B'},
-      {value:'s6PCM',label:'s6PCM'},
-      {value:'s6PCM_A',label:'s6PCM_A'},
-      {value:'s6PCM_B',label:'s6PCM_B'}
-  ] 
- export const optionGender=[{ value: 'M', label: 'Male' },{ value: 'F', label: 'Female' }]
-  export default options
+const options = [{
+    value: 'S1',
+    label: 'S1'
+  },
+  {
+    value: 'S1-A',
+    label: 'S1-A'
+  },
+  {
+    value: 'S1-B',
+    label: 'S1-B'
+  },
+
+  {
+    value: 'S2',
+    label: 'S2'
+  },
+  {
+    value: 'S2-A',
+    label: 'S2-A'
+  },
+  {
+    value: 'S2-B',
+    label: 'S2-B'
+  },
+
+  {
+    value: 'S3',
+    label: 'S3'
+  },
+  {
+    value: 'S3-A',
+    label: 'S3-A'
+  },
+  {
+    value: 'S3-B',
+    label: 'S3-B'
+  },
+
+  {
+    value: 'S4 MPC',
+    label: 'S4 MPC'
+  },
+  {
+    value: 'S4 MPC-A',
+    label: 'S4 MPC-A'
+  },
+  {
+    value: 'S4 MPC-B',
+    label: 'S4 MPC-B'
+  },
+  {
+    value: 'S4 MCB',
+    label: 'S4 MCB'
+  },
+  {
+    value: 'S4 MCB-A',
+    label: 'S4 MCB-A'
+  },
+  {
+    value: 'S4 MCB-B',
+    label: 'S4 MCB-B'
+  },
+  {
+    value: 'S4 PCB',
+    label: 'S4 PCB'
+  },
+  {
+    value: 'S4 PCB-A',
+    label: 'S4 PCB-A'
+  },
+  {
+    value: 'S4 PCB-B',
+    label: 'S4 PCB-B'
+  },
+  {
+    value: 'S4  PCM',
+    label: 'S4 PCM'
+  },
+  {
+    value: 'S4  PCM-A',
+    label: 'S4 PCM-A'
+  },
+  {
+    value: 'S4  PCM-B',
+    label: 'S4 PCM-B'
+  },
+  {
+    value: 'S4 PCM',
+    label: 'S4 PCM'
+  },
+  {
+    value: 'S4 PCM-A',
+    label: 'S4 PCM-A'
+  },
+  {
+    value: 'S4 PCM-B',
+    label: 'S4 PCM-B'
+  },
+
+  {
+    value: 'S5 MPC',
+    label: 'S5 MPC'
+  },
+  {
+    value: 'S5 MPC-A',
+    label: 'S5 MPC-A'
+  },
+  {
+    value: 'S5 MPC-B',
+    label: 'S5 MPC-B'
+  },
+  {
+    value: 'S5 MCB',
+    label: 'S5 MCB'
+  },
+  {
+    value: 'S5 MCB-A',
+    label: 'S5 MCB-A'
+  },
+  {
+    value: 'S5 MCB-B',
+    label: 'S5 MCB-B'
+  },
+  {
+    value: 'S5 PCB',
+    label: 'S5 PCB'
+  },
+  {
+    value: 'S5 PCB-A',
+    label: 'S5 PCB-A'
+  },
+  {
+    value: 'S5 PCB-B',
+    label: 'S5 PCB-B'
+  },
+  {
+    value: 'S5 PCM',
+    label: 'S5 PCM'
+  },
+  {
+    value: 'S5 PCM-A',
+    label: 'S5 PCM-A'
+  },
+  {
+    value: 'S5 PCM-B',
+    label: 'S5 PCM-B'
+  },
+  {
+    value: 'S5 PCM',
+    label: 'S5 PCM'
+  },
+  {
+    value: 'S5 PCM-A',
+    label: 'S5 PCM-A'
+  },
+  {
+    value: 'S5 PCM-B',
+    label: 'S5 PCM-B'
+  },
+
+  {
+    value: 'S6 MPC',
+    label: 'S6 MPC'
+  },
+  {
+    value: 'S6 MPC-A',
+    label: 'S6 MPC-A'
+  },
+  {
+    value: 'S6 MPC-B',
+    label: 'S6 MPC-B'
+  },
+  {
+    value: 'S6MCB',
+    label: 'S6MCB'
+  },
+  {
+    value: 'S6 MCB-A',
+    label: 'S6 MCB-A'
+  },
+  {
+    value: 'S6 MCB-B',
+    label: 'S6 MCB-B'
+  },
+  {
+    value: 'S6 PCB',
+    label: 'S6 PCB'
+  },
+  {
+    value: 'S6 PCB-A',
+    label: 'S6 PCB-A'
+  },
+  {
+    value: 'S6 PCB-B',
+    label: 'S6 PCB-B'
+  },
+  {
+    value: 'S6 PCM',
+    label: 'S6 PCM'
+  },
+  {
+    value: 'S6 PCM-A',
+    label: 'S6 PCM-A'
+  },
+  {
+    value: 'S6 PCM-B',
+    label: 'S6 PCM-B'
+  },
+  {
+    value: 'S6 PCM',
+    label: 'S6 PCM'
+  },
+  {
+    value: 'S6 PCM-A',
+    label: 'S6PCM-A'
+  },
+  {
+    value: 'S6 PCM-B',
+    label: 'S6 PCM-B'
+  }
+]
+export const optionGender = [{
+  value: 'M',
+  label: 'Male'
+}, {
+  value: 'F',
+  label: 'Female'
+}]
+export default options

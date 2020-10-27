@@ -98,7 +98,7 @@ this.props.createNewBook(data)
        <td className="py-1" onClick={()=>{
            this.toggleEdit()
            this.setState({editNumOfBooks:book.numOfBooks,editBookType:book.typeOfBooks,bookId:book._id})
-       }}><button className="btn btn-outline-danger w-100 py-0">Edit</button></td>
+       }}><button className="btn btn-outline-primary w-100 py-0">Edit</button></td>
       
        <td onClick={()=>{
          this.putInTrash(book._id)

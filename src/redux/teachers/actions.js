@@ -295,3 +295,89 @@ export const fetchTeacherRecords = () => {
             })
     }
 }
+
+export const deleteTeacherBorrowers = () => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+        const config = {
+            url: `${location}/teacherSettings/deleteAllBorrowers/${getUserId()}`,
+            method: 'delete',
+            headers: authHeader,
+
+        }
+        console.log(config)
+        axios(config).then((resp) => {
+            // dispatch(fetchfinalists)
+
+            console.log('deleteTeacherBorrowers', resp)
+        }).catch((error) => {
+            console.log('deleteTeacherBorrowers', error.response.data)
+            dispatch(addTeacherFail(error.response.data.message))
+
+        })
+    }
+}
+
+export const deleteTeacherRecords = () => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+        const config = {
+            url: `${location}/teacherSettings/deleteAllRecords/${getUserId()}`,
+            method: 'delete',
+            headers: authHeader,
+
+        }
+        console.log(config)
+        axios(config).then((resp) => {
+            dispatch(fetchTeacherRecords())
+            console.log('deleteTeacherrecords', resp)
+        }).catch((error) => {
+            console.log('deleteTeacherrecords', error.response.data)
+            dispatch(fetchListFailure(error.response.data.message))
+
+        })
+    }
+}
+
+export const deleteTeacherList = () => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+        const config = {
+            url: `${location}/teacherSettings/deleteAllTeachers/${getUserId()}`,
+            method: 'delete',
+            headers: authHeader,
+
+        }
+        console.log(config)
+        axios(config).then((resp) => {
+            // dispatch(fetchfinalists)
+
+            console.log('deleteTeachersList', resp)
+        }).catch((error) => {
+            console.log('deleteTeachersList', error.response.data)
+            dispatch(fetchListFailure(error.response.data.message))
+
+        })
+    }
+}

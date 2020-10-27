@@ -196,3 +196,61 @@ export const deleteBook = (bookId) => {
         })
     }
 }
+
+export const deleteAllBooks = () => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+        const config = {
+            url: `${location}/bookSettings/deleteAllBooks/${getUserId()}`,
+            method: 'delete',
+            headers: authHeader,
+
+        }
+        console.log(config)
+        axios(config).then((resp) => {
+            // fetch-all datas on teachers and students
+            dispatch(fetchList())
+            console.log('deleteAllBooks', resp)
+        }).catch((error) => {
+            console.log('deleteAllBooks', error.response.data)
+            dispatch(fetchListFailure(error.response.data.message))
+
+        })
+    }
+}
+
+export const deleteFinalistsData = () => {
+    return (dispatch) => {
+        let allData = store.getState()
+        const {
+            token
+        } = allData.user.more
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+        const config = {
+            url: `${location}/studentSettings/deleteAllFinalists/${getUserId()}`,
+            method: 'get',
+            headers: authHeader,
+
+        }
+        console.log(config)
+        axios(config).then((resp) => {
+            // dispatch(fetchfinalists)
+
+            console.log('deleteFinalistDatas', resp)
+        }).catch((error) => {
+            console.log('deleteFinalistDatas', error.response.data)
+            dispatch(fetchListFailure(error.response.data.message))
+
+        })
+    }
+}

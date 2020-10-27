@@ -190,3 +190,14 @@ width:16%;
 .w-0{
     width:27.2% !important; 
 }
+.bg-orange{
+    background: rgba(144, 142, 139, 0.123);
+}
+.height-half {
+    /*height:60% !important;*/
+    background: rgba(173, 171, 171, 0.705) !important;
+    box-shadow: 8px 8px 6px 5px rgb(110, 110, 107);
+}
+.bg-darker{
+    background: rgba(235, 229, 229, 0.705) !important;
+}

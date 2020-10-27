@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 class Login extends Component {
     state = { email:'thierry@gmail.com',pword:'12345A' };
   
-componentDidUpdate(prevProps,prevState) {
+componentDidUpdate(prevProps) {
     const previousAuth=prevProps.auth
     const nextAuth=this.props.auth
     

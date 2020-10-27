@@ -18,7 +18,7 @@ handleSubmitOneBook=(e)=>{
   e.preventDefault()
   let {$$bookType:bookType,$$bookId:bookId,$$bookName:bookName}=this.state
   const data={
-    bookType,
+    bookType:bookType.toLowerCase(),
     bookId,
     bookName
   }
@@ -35,7 +35,7 @@ handleSubmitTwoBooks= (e)=>{
   e.preventDefault()
   let {bookType,bookId,bookName,$bookType,$bookId,$bookName}=this.state
   const data={
-    bookType,bookId,bookName,$bookType,$bookId,$bookName
+    bookType:bookType.toLowerCase(),bookId,bookName,$bookType,$bookId,$bookName
   }
   const studentId=this.props.match.params.studentId
   this.props.lendBook(data,studentId)

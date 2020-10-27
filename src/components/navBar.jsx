@@ -3,24 +3,65 @@ import React, { useState } from 'react';
 import {useSelector,useDispatch} from  'react-redux'
 import { getUserName } from '../redux/users/saveUser'
 import {
-  Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavbarText,Spinner,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader} from 'reactstrap';
+  Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavbarText,Spinner,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader,Alert} from 'reactstrap';
 import { NavLink } from 'react-router-dom'
 import {fullLogout} from '../redux/users/action'
+import axios from 'axios'
+import {location} from '../locations' 
+import {getUserId} from '../redux/users/saveUser'
+import {withRouter} from 'react-router-dom'
+import {loginAdvanced} from '../redux/users/action'
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalVerify, setModalVerify] = useState(false)
   const toggle = () => setIsOpen(!isOpen);
+  const [error, setError] = useState('')
   const toggleSmart = () => {
     if (isOpen===true) 
     setIsOpen(!isOpen)
   };
+  const token = useSelector(state => state.user.more.token)
+  const dispatch=useDispatch()
+  
+  const verifyPassword=()=>{
+        const authHeader = {
+            'Content-Type': 'application/json',
+            'auth-token': `${token}`
+        }
+  let data={
+'email':email,
+'password':password
+  }
+        const config = {
+            url: `${location}/user/checkPassword/${getUserId()}`,
+            method: 'post',
+            headers: authHeader,
+            data
+        }
+
+        axios(config).then(() => {
+          dispatch(loginAdvanced())
+          setModalVerify(!modalVerify)
+          props.history.push('/loggedIn/settings')
+          
+        })
+        .catch((error) => {
+          
+            setError(error.response.data.message)
+        
+        })
+  }
   const login =props.login
   const register =props.register
-  const dispatch=useDispatch()
+  
   const logout=()=>{
+     props.history.push('/')
     dispatch(fullLogout());toggleModal();toggle()
   }
   const auth = useSelector(state => state.user.auth)
-  
+  const [password, setPassword] = useState('12345A')
+  const [email, setEmail] = useState('thierry@gmail.com')
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modal, setModal] = useState(false);
 
@@ -98,8 +139,11 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
     </Dropdown>
    </NavItem>
      
-   <NavItem onClick={toggleSmart}>
-     <NavLink to="/loggedIn/settings"  className="nav-link nav-item p-2 bg-none">Settings</NavLink>    
+   <NavItem onClick={()=>{
+     toggleSmart()
+     setModalVerify(!modalVerify)
+   }}>
+    <button className="nav-link nav-item p-2 bg-none">Settings</button>      
   </NavItem>
 
      <NavItem onClick={toggleModal}>
@@ -159,9 +203,30 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
         
       </Modal>
 
+     <Modal isOpen={modalVerify} toggle={()=>setModalVerify(!modalVerify)}>
+        <ModalHeader toggle={()=>setModalVerify(!modalVerify)}><div className="text-center text-info">Enter the following </div></ModalHeader>
+  {error ? <Alert color="danger">{error}</Alert>:null}
+  <div className="row">
+    <div className="col-11 mx-auto col-sm-6 my-2">
+ 
+  <input type="email" value={email} onChange={e=>setEmail(e.target.value)} className="form-control m-auto w-75" placeholder="Enter your email"/>
+</div>
+
+<div className="col-11 mx-auto col-sm-6 my-2">
+<input type="password" value={password} onChange={e=>setPassword(e.target.value)} className="form-control m-auto w-75" placeholder="Enter your password"/>
+</div>
+    
+        </div>
+        <div className="d-flex p-3">
+  <button onClick={verifyPassword} className="btn btn-md btn-success m-auto text-big">Verify</button>
+</div>
+
+
+      </Modal> 
+
     </div>
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);
 
