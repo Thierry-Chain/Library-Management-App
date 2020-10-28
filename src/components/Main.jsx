@@ -51,6 +51,7 @@ class Main extends Component {
   
   render() { 
     return (
+    
 <React.Fragment>
 <Switch>
 <Route exact path="/loggedIn" component={Home} />
@@ -77,6 +78,7 @@ class Main extends Component {
 }
 const mapStateToProps=(state)=>{
   return{
+    connectionError:state.students.connectionError,
 error:state.user.error,
 auth:state.user.auth
   }

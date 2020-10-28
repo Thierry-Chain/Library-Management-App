@@ -8,7 +8,8 @@ const initialState = {
    errors: '',
    records: [],
    loadingFinalist: false,
-   finalists: []
+   finalists: [],
+   connectionError: false
 }
 const studentReducer = (state = initialState, action) => {
    switch (action.type) {
@@ -66,8 +67,18 @@ const studentReducer = (state = initialState, action) => {
                                           ...state,
                                           loadingFinalist: false, finalists: action.payload
                                        }
-                                       default:
-                                          return state
+                                       case actionTypes.CONNECTION_ERROR:
+                                          return {
+                                             ...state,
+                                             connectionError: true
+                                          }
+                                          case actionTypes.CONNECTION_BACK:
+                                             return {
+                                                ...state,
+                                                connectionError: false
+                                             }
+                                             default:
+                                                return state
    }
 }
 export default studentReducer

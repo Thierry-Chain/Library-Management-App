@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import Select from 'react-select'
 import Classes,{optionGender} from './classes'
 import * as studentActions from '../../../redux/students/actions'
+import ConnectionFails from '../connectionError'
 
 class StudentList extends Component {
     state = { search:'',modal:false,modalDelete:false,selectedOption:null,gender:'',age:'',firstName:'',lastName:'',trash:'' }
@@ -77,12 +78,12 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
    <tr className="w-100">
      <th scope="col" className="w">Firstname</th>
      <th scope="col" className="w">Lastname</th>
-     <th scope="col" className="w-1">Class</th>
+     <th scope="col" className="w-15 text-nowrap">Class</th>
      <th scope="col" className="">Gender</th>
      <th scope="col" className="">Year</th>
-     <th scope="col" className="w-2">Action</th>
-     <th scope="col" className="w-2">Action</th>
-     <th scope="col" className="w-2">Action</th>
+     <th scope="col" className="px-4">Action</th>
+     <th scope="col" className="px-4">Action</th>
+     <th scope="col" className="px-4">Action</th>
      <th scope="col" className="">Remain</th>
  
  
@@ -95,7 +96,7 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
        <tr key={student._id}>
        <td className="p-1">{student.firstName}</td>
        <td className="p-1">{student.lastName}</td>
-     <td className="p-1">{student.Class}</td>
+     <td className="p-1 text-nowrap">{student.Class}</td>
        <td className="p-1">{student.gender}</td>
        <td className="p-1">{student.age}</td>
 
@@ -121,6 +122,7 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
   </div>   
      
         return ( <section className="mt-5 mt-body bg-pc">
+          { this.props.connectionError ? <ConnectionFails/>:  <React.Fragment>
             <div className="bg-secodary pt-2 head">
            <div className="d-flex bg-head justify-content-center">
 <p className="text-center text-dark h2">Student List                        <span onClick={this.toggle} title="Add New Student" className="ml-1 badge badge-warning dropdown-pointer add"> Add +</span></p>
@@ -193,12 +195,15 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
         
         </form>
       </Modal>
-
+          </React.Fragment>
+}
         </section> );
-    }
+    
+  }
 }
 const mapStateToProps=(state)=>{
   return{
+    connectionError:state.students.connectionError,
     auth:state.user.auth,
 students:state.students.list,
 loading:state.students.loadingList,

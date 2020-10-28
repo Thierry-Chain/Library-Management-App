@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {  Modal, ModalHeader, ModalBody,Alert } from 'reactstrap';
 import * as userActions from '../../redux/users/action'
 import { withRouter } from 'react-router-dom'
+import ConnectionFails from '../loggedIn/connectionError' 
+
 
 class Login extends Component {
     state = { email:'thierry@gmail.com',pword:'12345A' };
@@ -41,6 +43,9 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
 
         return ( 
             <div>
+  {this.props.connectionError ? <ConnectionFails/>:<React.Fragment>
+    
+    
      
       <Modal isOpen={this.props.login} toggle={()=>{this.props.onToggle() }} >
       <form className="form" onSubmit={this.handleSubmit}>
@@ -70,6 +75,8 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
             </div>
             </form>
       </Modal>
+   
+    </React.Fragment>}
     </div>
          );
     }
@@ -77,6 +84,7 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
 
 const mapStateToProps=(state)=>{
     return{
+connectionError:state.students.connectionError, 
 error:state.user.error,
 auth:state.user.auth
     }

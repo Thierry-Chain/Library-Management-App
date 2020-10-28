@@ -13,7 +13,7 @@ import * as studentActions from '../students/actions'
 import * as teacherActions from '../teachers/actions'
 import * as userActions from '../users/action'
 
-// student list data 
+// student list data  
 const fetchListRequest = () => {
     return {
         type: actionTypes.FETCH_LIST_REQUEST
@@ -64,12 +64,20 @@ export const fetchList = () => {
         axios(config).then((resp) => resp.data)
             .then((list) => {
                 dispatch(fetchListSuccess(list))
+                dispatch(studentActions.connectionIsBack())
             })
             .catch((resp) => {
-                dispatch(fetchListFailure(resp.response.data.message))
-                if (resp.response.data.message === 'Ivalid user credentials!!') {
-                    dispatch(userActions.redirect())
+                if (resp.message === 'Network Error') {
+                    dispatch(studentActions.connectionError())
+                } else {
+
+                    if (resp.response.data.message === 'Ivalid user credentials!!') {
+                        dispatch(userActions.redirect())
+                    }
+                    dispatch(fetchListFailure(resp.response.data.message))
                 }
+
+
 
             })
     }
@@ -86,11 +94,17 @@ export const fetchBorrowed = () => {
         axios(config).then((resp) => resp.data)
             .then((books) => {
                 dispatch(fetchBorrowedSuccess(books))
+                dispatch(studentActions.connectionIsBack())
             })
             .catch((resp) => {
-                dispatch(fetchListFailure(resp.response.data.message))
-                if (resp.response.data.message === 'Ivalid user credentials!!') {
-                    dispatch(userActions.redirect())
+                if (resp.message === 'Network Error') {
+                    dispatch(studentActions.connectionError())
+                } else {
+
+                    if (resp.response.data.message === 'Ivalid user credentials!!') {
+                        dispatch(userActions.redirect())
+                    }
+                    dispatch(fetchListFailure(resp.response.data.message))
                 }
 
             })
@@ -117,13 +131,17 @@ export const addNewBookToDb = (book) => {
         }
         axios(config).then(() => {
             dispatch(fetchList())
+            dispatch(studentActions.connectionIsBack())
         }).catch((error) => {
+            if (error.message === 'Network Error') {
+                dispatch(studentActions.connectionError())
+            } else {
 
-            if (error.response.data.message === 'Ivalid user credentials!!') {
-                dispatch(userActions.redirect())
+                if (error.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+                dispatch(fetchListFailure(error.response.data.message))
             }
-
-            dispatch(fetchListFailure(error.response.data.message))
         })
     }
 }
@@ -146,19 +164,25 @@ export const editBookData = (bookData, bookId) => {
             data
         }
         axios(config).then(() => {
+            dispatch(studentActions.connectionIsBack())
             dispatch(fetchList())
             dispatch(studentActions.fetchList())
             dispatch(teacherActions.fetchList())
             dispatch(studentActions.fetchBorrowers())
             dispatch(teacherActions.fetchBorrowers())
             dispatch(studentActions.fetchRecords())
+            dispatch(studentActions.fetchFinalists())
             dispatch(teacherActions.fetchTeacherRecords())
-        }).catch((error) => {
-            if (error.response.data.message === 'Ivalid user credentials!!') {
-                dispatch(userActions.redirect())
-            }
+        }).catch((resp) => {
+            if (resp.message === 'Network Error') {
+                dispatch(studentActions.connectionError())
+            } else {
 
-            dispatch(fetchListFailure(error.response.data.message))
+                if (resp.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+                dispatch(fetchListFailure(resp.response.data.message))
+            }
         })
     }
 }
@@ -179,7 +203,8 @@ export const deleteBook = (bookId) => {
             method: 'delete',
             headers: authHeader
         }
-        axios(config).then((resp) => {
+        axios(config).then(() => {
+            dispatch(studentActions.connectionIsBack())
             dispatch(fetchList())
             dispatch(studentActions.fetchList())
             dispatch(teacherActions.fetchList())
@@ -187,12 +212,16 @@ export const deleteBook = (bookId) => {
             dispatch(teacherActions.fetchBorrowers())
             dispatch(studentActions.fetchRecords())
             dispatch(teacherActions.fetchTeacherRecords())
-        }).catch((error) => {
-            if (error.response.data.message === 'Ivalid user credentials!!') {
-                dispatch(userActions.redirect())
-            }
+        }).catch((resp) => {
+            if (resp.message === 'Network Error') {
+                dispatch(studentActions.connectionError())
+            } else {
 
-            dispatch(fetchListFailure(error.response.data.message))
+                if (resp.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+                dispatch(fetchListFailure(resp.response.data.message))
+            }
         })
     }
 }
@@ -214,13 +243,27 @@ export const deleteAllBooks = () => {
 
         }
         console.log(config)
-        axios(config).then((resp) => {
-            // fetch-all datas on teachers and students
+        axios(config).then(() => {
+            dispatch(studentActions.connectionIsBack())
             dispatch(fetchList())
-            console.log('deleteAllBooks', resp)
-        }).catch((error) => {
-            console.log('deleteAllBooks', error.response.data)
-            dispatch(fetchListFailure(error.response.data.message))
+            dispatch(studentActions.connectionIsBack())
+            dispatch(studentActions.fetchList())
+            dispatch(teacherActions.fetchList())
+            dispatch(studentActions.fetchBorrowers())
+            dispatch(teacherActions.fetchBorrowers())
+            dispatch(studentActions.fetchRecords())
+            dispatch(teacherActions.fetchTeacherRecords())
+
+        }).catch((resp) => {
+            if (resp.message === 'Network Error') {
+                dispatch(studentActions.connectionError())
+            } else {
+
+                if (resp.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+                dispatch(fetchListFailure(resp.response.data.message))
+            }
 
         })
     }
@@ -243,14 +286,18 @@ export const deleteFinalistsData = () => {
 
         }
         console.log(config)
-        axios(config).then((resp) => {
-            // dispatch(fetchfinalists)
+        axios(config).then(() => {
+            dispatch(studentActions.fetchFinalists())
+        }).catch((resp) => {
+            if (resp.message === 'Network Error') {
+                dispatch(studentActions.connectionError())
+            } else {
 
-            console.log('deleteFinalistDatas', resp)
-        }).catch((error) => {
-            console.log('deleteFinalistDatas', error.response.data)
-            dispatch(fetchListFailure(error.response.data.message))
-
+                if (resp.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(userActions.redirect())
+                }
+                dispatch(fetchListFailure(resp.response.data.message))
+            }
         })
     }
 }

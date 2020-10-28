@@ -2,10 +2,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Loading from '../loading'
-import {Alert,Modal, ModalHeader, ModalBody, ModalFooter,Button} from 'reactstrap'
-import {Link} from 'react-router-dom'
+import {Alert,Modal, ModalHeader} from 'reactstrap'
+
 import * as studentActions from '../../../redux/students/actions'
 import moment from 'moment'
+import ConnectionFail from '../connectionError'
 
 class StudentList extends Component {
     state = { search:'',trash:'',modalDelete:false,modalReturn:false,nameToReturn:'',name_ToReturn:'' }
@@ -67,9 +68,9 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
      <th scope="col" className="">Class</th>
      <th scope="col" className="">G</th>
      <th scope="col" className="">Age</th>
-     <th scope="col" className="w-2">Book-name</th>
-     <th scope="col" className="w-2">Book-type</th>
-     <th scope="col" className="">Lend-Date</th>
+     <th scope="col" className="w-2 text-nowrap">Book-name</th>
+     <th scope="col" className="w-2 text-nowrap">Book-type</th>
+     <th scope="col" className="text-nowrap">Lend-Date</th>
      <th scope="col" className="">Action</th>
      <th scope="col" className="">Action</th>
 
@@ -85,7 +86,7 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
        <tr key={student._id}>
        <td className="p-1">{student.firstName}</td>
        <td className="p-1">{student.lastName}</td>
-     <td className="p-1">{student.Class}</td>
+     <td className="p-1 text-nowrap">{student.Class}</td>
        <td className="p-1">{student.gender}</td>
        <td className="p-1">{student.age}</td>
        <td className="p-1">{student.bookName}</td>
@@ -117,6 +118,9 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
   </div>   
      
         return ( <section className="mt-5 mt-body bg-pc">
+          {this.props.connectionError ? <ConnectionFail/>:<React.Fragment>
+            
+           
             <div className="bg-secodary pt-2 head">
            <div className="d-flex bg-head justify-content-center">
 <p className="text-center text-dark h2">All Finalists</p>
@@ -169,12 +173,14 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
         
         </form>
       </Modal>
-
+ 
+ </React.Fragment>}
         </section> );
     }
 }
 const mapStateToProps=(state)=>{
   return{
+    connectionError:state.students.connectionError,
     auth:state.user.auth,
 finalist:state.students.finalists,
 loading:state.students.loadingFinalist,

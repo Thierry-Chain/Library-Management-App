@@ -4,7 +4,9 @@ import React,{useState} from 'react';
 import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import {Alert} from 'reactstrap'
 import axios from 'axios'
+import {useSelector} from 'react-redux'
 import { location } from '../../locations'
+import ConnectionFails from '../loggedIn/connectionError'
 
 const Register = (props) => {
 const [names, setNames] = useState('')
@@ -15,6 +17,7 @@ const [errors, seterrors] = useState('')
 const register = props.register
 const toggle =props.onToggle
 const notify=props.notify
+const connectionError = useSelector(state => state.students.connectionError)
 
 let alert= errors ? <Alert color="danger"> {errors} </Alert>:null
 
@@ -52,6 +55,7 @@ axios(config)
 }
   return (
     <div>
+  {connectionError ? <ConnectionFails/>:<React.Fragment>
     
       <Modal isOpen={register} toggle={()=>{ toggle() }} >
       <form className="form" onSubmit={handleSubmit}>
@@ -84,6 +88,7 @@ axios(config)
             </div>
             </form>
       </Modal>
+    </React.Fragment>}
     </div>
   );
 }

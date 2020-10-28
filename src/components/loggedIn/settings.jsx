@@ -11,6 +11,7 @@ import * as userActions from '../../redux/users/action'
 import {getUserName,getUserEmail} from '../../redux/users/saveUser'
 
 
+
 class Main extends Component {
 state={ popoverOpen:false,modalPromote:false,modalDelRecords:false,modalDelFinalists:false,modalDelBorrowers:false,modalDelStudents:false,modalDelBooks:false,modalDelTeacherBorrowers:false,modalDelTeacherRecords:false,modalDelTeacherList:false,modalChangePassword:false,newPassword:'',oldPassword:'',modalErase:false,modalEdit:false,editUserName:'',editEmail:''}
   componentDidMount() {
@@ -24,13 +25,14 @@ const {oldPassword,newPassword}=this.state
 console.log(oldPassword,newPassword)
 const data={oldPassword,newPassword}
 this.props.changeUserPassword(data)
-
+this.toggleChangePassword()
  }
  handleEdit=()=>{
    const {editUserName,editEmail}=this.state
    const data={ email:editEmail,username:editUserName }
    this.props.history.push('/loggedIn')
 this.props.editUserInfo(data)
+this.toggleEdit()
  }
   handleAllChanges=(e)=>{
       let {name,value}=e.target
@@ -86,6 +88,9 @@ setPopoverOpen =()=>{
     {this.props.error ? <Alert className="text-center" color="danger">{this.props.error}</Alert>:<UncontrolledAlert color="warning" className="m-auto mt-1 text-center w-75">
       These operation must be performed for serious reason other wise your data can be lost !!
     </UncontrolledAlert>}
+    {this.props.studentError ? <Alert className="text-center" color="danger">{this.props.studentError}</Alert>:null}
+    {this.props.teacherError ? <Alert className="text-center" color="danger">{this.props.teacherError}</Alert>:null}
+    {this.props.bookError ? <Alert className="text-center" color="danger">{this.props.bookError}</Alert>:null}
     <p id="pooverOne" className="m-1 p-1 text-big text-center"> Who is finalist ? click<button className="btn text-warning dropdown-pointer text-big"><b>here</b></button> to know it !</p>
     <Popover placement="bottom" trigger="focus" isOpen={this.state.popoverOpen} target="pooverOne" toggle={this.setPopoverOpen}>
         <PopoverHeader>Who is Finalist ?</PopoverHeader>
@@ -147,7 +152,11 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.promoteStudents()} className="btn btn-md pull-left btn-success mr-2 w-75">Promote</button>
+<button onClick={()=>{
+  this.props.promoteStudents()
+  this.togglePromote()
+}
+} className="btn btn-md pull-left btn-success mr-2 w-75">Promote</button>
 <button type="button" onClick={this.togglePromote} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -161,7 +170,10 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteRecords()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
+<button onClick={()=>{
+  this.props.deleteRecords()
+  this.toggleDelRecords()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
 <button type="button" onClick={this.toggleDelRecords} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -175,7 +187,10 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteFinalists()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
+<button onClick={()=>{
+  this.props.deleteFinalists()
+  this.toggleDelFinalists()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
 <button type="button" onClick={this.toggleDelFinalists} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -189,7 +204,10 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteBorrowers()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
+<button onClick={()=>{
+  this.props.deleteBorrowers()
+  this.toggleDelBorrowers()
+}} className="btn btn-md pull{-left btn-success mr-2 w-75">Delete</button>
 <button type="button" onClick={this.toggleDelBorrowers} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -203,7 +221,10 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteStudents()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
+<button onClick={()=>{
+  this.props.deleteStudents()
+  this.toggleDelStudents()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
 <button type="button" onClick={this.toggleDelStudents} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -217,7 +238,10 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteAllBooks()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete all</button>
+<button onClick={()=>{
+  this.props.deleteAllBooks()
+  this.toggleDelBooks()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete all</button>
 <button type="button" onClick={this.toggleDelBooks} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -231,7 +255,10 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteTeacherBorrowers()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete all</button>
+<button onClick={()=>{
+  this.props.deleteTeacherBorrowers()
+  this.toggleDelTeacherBorrowers()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete all</button>
 <button type="button" onClick={this.toggleDelTeacherBorrowers} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -245,7 +272,9 @@ setPopoverOpen =()=>{
     
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteTeacherRecords()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete Records</button>
+<button onClick={()=>{this.props.deleteTeacherRecords()
+this.toggleDelTeacherRecords()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete Records</button>
 <button type="button" onClick={this.toggleDelTeacherRecords} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -256,7 +285,10 @@ setPopoverOpen =()=>{
         <ModalHeader toggle={this.toggleDelTeacherList}>Are You Sure To delete all Teachers ?</ModalHeader>
       
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.deleteTeachersList()} className="btn btn-md pull-left btn-success mr-2 w-75">Delete Teachers</button>
+<button onClick={()=>{
+  this.props.deleteTeachersList()
+  this.toggleDelTeacherList()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete Teachers</button>
 <button type="button" onClick={this.toggleDelTeacherList} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -270,7 +302,10 @@ setPopoverOpen =()=>{
 <input type="password" onChange={this.handleAllChanges} value={this.state.oldPassword} className="col-11 mx-auto my-2 form-control" name="oldPassword" placeholder="Old Password"/>
 </div>
         <div className="d-flex my-2 mx-3 text-big">
-<button onClick={()=>this.handleEdit()} 
+<button onClick={()=>{
+  this.handleEdit()
+  this.toggleChangePassword()
+}} 
 className="btn btn-md pull-left btn-success mx-auto w-75">Edit</button>
 
         </div>
@@ -282,7 +317,10 @@ className="btn btn-md pull-left btn-success mx-auto w-75">Edit</button>
         <ModalHeader toggle={this.toggleErase}>Are You Sure To delete you account ?</ModalHeader>
       <p className="text-center text">All your data will be lost forever !!</p>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={()=>this.props.eraseAll()} className="btn btn-md pull-left btn-success mr-2 w-75">Confirm </button>
+<button onClick={()=>{
+  this.props.eraseAll()
+  this.toggleErase()
+}} className="btn btn-md pull-left btn-success mr-2 w-75">Confirm </button>
 <button type="button" onClick={this.toggleErase} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
         </div>
         
@@ -296,7 +334,10 @@ className="btn btn-md pull-left btn-success mx-auto w-75">Edit</button>
 <input type="text" value={this.state.editEmail} onChange={this.handleAllChanges} className="col-11 mx-auto my-2 form-control" name="editEmail" placeholder="Email"/>
 </div>
         <div className="d-flex my-2 mx-3 text-big">
-<button onClick={()=>this.handleEdit()} 
+<button onClick={()=>{
+  this.handleEdit()
+  this.toggleEdit()
+}} 
 className="btn btn-md pull-left btn-success mx-auto w-75">Save changes</button>
 
         </div>
@@ -305,13 +346,17 @@ className="btn btn-md pull-left btn-success mx-auto w-75">Save changes</button>
       </Modal>
 
       </section>
-    )
+   
+   )
  
   }
 }
 const mapStateToProps = (state) => {
   return {
     error: state.user.error,
+    studentError:state.students.errors,
+    teacherError:state.teachers.errors,
+    bookError:state.books.errors,
     authAccess: state.user.advancedAuth,
     email:getUserEmail(),
     userName:getUserName()

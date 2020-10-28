@@ -7,6 +7,7 @@ import {Alert} from 'reactstrap'
 import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import * as studentActions from '../../../redux/students/actions'
 import moment from 'moment'
+import ConnectionFails from '../connectionError'
 
 class StudentBorrowers extends Component {
     state = { word:'',studentIdToReturn:'',bookTypeToReturn:'',bookIdToReturn:'',bookNameToReturn:'',studentNameToReturn:'',modal:false}
@@ -44,11 +45,11 @@ this.setState({word:e.target.value})
    <tr className="w-100">
      <th scope="col" className="w-2">Firstname</th>
      <th scope="col" className="w-2">Lastname</th>
-     <th scope="col" className="">Class</th>
+     <th scope="col" className="text-nowrap w-2">Class</th>
      <th scope="col" className="">G</th>
-     <th scope="col" className="w-3">Book-name</th>
-     <th scope="col" className="">Book-id</th>
-     <th scope="col" className="w-2">Book Type</th>
+     <th scope="col" className="w-2 text-nowrap">Book-name</th>
+     <th scope="col" className=" text-nowrap">Book-id</th>
+     <th scope="col" className="w-2 text-nowrap">Book Type</th>
      <th scope="col" className="">Date</th>
 
     
@@ -65,7 +66,7 @@ this.setState({word:e.target.value})
        <tr key={uuid()}>
        <td className="p-1">{borrower.firstName}</td>
        <td className="p-1">{borrower.lastName}</td>
-     <td className="p-1">{borrower.Class}</td>
+     <td className="p-1 text-nowrap">{borrower.Class}</td>
        <td className="p-1">{borrower.gender}</td>
      <td className="p-1">{borrower.bookName}</td>
      <td className="p-1">{borrower.bookId}</td>
@@ -93,6 +94,8 @@ this.setState({
   
   let allTable=this.props.loading ? <Loading/>:<div className="row">{table}</div>   
         return ( <section className="mt-body bg-pc">
+          {this.props.connectionError ? <ConnectionFails/>:<React.Fragment>
+           
           <div className="bg-secondary pt-2 head">
            <div className="d-flex bg-head justify-content-center">
 <p className="text-center text-dark h2">Student Borrowers List</p>
@@ -135,11 +138,13 @@ this.setState({
   <button onClick={this.handleReturn} className="btn btn-md btn-info m-auto text-big">Return</button>
   </div>       
       </Modal>
+        </React.Fragment>}
         </section> );
     }
 }
  const mapStateToProps=(state)=>{
      return {
+       connectionError:state.students.connectionError,
 borrowers:state.students.borrowers,
 loading:state.students.loadingBorrowers
      }

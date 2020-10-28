@@ -46,8 +46,16 @@ const NavBar = (props) => {
           
         })
         .catch((error) => {
-          
-            setError(error.response.data.message)
+            if (error.message === 'Network Error') {
+                setError('Network Problem')
+            } else {
+
+                if (error.response.data.message === 'Ivalid user credentials!!') {
+                    setError('Ivalid user')   
+                }
+             setError(error.response.data.message)   
+            }
+           
         
         })
   }

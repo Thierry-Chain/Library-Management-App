@@ -3,10 +3,12 @@ import {useSelector} from 'react-redux'
 import Loading from '../loading'
 import uuid from 'uuid/v1'
 import moment from 'moment'
+import ConnectionFails from '../connectionError'
 
 function RecordsTeacher() {
     const [search, setsearch] = useState('')
     const list = useSelector(state => state.teachers.records)
+    const connectionError = useSelector(state => state.students.connectionError)
    const filteredData=list.filter(teacher=>{
     return (
         teacher.firstName.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
@@ -83,7 +85,9 @@ function RecordsTeacher() {
     </div>
     return (
         <div className="mt-body">
+          {connectionError ? <ConnectionFails/>:<React.Fragment>
            {allData}
+            </React.Fragment>}
         </div>
     )
 }

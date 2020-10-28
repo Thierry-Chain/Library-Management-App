@@ -6,7 +6,7 @@ import Classes,{optionGender} from './classes'
 import Loading from '../loading'
 import {Alert} from 'reactstrap'
 import * as studentActions from '../../../redux/students/actions'
-
+import ConnectionFails from '../connectionError'
 
 class Edit extends Component {
     state={fname:'',lname:'',age:'',gender:'',selectedOption:'',goBackVisible:false}
@@ -108,17 +108,20 @@ const sectionData=studentObj ? <div className="row height-100">
      
         return (
            <section className="mt-body">
+             {this.props.connectionError ? <ConnectionFails/>:<React.Fragment>
+               
                <div className="container-fluid" >
            {sectionData}
                </div>
 
-
+</React.Fragment>}
            </section>
         )
     }
 }
 const mapStateToProps=(state)=>{
     return {
+      connectionError:state.students.connectionError,
 studentList:state.students.list,
 errors:state.students.errors
     }

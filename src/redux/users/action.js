@@ -11,6 +11,7 @@ import {
     getUserEmail
 } from './saveUser'
 import store from '../store'
+import * as studentActions from '../students/actions'
 
 const frontendLogin = (user) => {
     return {
@@ -44,10 +45,20 @@ const fullLogin = (user) => {
         }
         axios(config).then((resp) => {
                 saveUser(resp.data);
+                dispatch(studentActions.connectionIsBack())
                 dispatch(frontendLogin(resp.data))
             })
             .catch((err) => {
-                dispatch(loginError(err.response.data.message))
+                if (err.message === 'Network Error') {
+                    dispatch(studentActions.connectionError())
+                } else {
+
+                    if (err.response.data.message === 'Ivalid user credentials!!') {
+                        dispatch(redirect())
+                    }
+                    dispatch(loginError(err.response.data.message))
+                }
+
             })
     }
 }
@@ -55,6 +66,7 @@ const fullLogin = (user) => {
 const fullLogout = () => {
     return (dispatch) => {
         dispatch(logoutFrontend())
+        dispatch(studentActions.connectionIsBack())
         localStorage.clear()
         //backend logout   
     }
@@ -76,12 +88,18 @@ const checkUserCredentials = () => {
             headers: authHeader
         }
         //console.log('auth config',config)
-        axios(config).then(() => console.log('ok Smart Library'))
-            .catch(error => {
-                if (error.response.data.message === 'Ivalid user credentials!!') {
-                    dispatch(redirect())
-                    //console.log(error.response.data.message)   
+        axios(config).then(() => {
+                dispatch(studentActions.connectionIsBack())
+            })
+            .catch(err => {
+                if (err.message === 'Network Error') {
+                    dispatch(studentActions.connectionError())
+                } else {
 
+                    if (err.response.data.message === 'Ivalid user credentials!!') {
+                        dispatch(redirect())
+                    }
+                    dispatch(loginError(err.response.data.message))
                 }
             })
     }
@@ -165,12 +183,9 @@ export const removeMyAccount = () => {
             headers: authHeader,
 
         }
-        console.log(config)
-        axios(config).then((resp) => {
-            // redirect
-            console.log('deleteAccount', resp)
+        axios(config).then(() => {
+
         }).catch((error) => {
-            console.log('deleteAccount', error.response.data)
             dispatch(loginError(error.response.data.message))
 
         })
@@ -199,10 +214,17 @@ export const edituserInfo = (data) => {
         /// console.log(config)
         axios(config).then((resp) => {
             dispatch(redirect())
-            console.log('edited user info', resp)
-        }).catch((error) => {
-            console.log('failed to edit user info', error.response.data.message)
-            dispatch(loginError(error.response.data.message))
+
+        }).catch((err) => {
+            if (err.message === 'Network Error') {
+                dispatch(studentActions.connectionError())
+            } else {
+
+                if (err.response.data.message === 'Ivalid user credentials!!') {
+                    dispatch(redirect())
+                }
+                dispatch(loginError(err.response.data.message))
+            }
         })
     }
 }

@@ -7,6 +7,7 @@ import {Alert,UncontrolledAlert} from 'reactstrap'
 import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import * as teacherActions from '../../../redux/teachers/actions'
 import moment from 'moment'
+import ConnectionFails from '../connectionError'
 
 class TeachersBorrowers extends Component {
     state = { word:'',teacherIdToReturn:'',bookTypeToReturn:'',bookNameToReturn:'',teacherNameToReturn:'',numOfBooks:'',modal:false }
@@ -99,6 +100,9 @@ this.setState({
     </UncontrolledAlert>}</div>
     {table}</div>   
         return ( <section className="mt-body bg-pc">
+          {this.props.connectionError ? <ConnectionFails/>:<React.Fragment>
+
+         
           <div className="bg-secondary pt-2 head">
            <div className="d-flex bg-head justify-content-center">
 <p className="text-center text-dark h2">Teachers Borrowers List</p>
@@ -145,11 +149,14 @@ this.setState({
   <button  onClick={this.handleReturn} className="btn btn-md btn-info m-auto text-big">Return</button>
   </div>       
       </Modal>
+       
+         </React.Fragment> }
         </section> );
     }
 }
  const mapStateToProps=(state)=>{
      return {
+connectionError:state.students.connectionError,       
 borrowers:state.teachers.borrowers,
 loading:state.teachers.loadingBorrowers,
 error:state.teachers.errors

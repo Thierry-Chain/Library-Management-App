@@ -5,7 +5,8 @@ import Select from 'react-select'
 import {Alert,Modal, ModalHeader, ModalBody,Button} from 'reactstrap'
 import {optionGender} from '../student/classes'
 import * as teacherActions from '../../../redux/teachers/actions'
-//import {Link} from 'react-router-dom'
+import ConnectionFails from '../connectionError'
+
 
 class TeachersList extends Component {
     state = { search:'',trash:'',editFirstName:'',editLastName:'',editGender:'',editPhone:'',modal:false,modalDelete:false,teacherId:'',numOfBooks:'',bookType:'',bookName:'',modalLend:false,modalAddNew:false,firstName:'',lastName:'',gender:'',phone:'',validationMessage:'' }
@@ -98,7 +99,7 @@ toggle=()=>{
          <tr className="w-100">
            <th scope="col" className="w">Firstname</th>
            <th scope="col" className="w">Lastname</th>
-           <th scope="col" className="">Gender</th>
+           <th scope="col" className="w">Gender</th>
            <th scope="col" className="w">Phone</th>
            <th scope="col" className="w-2">Action</th>
            <th scope="col" className="w-2">Action</th>
@@ -149,6 +150,8 @@ toggle=()=>{
           
         
         return ( <section className="mt-5 mt-body bg-pc">
+  {this.props.connectionError ? <ConnectionFails/>:<React.Fragment>
+   
         <div className="bg-secodary pt-2 head-1">
        <div className="d-flex bg-head justify-content-center">
 <p className="text-center text-dark h2">Teachers List                        <span onClick={this.toggleAddNew} title="Add New Teacher" className="ml-1 badge badge-bg dropdown-pointer add"> Add +</span></p>
@@ -281,13 +284,14 @@ toggle=()=>{
         </form>
       </Modal> 
 
-
+ </React.Fragment>}
     </section> );
 }
 } 
 
 const mapStateToProps=(state)=>{
     return {
+connectionError:state.students.connectionError, 
 loadingTeachers:state.teachers.loadingList,   
 teachersList:state.teachers.list,  
 borrowers:state.teachers.borrowers,

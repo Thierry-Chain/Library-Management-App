@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Alert } from 'reactstrap'
 import * as studentActions from '../../../redux/students/actions'  
-import Select from 'react-select'
+import ConnectionFail from '../connectionError'
 
 class Lend extends Component {
   state={bookType:'',bookId:'',bookName:'',$bookType:'',$bookId:'',$bookName:'',$$bookType:'',$$bookId:'',$$bookName:''}
@@ -35,7 +35,7 @@ handleSubmitTwoBooks= (e)=>{
   e.preventDefault()
   let {bookType,bookId,bookName,$bookType,$bookId,$bookName}=this.state
   const data={
-    bookType:bookType.toLowerCase(),bookId,bookName,$bookType,$bookId,$bookName
+    bookType:bookType.toLowerCase(),bookId,bookName,$bookType:$bookType.toLowerCase(),$bookId,$bookName
   }
   const studentId=this.props.match.params.studentId
   this.props.lendBook(data,studentId)
@@ -142,17 +142,22 @@ const allData= bookRemaining === 2 ?
     return (
           
 <section className="mt-body">
+  {this.props.connectionError ?<ConnectionFail/>:<React.Fragment>
+    
+    
 <div className="container-fluid" >
+
 {allData}
  </div>   
                      
-  
+  </React.Fragment>}
 </section>           
         )
     }
 }
 const mapStateToProps=(state)=>{
     return {
+      connectionError:state.students.connectionError,
 borrowersList:state.students.borrowers,      
 studentList:state.students.list,
 error:state.students.errors

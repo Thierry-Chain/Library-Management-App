@@ -3,9 +3,11 @@ import {useSelector} from 'react-redux'
 import Loading from '../loading'
 import uuid from 'uuid/v1'
 import moment from 'moment'
+import ConnectionFails from '../connectionError'
 function Records(props) {
     const [search, setsearch] = useState('')
     const list = useSelector(state => state.students.records)
+    const connectionError = useSelector(state => state.students.connectionError)
    const filteredData=list.filter(student=>{
     return (
         student.firstName.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
@@ -39,18 +41,18 @@ function Records(props) {
   </div>    
        </div>  </div>
        <div className="container">
-    {/*/////////////////////////*/}
+    
     <table className="table table-bordered table-responsive w-100" id="myTable">
         <caption className="caption text-center">Powered by smart library</caption>
  <thead className="w-100">
    <tr className="w-100">
      <th scope="col" className="w">Firstname</th>
      <th scope="col" className="w">Lastname</th>
-     <th scope="col" className="">Class</th>
+     <th scope="col" className="text-nowrap">Class</th>
      <th scope="col" className="">Gender</th>
-     <th scope="col" className="w">Book name</th>
-     <th scope="col" className="w-2">Book id</th>
-     <th scope="col" className="w">Book type</th>
+     <th scope="col" className="w text-nowrap">Book name</th>
+     <th scope="col" className="w-2 text-nowrap">Book id</th>
+     <th scope="col" className="w text-nowrap">Book type</th>
      <th scope="col" className="">Date</th>
 
    </tr>
@@ -62,7 +64,7 @@ function Records(props) {
        <tr key={uuid()}>
        <td className="p-1">{student.firstName}</td>
        <td className="p-1">{student.lastName}</td>
-     <td className="p-1">{student.Class}</td>
+     <td className="p-1 text-nowrap">{student.Class}</td>
        <td className="p-1">{student.gender}</td>
        <td className="p-1">{student.bookName}</td>
        <td className="p-1">{student.bookId}</td>
@@ -75,13 +77,16 @@ function Records(props) {
    
  </tbody>
  </table>
- {/*************************** */}
+
     
         </div>
     </div>
     return (
         <div className="mt-body">
-           {allData}
+          {connectionError ? <ConnectionFails/>:<React.Fragment>
+            {allData}
+            </React.Fragment>}
+           
         </div>
     )
 }

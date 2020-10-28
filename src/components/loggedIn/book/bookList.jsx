@@ -5,6 +5,7 @@ import Loading from '../loading'
 import {connect} from 'react-redux'
 import moment from 'moment'
 import * as bookActions from '../../../redux/books/actions'
+import ConnectionFail from '../connectionError'
 
 class BookList extends Component {
     state = { search:'',modal:false,bookType:'',numOfBooks:'',trash:'',editBookType:'',editNumOfBooks:'',modalEdit:false,modalDelete:false,bookId:'' }
@@ -78,7 +79,7 @@ this.props.createNewBook(data)
  let table= filteredData.length ?  <table className="table table-bordered table-responsive w-100" id="myTable">
  <thead className="w-100">
    <tr className="w-100">
-     <th scope="col" className="w-0">Book-type</th>
+     <th scope="col" className="w-0 text-nowrap">Book-type</th>
      <th scope="col" className="w-0">Number</th>
      <th scope="col" className="w-0">Date</th>
      <th scope="col" className="w-2">Action</th>
@@ -119,6 +120,9 @@ this.props.createNewBook(data)
   </div>   
         
         return ( <section className="mt-5 mt-body bg-pc">
+          {this.props.connectionError ? <ConnectionFail/>:<React.Fragment>
+            
+            
             <div className="bg-secodary pt-2 head">
            <div className="d-flex bg-head justify-content-center font-f">
 <p className="text-center text-dark h2">Books List                        <span onClick={this.toggle} title="Add New book" className="ml-1 badge badge-warning dropdown-pointer add"> Add +</span></p>
@@ -206,12 +210,13 @@ this.props.createNewBook(data)
         </ModalFooter>
         </form>
       </Modal>
-
+</React.Fragment>}
         </section> );
     }
 }
  const mapStateToProps=(state)=>{
   return{
+    connectionError:state.students.connectionError,
 auth:state.user.auth,
 books:state.books.list,
 loading:state.books.loadingList,
