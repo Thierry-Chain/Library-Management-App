@@ -11,6 +11,8 @@ import {location} from '../locations'
 import {getUserId} from '../redux/users/saveUser'
 import {withRouter} from 'react-router-dom'
 import {loginAdvanced} from '../redux/users/action'
+import { BiAward,BiLogIn,BiUserPlus,BiHomeHeart,BiShapePolygon,BiFileFind,BiLogOut,BiXCircle,BiUserCheck,BiUserPin,BiWalk,BiUserVoice,BiListUl,BiBook,BiCog,BiLogInCircle } from "react-icons/bi";
+
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalVerify, setModalVerify] = useState(false)
@@ -67,8 +69,8 @@ const NavBar = (props) => {
     dispatch(fullLogout());toggleModal();toggle()
   }
   const auth = useSelector(state => state.user.auth)
-  const [password, setPassword] = useState('12345A')
-  const [email, setEmail] = useState('thierry@gmail.com')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -84,6 +86,7 @@ const NavBar = (props) => {
 
   const toggleDropB = () => setDropdownOpenB(prevState => !prevState);
   const allStudents=useSelector(state => state.students.list.length)
+
   const allStdBorrowed=useSelector(state => state.students.borrowers.length)
   const allTeachers=useSelector(state => state.teachers.list.length)
   const alltchBorrowed=useSelector(state => state.teachers.borrowers.length)
@@ -92,26 +95,26 @@ const NavBar = (props) => {
 const brand =auth ?  <NavbarBrand className="text-brand" to="/">
  
   <span className="badge d-none d-sm-inline"><Spinner type="grow" color="warning" size="sm" />
-  </span> {getUserName()}</NavbarBrand> : <NavbarBrand className="text-brand" to="/">My Library</NavbarBrand>
+  </span><i><BiUserPin/></i> {getUserName()}</NavbarBrand> : <NavbarBrand className="text-brand" to="/"><i><BiFileFind/></i> My Library</NavbarBrand>
  const collapse=auth ?   <Collapse isOpen={isOpen} navbar>
  <Nav className="mr-auto bg-nav" navbar >
 
    <NavItem onClick={toggleSmart}>
-     <NavLink className="nav-link nav-item p-2"  to="/loggedIn">Home</NavLink>
+     <NavLink className="nav-link nav-item p-2"  to="/loggedIn"><i><BiHomeHeart/></i> Home</NavLink>
    </NavItem>
 
    <NavItem>
    <Dropdown isOpen={dropdownOpen} toggle={toggleDrop}>
    <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer" >
-<p className="nav-link nav-item p-2" >Students <sup className="badge badge-danger">{allStudents}</sup> ^ </p>
+<p className="nav-link nav-item p-2" ><i><BiWalk/></i> Students <sup className="badge badge-danger">{allStudents}</sup></p>
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Students</b></p></DropdownItem>
-        <NavLink to="/loggedIn/studentList"><DropdownItem>List <sup className="badge badge-danger">{allStudents}</sup></DropdownItem></NavLink>
+        <NavLink to="/loggedIn/studentList"><DropdownItem><i><BiListUl/></i> List <sup className="badge badge-danger">{allStudents}</sup></DropdownItem></NavLink>
        
-  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{allStdBorrowed}</sup></DropdownItem></NavLink>    
+  <NavLink to="/loggedIn/studentBorrowers"><DropdownItem><i><BiListUl/></i> Borrowers <sup className="badge badge-danger">{allStdBorrowed}</sup></DropdownItem></NavLink>    
 
-  <NavLink to="/loggedIn/students/records"><DropdownItem>Records</DropdownItem></NavLink>      
+  <NavLink to="/loggedIn/students/records"><DropdownItem><i><BiListUl/></i> Records</DropdownItem></NavLink>      
         
       </DropdownMenu>
     </Dropdown>
@@ -121,15 +124,15 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
    <NavItem>
    <Dropdown isOpen={dropdownOpenT} toggle={toggleDropT}>
    <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer">
-       <p className="nav-link nav-item p-2" >Teachers <sup className="badge badge-danger">{allTeachers}</sup> ^</p>
+       <p className="nav-link nav-item p-2" ><i><BiUserVoice/></i> Teachers <sup className="badge badge-danger">{allTeachers}</sup></p>
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Teachers</b></p></DropdownItem>
-    <NavLink to="/loggedIn/teachersList"><DropdownItem>List <sup className="badge badge-danger">{allTeachers}</sup></DropdownItem></NavLink>        
+    <NavLink to="/loggedIn/teachersList"><DropdownItem><i><BiListUl/></i> List <sup className="badge badge-danger">{allTeachers}</sup></DropdownItem></NavLink>        
       
-  <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem>Borrowers <sup className="badge badge-danger">{alltchBorrowed}</sup></DropdownItem></NavLink>  
+  <NavLink to="/loggedIn/teachersBorrowers"><DropdownItem><i><BiListUl/></i> Borrowers <sup className="badge badge-danger">{alltchBorrowed}</sup></DropdownItem></NavLink>  
 
-  <NavLink to="/loggedIn/teachers/records"><DropdownItem>Records</DropdownItem></NavLink>
+  <NavLink to="/loggedIn/teachers/records"><DropdownItem><i><BiListUl/></i> Records</DropdownItem></NavLink>
       </DropdownMenu>
     </Dropdown>
    </NavItem>
@@ -137,11 +140,11 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
    <NavItem>
    <Dropdown isOpen={dropdownOpenB} toggle={toggleDropB}>
    <DropdownToggle  tag="span" data-toggle="dropdown" className="dropdown-pointer">
-       <p className="nav-link nav-item p-2" >Books <sup className="badge badge-danger">{allBooks}</sup> ^</p>
+       <p className="nav-link nav-item p-2" ><i><BiBook/></i> Books <sup className="badge badge-danger">{allBooks}</sup></p>
       </DropdownToggle>
       <DropdownMenu onClick={toggleSmart}>
       <DropdownItem header><p className="text-info"><b>Books</b></p></DropdownItem>
-      <NavLink to="/loggedIn/bookList"><DropdownItem>List <sup className="badge badge-danger">{allBooks}</sup></DropdownItem></NavLink>
+      <NavLink to="/loggedIn/bookList"><DropdownItem><i><BiListUl/></i> List <sup className="badge badge-danger">{allBooks}</sup></DropdownItem></NavLink>
        
       </DropdownMenu>
     </Dropdown>
@@ -151,11 +154,11 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
      toggleSmart()
      setModalVerify(!modalVerify)
    }}>
-    <button className="nav-link nav-item p-2 bg-none">Settings</button>      
+    <button className="nav-link nav-item p-2 bg-none"><i><BiCog/></i> Settings</button>      
   </NavItem>
 
      <NavItem onClick={toggleModal}>
-     <button className="nav-link nav-item p-2 bg-none">Logout</button>    
+     <button className="nav-link nav-item p-2 bg-none"><i><BiLogOut/></i> Logout</button>    
      </NavItem>
 
  </Nav>
@@ -165,15 +168,15 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
 
             <NavItem>
                 
-              <NavLink className="nav-link nav-item p-2"  to="/">Home</NavLink>
+              <NavLink className="nav-link nav-item p-2"  to="/"><i><BiHomeHeart/></i> Home</NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink className="nav-link nav-item p-2" to="/about">About us</NavLink>
+              <NavLink className="nav-link nav-item p-2" to="/about"><i><BiAward/></i> About us</NavLink>
             </NavItem>
 
             <NavItem onClick={()=>register()} >
-              <button className="nav-link nav-item p-2 bg-none">Register</button>
+              <button className="nav-link nav-item p-2 bg-none"><i><BiUserPlus/></i> Register</button>
             </NavItem>
 
             <NavItem onClick={()=>{
@@ -181,11 +184,11 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
               localStorage.clear()
             }
             }>
-              <button className="nav-link nav-item p-2 bg-none">Login</button>
+              <button className="nav-link nav-item p-2 bg-none"><i><BiLogIn/></i>  Login</button>
             </NavItem>
 
             <NavItem>
-              <NavLink className="nav-link nav-item p-2" to="/developers">Developers</NavLink>
+              <NavLink className="nav-link nav-item p-2" to="/developers"><i><BiShapePolygon/></i> Developers</NavLink>
             </NavItem>
               
           </Nav>
@@ -204,8 +207,8 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
         <ModalHeader toggle={toggleModal}><div className="text-center text-info">Are you sure to logout ?</div></ModalHeader>
         <div className="d-flex justify-content-center p-3">
 
-          <button className="btn btn-success mr-4" onClick={logout}><b className="text-light" >Logout</b></button>
-          <button className="btn btn-danger ml-4" onClick={toggleModal}><b className="text-light" >Cancel</b></button>
+          <button className="btn btn-success mr-4" onClick={logout}><b className="text-light" ><i><BiLogOut/></i> Logout</b></button>
+          <button className="btn btn-danger ml-4" onClick={toggleModal}><b className="text-light" ><i><BiXCircle/></i> Cancel</b></button>
 
         </div>
         
@@ -226,7 +229,7 @@ const brand =auth ?  <NavbarBrand className="text-brand" to="/">
     
         </div>
         <div className="d-flex p-3">
-  <button onClick={verifyPassword} className="btn btn-md btn-success m-auto text-big">Verify</button>
+  <button onClick={verifyPassword} className="btn btn-md btn-success m-auto text-big"><i><BiUserCheck/></i> Verify</button>
 </div>
 
 

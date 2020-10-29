@@ -2,6 +2,7 @@
 import React from 'react'
 import { Jumbotron } from 'reactstrap';
 import { Link,withRouter} from 'react-router-dom'
+import { BiBoltCircle,BiLogIn,BiUserPlus,BiQuestionMark } from "react-icons/bi";
 import Footer from './footer';
 function FirstPage(props) {
 const login=props.login
@@ -14,13 +15,13 @@ const register=props.register
          </div>       
         <Jumbotron className="mb-0 bg-jumbtron">
             <div className="container">
-            <h1 className="display-5 text-primary">Welcome to smart library management system</h1>
+            <h1 className="display-5 text-primary"><i><BiBoltCircle/></i> Welcome to smart library management system</h1>
          <p className="lead">This web application is designed for helping institutions to control and manage books smartly.</p>
          <hr className="my-2" />
          <p className="text-big mt-2">It is easy to use and efficient.</p>
          <p className="text-big mt-2">You can explore more about this app by click button bellow </p>
          <p className="lead pb-0 mt-2">
-           <Link to="/about" className="btn btn-lg btn-gray text-light mx-auto">Explore <span className="badge badge-danger pt-1"> More</span></Link>
+           <Link to="/about" className="btn btn-lg btn-gray text-light mx-auto">Explore <span className="badge badge-danger pt-1"> More </span> <i><BiQuestionMark/></i></Link>
          </p>
             </div>
         
@@ -37,9 +38,10 @@ const register=props.register
  
         <p className="text-center lead m-2">Or if you have already registered you can simply login and start</p>
  <hr/>
- <div className="d-flex justify-content-center m-2">
- <button onClick={()=>register()} className="btn btn-md btn-outline-info">Register</button>
- <button onClick={()=>login()} className="btn btn-md btn-outline-info ml-4">Login</button>
+ <div className="d-flex justify-content-center m-2 text-bold">
+ <button onClick={()=>register()} className="btn btn-md btn-outline-info text-big"><b><i><BiUserPlus/></i> Register</b></button>
+ <button onClick={()=>login()} className="btn btn-md btn-outline-info ml-4 text-big">
+    <b> <i><BiLogIn/></i>  Login</b></button>
  </div>
  
      </div>

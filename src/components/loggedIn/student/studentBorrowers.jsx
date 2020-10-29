@@ -8,6 +8,7 @@ import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import * as studentActions from '../../../redux/students/actions'
 import moment from 'moment'
 import ConnectionFails from '../connectionError'
+import { BiArrowFromRight,BiSearchAlt,BiScan } from "react-icons/bi";
 
 class StudentBorrowers extends Component {
     state = { word:'',studentIdToReturn:'',bookTypeToReturn:'',bookIdToReturn:'',bookNameToReturn:'',studentNameToReturn:'',modal:false}
@@ -74,7 +75,7 @@ this.setState({word:e.target.value})
      <td className="p-1">{moment(borrower.dateBorrowed).format("L")}</td>
 
 
-       <td className="p-1 d-print-none" onClick={()=>{
+       <td className="p-1 d-print-none text-nowrap" onClick={()=>{
 this.toggle()
 this.setState({
   studentIdToReturn:borrower.studentId,
@@ -83,7 +84,7 @@ this.setState({
   bookNameToReturn:borrower.bookName,
   studentNameToReturn:borrower.firstName + '  '+borrower.lastName
 })
-       }}><button className="btn btn-outline-info w-100 py-0">Return</button></td>
+       }}><button className="btn btn-outline-info w-100 py-0"><i><BiArrowFromRight/></i>Return</button></td>
      
      </tr>
      )
@@ -110,14 +111,14 @@ this.setState({
 <div className="input-group mb-2">
 <input  type="text" value={this.state.word} onChange={this.handleChange} className="form-control bg-light" id="inlineFormInputGroupB" placeholder="Search ..."/>
   <div className="input-group-prepend">
-    <div className="input-group-text">@</div>
+    <div className="input-group-text"><i><BiSearchAlt/></i></div>
   </div>
 
 </div>   
   </div>    
        </div>    
        <div className="d-flex mb-2 mt-n1 d-print-none">
-       <button onClick={this.printPage} className="text-monospace mx-auto btn btn-info p-1 btn-sm"> Print this page </button>  
+       <button onClick={this.printPage} className="text-monospace mx-auto btn btn-info px-1 py-2 btn-sm text-big"> <i><BiScan/></i> Print this page </button>  
        </div>
       
     <div className="container">

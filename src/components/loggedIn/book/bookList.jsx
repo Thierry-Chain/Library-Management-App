@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 import * as bookActions from '../../../redux/books/actions'
 import ConnectionFail from '../connectionError'
+import {BiMessageSquareAdd,BiSearchAlt} from 'react-icons/bi'
 
 class BookList extends Component {
     state = { search:'',modal:false,bookType:'',numOfBooks:'',trash:'',editBookType:'',editNumOfBooks:'',modalEdit:false,modalDelete:false,bookId:'' }
@@ -125,7 +126,7 @@ this.props.createNewBook(data)
             
             <div className="bg-secodary pt-2 head">
            <div className="d-flex bg-head justify-content-center font-f">
-<p className="text-center text-dark h2">Books List                        <span onClick={this.toggle} title="Add New book" className="ml-1 badge badge-warning dropdown-pointer add"> Add +</span></p>
+<p className="text-center text-dark h2">Books List                        <span onClick={this.toggle} title="Add New book" className="ml-1 badge badge-warning dropdown-pointer add"> Add <i><BiMessageSquareAdd/></i></span></p>
            </div>
            <p className="w-50 mx-auto p-line bg-line"></p>
            </div>
@@ -137,7 +138,7 @@ this.props.createNewBook(data)
 <div className="input-group mb-2">
   <input type="text" value={this.state.search} className="form-control bg-light" onChange={this.handleChange } id="inlineFormInputGroup" placeholder="Search ..."/>
   <div className="input-group-prepend">
-    <div className="input-group-text">@</div>
+    <div className="input-group-text"><i><BiSearchAlt/></i></div>
   </div>
 
 </div>   

@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import {Alert } from 'reactstrap'
+import { BiBarChartAlt } from "react-icons/bi";
 export default function Footer() {
     let year=new Date()
 let today=year.getFullYear()
     return (
         <section className="bg-footer footer">
             <div className="header mx-auto">
-           <p className="h3 mx-auto text-center"> Online library managemet system </p>
+           <p className="h3 mx-auto text-center"><i><BiBarChartAlt/></i> Online library managemet system </p>
            <p className="p-1 bg-light mt-1 w-50 mx-auto"></p>
             </div><br/>
 <p className="lead h5 text-monospace text-center">This smart library helps you to works efficiently and avoid permanet repetitions in writting students who borrows the books instead of one time</p>

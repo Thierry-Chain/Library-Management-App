@@ -4,6 +4,7 @@ import Loading from '../loading'
 import uuid from 'uuid/v1'
 import moment from 'moment'
 import ConnectionFails from '../connectionError'
+import {BiSearch} from 'react-icons/bi'
 
 function RecordsTeacher() {
     const [search, setsearch] = useState('')
@@ -34,14 +35,14 @@ function RecordsTeacher() {
 <div className="input-group mb-2">
   <input type="text" value={search} onChange={(e)=>setsearch(e.target.value)} className="form-control bg-light" id="inlineFormInputGroup" placeholder="Search ..."/>
   <div className="input-group-prepend">
-    <div className="input-group-text">@</div>
+    <div className="input-group-text"><i><BiSearch/></i></div>
   </div>
 
 </div>   
   </div>    
        </div>  </div>
        <div className="container">
-    {/*/////////////////////////*/}
+    
     <table className="table table-bordered table-responsive w-100" id="myTable">
         <caption className="caption text-center">Powered by smart library</caption>
  <thead className="w-100">
@@ -79,7 +80,7 @@ function RecordsTeacher() {
    
  </tbody>
  </table>
- {/*************************** */}
+
     
         </div>
     </div>

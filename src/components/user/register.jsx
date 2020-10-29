@@ -7,6 +7,7 @@ import axios from 'axios'
 import {useSelector} from 'react-redux'
 import { location } from '../../locations'
 import ConnectionFails from '../loggedIn/connectionError'
+import {BiUserPlus,BiUserCheck,BiUserX} from 'react-icons/bi'
 
 const Register = (props) => {
 const [names, setNames] = useState('')
@@ -59,7 +60,7 @@ axios(config)
     
       <Modal isOpen={register} toggle={()=>{ toggle() }} >
       <form className="form" onSubmit={handleSubmit}>
-        <ModalHeader toggle={()=>{ toggle() }}><p className="text-center text-info mx-auto">Register As User</p></ModalHeader>
+        <ModalHeader toggle={()=>{ toggle() }}><p className="text-center text-info mx-auto"><i><BiUserPlus/></i> Register As User</p></ModalHeader>
         <ModalBody>
       {alert}  
   <div className="row">
@@ -83,8 +84,8 @@ axios(config)
         </ModalBody><hr/>
        
             <div className="d-flex justify-content-around p-3">
-<button type="submit" className="btn btn-success btn-md">Register</button>
-<button type="button" className="btn btn-warning btn-md" onClick={()=>toggle()}>Cancel</button>
+<button type="submit" className="btn btn-success btn-md text-big"><i><BiUserCheck/></i> Register </button>
+<button type="button" className="btn btn-warning btn-md text-big" onClick={()=>toggle()}><i><BiUserX/></i> Cancel</button>
             </div>
             </form>
       </Modal>

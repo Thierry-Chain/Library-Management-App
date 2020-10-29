@@ -7,6 +7,8 @@ import {Alert,Modal, ModalHeader} from 'reactstrap'
 import * as studentActions from '../../../redux/students/actions'
 import moment from 'moment'
 import ConnectionFail from '../connectionError'
+import { BiScan, BiSearch } from "react-icons/bi";
+
 
 class StudentList extends Component {
     state = { search:'',trash:'',modalDelete:false,modalReturn:false,nameToReturn:'',name_ToReturn:'' }
@@ -135,7 +137,7 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
 <div className="input-group mb-2">
   <input type="text" value={this.state.search} className="form-control bg-light" onChange={this.handleAllChanges } name="search" id="inlineFormInputGroup" placeholder="Search ..."/>
   <div className="input-group-prepend">
-    <div className="input-group-text">@</div>
+    <div className="input-group-text"><i><BiSearch/></i></div>
   </div>
 
 </div>   

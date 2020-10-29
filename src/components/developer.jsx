@@ -1,4 +1,5 @@
 import React from 'react'
+import { BiLocationPlus,BiPhoneCall,BiSmile } from "react-icons/bi";
 
 function Developers() {
     return (
@@ -24,10 +25,12 @@ function Developers() {
 
 <div className="col-11 col-sm-5 mx-auto">
 <div className="card text-white mb-3 card-custom">
-<div className="card-header">Location</div>
+<div className="card-header text-big"><i className="text-big"><BiLocationPlus/></i> Location </div>
 <div className="card-body">
   <p className="card-text text-big">Country : <b>Rwanda</b></p>
   <p className="card-text text-big">Service : <b>Websites / Web-application development</b></p>
+  <p className="card-text text-big">You can contact us !</p>
+  
 </div>
 </div>
 </div>
@@ -36,10 +39,10 @@ function Developers() {
   
 <div className="col-11 col-sm-5 mx-auto">
 <div className="card text-white mb-3 card-custom">
-<div className="card-header">Contacts</div>
+<div className="card-header"><i className="text-big"><BiPhoneCall/></i> Contacts</div>
 <div className="card-body">
   <p className="card-text text-big">Phone : <b>0784405833</b></p>
-  <p className="card-text text-big">Whatsapp : <b>0784405833</b></p>
+  <p className="card-text text-big">Whatsapp : <b>0782765738</b></p>
   <p className="card-text text-big">Email : <b>irambonat0@gmail.com</b></p>
 </div>
 </div>
@@ -51,9 +54,11 @@ function Developers() {
 <div className="card-header">In Addition</div>
 <h5 className="card-title text-center">Those who want to study web development</h5>
 <div className="card-body">
-  <p className="card-text text-big">Phone : <b>0788888888</b></p>
-  <p className="card-text text-big">Whatsapp : <b>0788888888</b></p>
-  <p className="card-text text-big">Email : <b>Learn@gmail.com</b></p>
+  <p className="card-text text-big">Phone : <b>0782765738</b></p>
+  <p className="card-text text-big">Whatsapp : <b>0784405833</b></p>
+  <p className="card-text text-big">Email : <b>irambonat0@gmail.com</b></p>
+  <p className="card-text text-big">Youtube : <b>Thenetninja</b></p>
+
 </div>
 </div>
 </div>
@@ -65,7 +70,7 @@ function Developers() {
         </div>
         <div className="border border-secondary mt-2 mx-1">
 
-        <p className="text-center display-4 color-dev">Special thanks for visiting us</p>       
+        <p className="text-center display-4 color-dev h3"><i><BiSmile/></i>  Special thanks for visiting us</p>       
         </div>
         </section>
     ) 

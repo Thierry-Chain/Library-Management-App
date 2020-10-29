@@ -9,15 +9,15 @@ import * as teacherActions from '../../redux/teachers/actions'
 import * as bookActions from '../../redux/books/actions'
 import * as userActions from '../../redux/users/action'
 import {getUserName,getUserEmail} from '../../redux/users/saveUser'
-
+import {BiMoveVertical,BiTrashAlt,BiUser,BiPaint,BiMessageError,BiCoinStack} from 'react-icons/bi'
 
 
 class Main extends Component {
 state={ popoverOpen:false,modalPromote:false,modalDelRecords:false,modalDelFinalists:false,modalDelBorrowers:false,modalDelStudents:false,modalDelBooks:false,modalDelTeacherBorrowers:false,modalDelTeacherRecords:false,modalDelTeacherList:false,modalChangePassword:false,newPassword:'',oldPassword:'',modalErase:false,modalEdit:false,editUserName:'',editEmail:''}
   componentDidMount() {
     if (this.props.authAccess === false) {
-      //this.props.history.push('/loggedIn')
-      //this.props.logout()
+      this.props.history.push('/loggedIn')
+      this.props.logout()
     }
   }
   handleChangePassword=()=>{
@@ -102,9 +102,9 @@ setPopoverOpen =()=>{
 
   <div className="d-flex my-2">
 <ul className="list-group mx-auto w-75 bg-darker">
-  <button onClick={this.toggleEdit} className="list-group-item btn-outline-secondary text-dark">Change email/username</button>
-  <button onClick={this.toggleChangePassword} className="list-group-item btn-outline-secondary text-dark">Change password</button>
-  <button onClick={this.toggleErase} className="list-group-item btn-outline-secondary text-dark">Delete my account</button>
+  <button onClick={this.toggleEdit} className="list-group-item btn-outline-secondary text-dark"><i><BiUser/></i>Change email/username</button>
+  <button onClick={this.toggleChangePassword} className="list-group-item btn-outline-secondary text-dark"><i><BiPaint/></i> Change password</button>
+  <button onClick={this.toggleErase} className="list-group-item btn-outline-secondary text-dark"> <i><BiMessageError/></i>Delete my account</button>
 </ul>
   </div>
   
@@ -114,11 +114,11 @@ setPopoverOpen =()=>{
 
  <div className="d-flex my-2">
 <ul className="list-group mx-auto w-75 bg-darker">
-  <button onClick={this.togglePromote} className="list-group-item p-1 btn-outline-secondary text-dark">Promote students</button>
-  <button onClick={()=>{this.toggleDelRecords()}} className="list-group-item p-1 btn-outline-secondary text-dark">Delete records</button>
+  <button onClick={this.togglePromote} className="list-group-item p-1 btn-outline-secondary text-dark"><i><BiMoveVertical/></i>Promote students</button>
+  <button onClick={()=>{this.toggleDelRecords()}} className="list-group-item p-1 btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete records</button>
  
-  <button onClick={this.toggleDelBorrowers} className="list-group-item p-1 btn-outline-secondary text-dark">Delete borrowers</button>
-  <button onClick={this.toggleDelStudents} className="list-group-item p-1 btn-outline-secondary text-dark">Delete students</button>
+  <button onClick={this.toggleDelBorrowers} className="list-group-item p-1 btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete borrowers</button>
+  <button onClick={this.toggleDelStudents} className="list-group-item p-1 btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete students</button>
 
 </ul>
   </div>
@@ -127,18 +127,18 @@ setPopoverOpen =()=>{
 <p className="p text-center h3 my-1"><u>Teachers</u> </p>
 <div className="d-flex my-2">
 <ul className="list-group mx-auto w-75 bg-darker">
-  <button onClick={this.toggleDelTeacherBorrowers} className="list-group-item btn-outline-secondary text-dark">Delete borrowers</button>
-  <button onClick={this.toggleDelTeacherRecords} className="list-group-item btn-outline-secondary text-dark">Delete records</button>
-  <button onClick={this.toggleDelTeacherList} className="list-group-item btn-outline-secondary text-dark">Delete teachers</button>
+  <button onClick={this.toggleDelTeacherBorrowers} className="list-group-item btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete borrowers</button>
+  <button onClick={this.toggleDelTeacherRecords} className="list-group-item btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete records</button>
+  <button onClick={this.toggleDelTeacherList} className="list-group-item btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete teachers</button>
 </ul>
   </div>
 </div>
 <div className="col-11 col-sm-5 mx-auto bg-info height-half my-3">
 <p className="p text-center h3 my-1"><u>Books and finalist</u> </p>
 <ul className="list-group mx-auto w-75 bg-darker">
-<Link to="/loggedIn/finalists" className="list-group-item btn-outline-secondary text-center text-dark" >Finalists Data</Link>
-  <button onClick={this.toggleDelBooks} className="list-group-item btn-outline-secondary text-dark">Delete books</button>
-  <button onClick={()=>this.toggleDelFinalists()} className="list-group-item p-1 btn-outline-secondary text-dark">Delete finalists</button>
+<Link to="/loggedIn/finalists" className="list-group-item btn-outline-secondary text-center text-dark" ><i><BiCoinStack/></i> Finalists Data</Link>
+  <button onClick={this.toggleDelBooks} className="list-group-item btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete books</button>
+  <button onClick={()=>this.toggleDelFinalists()} className="list-group-item p-1 btn-outline-secondary text-dark"><i><BiTrashAlt/></i>Delete finalists</button>
 </ul>
 
 

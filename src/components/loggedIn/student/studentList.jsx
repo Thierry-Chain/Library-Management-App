@@ -8,6 +8,7 @@ import Select from 'react-select'
 import Classes,{optionGender} from './classes'
 import * as studentActions from '../../../redux/students/actions'
 import ConnectionFails from '../connectionError'
+import { BiEdit,BiTrash,BiArrowFromLeft,BiArrowFromRight,BiCommentAdd,BiSearchAlt } from "react-icons/bi";
 
 class StudentList extends Component {
     state = { search:'',modal:false,modalDelete:false,selectedOption:null,gender:'',age:'',firstName:'',lastName:'',trash:'' }
@@ -79,12 +80,12 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
      <th scope="col" className="w">Firstname</th>
      <th scope="col" className="w">Lastname</th>
      <th scope="col" className="w-15 text-nowrap">Class</th>
-     <th scope="col" className="">Gender</th>
-     <th scope="col" className="">Year</th>
-     <th scope="col" className="px-4">Action</th>
-     <th scope="col" className="px-4">Action</th>
-     <th scope="col" className="px-4">Action</th>
-     <th scope="col" className="">Remain</th>
+     <th scope="col" className="text-nowrap">Gender</th>
+     <th scope="col" className="text-nowrap">Year</th>
+     <th scope="col" className="text-nowrap">Action</th>
+     <th scope="col" className="text-nowrap">Action</th>
+     <th scope="col" className="text-nowrap">Action</th>
+     <th scope="col" className="text-nowrap">Remain</th>
  
  
    </tr>
@@ -94,19 +95,19 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
      return(
        
        <tr key={student._id}>
-       <td className="p-1">{student.firstName}</td>
-       <td className="p-1">{student.lastName}</td>
+       <td className="p-1 text-nowrap">{student.firstName}</td>
+       <td className="p-1 text-nowrap">{student.lastName}</td>
      <td className="p-1 text-nowrap">{student.Class}</td>
-       <td className="p-1">{student.gender}</td>
-       <td className="p-1">{student.age}</td>
+       <td className="p-1 text-nowrap">{student.gender}</td>
+       <td className="p-1 text-nowrap">{student.age}</td>
 
-  { student.lend===0 ?  <td className="py-1 disabled"><Link to={`/loggedIn/lend/${student._id}`} className={ClassName}>Lend</Link></td> : <td className="py-1"><Link to={`/loggedIn/lend/${student._id}/${student.lend}`} className="btn btn-outline-info w-100 py-0">Lend</Link></td>}
+  { student.lend===0 ?  <td className="py-1 disabled text-nowrap"><Link to={`/loggedIn/lend/${student._id}`} className={ClassName}>Lend</Link></td> : <td className="py-1 text-nowrap"><Link to={`/loggedIn/lend/${student._id}/${student.lend}`} className="btn btn-outline-info w-100 py-0"><i><BiArrowFromLeft/></i>Lend</Link></td>}
 
-       <td className="py-1"><Link to={`/loggedIn/edit/${student._id}`} className="btn btn-outline-info w-100 py-0">Edit</Link></td>
+       <td className="py-1 text-nowrap"><Link to={`/loggedIn/edit/${student._id}`} className="btn btn-outline-info w-100 py-0"><i><BiEdit/></i>Edit</Link></td>
        <td onClick={()=>{
          this.putInTrash(student._id)
          this.toggleDelete()
-       }} className="py-1"><button className="btn btn-outline-danger w-100 py-0">Delete</button></td>
+       }} className="py-1 text-nowrap"><button className="btn btn-outline-danger w-100 py-0"><i><BiTrash/></i>Delete</button></td>
      <td className="p-1"><b>{student.lend}</b></td>
      </tr>
      )
@@ -125,7 +126,7 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
           { this.props.connectionError ? <ConnectionFails/>:  <React.Fragment>
             <div className="bg-secodary pt-2 head">
            <div className="d-flex bg-head justify-content-center">
-<p className="text-center text-dark h2">Student List                        <span onClick={this.toggle} title="Add New Student" className="ml-1 badge badge-warning dropdown-pointer add"> Add +</span></p>
+<p className="text-center text-dark h2">Student List                        <span onClick={this.toggle} title="Add New Student" className="ml-1 badge badge-warning dropdown-pointer add"> Add <i><BiCommentAdd/></i></span></p>
            </div>
            <p className="w-50 mx-auto p-line bg-line"></p>
            </div>
@@ -137,7 +138,7 @@ const errorMessage=this.props.error ? <Alert color="danger">{this.props.error}</
 <div className="input-group mb-2">
   <input type="text" value={this.state.search} className="form-control bg-light" onChange={this.handleChange } id="inlineFormInputGroup" placeholder="Search ..."/>
   <div className="input-group-prepend">
-    <div className="input-group-text">@</div>
+    <div className="input-group-text"><i><BiSearchAlt/></i></div>
   </div>
 
 </div>   

@@ -4,6 +4,8 @@ import Loading from '../loading'
 import uuid from 'uuid/v1'
 import moment from 'moment'
 import ConnectionFails from '../connectionError'
+import { BiSearchAlt } from "react-icons/bi";
+
 function Records(props) {
     const [search, setsearch] = useState('')
     const list = useSelector(state => state.students.records)
@@ -34,7 +36,7 @@ function Records(props) {
 <div className="input-group mb-2">
   <input type="text" value={search} onChange={(e)=>setsearch(e.target.value)} className="form-control bg-light" id="inlineFormInputGroup" placeholder="Search ..."/>
   <div className="input-group-prepend">
-    <div className="input-group-text">@</div>
+    <div className="input-group-text"><i><BiSearchAlt/></i></div>
   </div>
 
 </div>   

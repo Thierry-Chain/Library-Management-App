@@ -4,10 +4,12 @@ import {  Modal, ModalHeader, ModalBody,Alert } from 'reactstrap';
 import * as userActions from '../../redux/users/action'
 import { withRouter } from 'react-router-dom'
 import ConnectionFails from '../loggedIn/connectionError' 
+import {BiLogIn, BiXCircle } from 'react-icons/bi'
+
 
 
 class Login extends Component {
-    state = { email:'thierry@gmail.com',pword:'12345A' };
+    state = { email:'',pword:'' };
   
 componentDidUpdate(prevProps) {
     const previousAuth=prevProps.auth
@@ -49,7 +51,7 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
      
       <Modal isOpen={this.props.login} toggle={()=>{this.props.onToggle() }} >
       <form className="form" onSubmit={this.handleSubmit}>
-      <ModalHeader toggle={()=>{ this.props.onToggle() }}><p className="text-center text-info mx-auto">Login Now</p></ModalHeader>
+      <ModalHeader toggle={()=>{ this.props.onToggle() }}><p className="text-center text-info mx-auto"><i><BiLogIn/></i> Login Now</p></ModalHeader>
         <ModalBody>
       {alert}  
   <div className="row">
@@ -70,8 +72,8 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
         <hr/>
        
             <div className="d-flex justify-content-around p-3">             
-<button type="submit" className="btn btn-success btn-md">Login</button>
-<button type="button" className="btn btn-warning btn-md" onClick={()=>this.props.onToggle()}>Abort</button>
+<button type="submit" className="btn btn-success btn-md text-big"><i><BiLogIn/></i> Login</button>
+<button type="button" className="btn btn-warning btn-md text-big" onClick={()=>this.props.onToggle()}><i><BiXCircle/></i> Abort</button>
             </div>
             </form>
       </Modal>

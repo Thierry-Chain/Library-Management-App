@@ -6,6 +6,7 @@ import {Alert,Modal, ModalHeader, ModalBody,Button} from 'reactstrap'
 import {optionGender} from '../student/classes'
 import * as teacherActions from '../../../redux/teachers/actions'
 import ConnectionFails from '../connectionError'
+import { BiSearch, BiPlusCircle } from "react-icons/bi";
 
 
 class TeachersList extends Component {
@@ -154,7 +155,7 @@ toggle=()=>{
    
         <div className="bg-secodary pt-2 head-1">
        <div className="d-flex bg-head justify-content-center">
-<p className="text-center text-dark h2">Teachers List                        <span onClick={this.toggleAddNew} title="Add New Teacher" className="ml-1 badge badge-bg dropdown-pointer add"> Add +</span></p>
+<p className="text-center text-dark h2">Teachers List                        <span onClick={this.toggleAddNew} title="Add New Teacher" className="ml-1 badge badge-bg dropdown-pointer add"> Add <i><BiPlusCircle/></i></span></p>
        </div>
        <p className="w-25 mx-auto p-line bg-line"></p>
        </div>
@@ -166,7 +167,7 @@ toggle=()=>{
 <div className="input-group mb-2">
 <input type="text" name="search" value={this.state.search} className="form-control bg-light" onChange={this.handleAllChanges } id="inlineFormInputGroup" placeholder="Search ..."/>
 <div className="input-group-prepend">
-<div className="input-group-text">@</div>
+<div className="input-group-text"><i><BiSearch/></i></div>
 </div>
 
 </div>   

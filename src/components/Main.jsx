@@ -30,7 +30,7 @@ class Main extends Component {
    } 
    if (this.props.auth === true) {
      //this can be removed if the fisrst router is changed after hosting
-    //this.props.history.push('/loggedIn')
+    this.props.history.push('/loggedIn')
    }
   }
   componentDidMount() {

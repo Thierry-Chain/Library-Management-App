@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Jumbotron} from 'reactstrap'
 import { connect } from 'react-redux'
 import Footer from '../footer'
+import {BiTask,BiSelection,BiShow} from 'react-icons/bi'
 class Home extends Component {
     render() { 
       const allStudents=this.props.allStudents
@@ -12,12 +13,12 @@ class Home extends Component {
       return ( <section className="mt-5 bg-light mt-body">
   <div className="text-center ">
   <Jumbotron className="mb-0">
-          
+           
             <h1 className="display-4 text-color h1">Smart library vip</h1>
             <p className="py-1 bg-color-1 mx-auto w-50"></p>
             <p className="lead py-3">This is internal part of this smart library where you can perfom its main functions in order to manage your physical library.</p>
       <p className="lead py-3">Click the button bellow to see how to perform some operations.</p>
-         <a href="#1" className="btn btn-md btn-info py-2 text-big"><b>How it works ?</b></a>
+         <a href="#1" className="btn btn-md btn-info py-2 text-big"><b>How it works <i><BiShow/></i></b></a>
         </Jumbotron>
    
   </div>
@@ -25,7 +26,7 @@ class Home extends Component {
      <div className="container-fluid bg-color my-0 p-0">
        <div className="div container">
   
-       <p className="h2 text-center mb-0"> ^ My Status</p> <br/>
+       <p className="h2 text-center mb-0"> <i><BiTask/></i> My Status</p> <br/>
        <table className="table table-hover mt-0">
     <thead className="bg-table">
       <tr>
@@ -54,7 +55,7 @@ class Home extends Component {
   
     </tbody>
   </table>
-  <p className="h2 text-center mb-0"> ^ Start using library</p> <br/>  
+  <p className="h2 text-center mb-0"> <i><BiSelection/></i> Start using library</p> <br/>  
   <div className="row py-4" >
   
   <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
