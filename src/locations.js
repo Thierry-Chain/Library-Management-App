@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export const location = 'null'
+export const location = 'https://quiet-river-33450.herokuapp.com'
 export const headers = {
     'Content-Type': 'application/json'
 }
