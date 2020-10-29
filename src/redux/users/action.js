@@ -3,7 +3,7 @@ import axios from 'axios'
 import {
     location,
     headers,
-    /*authHeader*/
+
 } from '../../locations'
 import {
     saveUser,
@@ -68,7 +68,7 @@ const fullLogout = () => {
         dispatch(logoutFrontend())
         dispatch(studentActions.connectionIsBack())
         localStorage.clear()
-        //backend logout   
+
     }
 }
 const redirect = () => {
@@ -87,7 +87,7 @@ const checkUserCredentials = () => {
             method: 'get',
             headers: authHeader
         }
-        //console.log('auth config',config)
+
         axios(config).then(() => {
                 dispatch(studentActions.connectionIsBack())
             })
@@ -124,8 +124,7 @@ export const editUserPassword = (data) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        //console.log('auth-header with store students', authHeader)
-        ///////////////////////////
+
         let oldData = {
             'email': getUserEmail(),
             'password': data.oldPassword
@@ -136,7 +135,7 @@ export const editUserPassword = (data) => {
             headers: authHeader,
             data: oldData
         }
-        console.log('verify', config)
+
         axios(config).then(() => {
 
                 const newData = {
@@ -148,22 +147,22 @@ export const editUserPassword = (data) => {
                     headers: authHeader,
                     data: newData
                 }
-                /// console.log(config)
-                axios(configs).then((resp) => {
-                    console.log('edited password', resp.data)
+
+                axios(configs).then(() => {
+                    dispatch(studentActions.connectionIsBack())
                 }).catch((error) => {
-                    console.log('errorx', error.response)
+
                     dispatch(loginError(error.response.data.message))
                 })
 
             })
 
             .catch((error) => {
-                console.log('failed to check', error.response.data.message)
+
                 loginError(error.response.data.message)
 
             })
-        ///////////////////////
+
 
     }
 }
@@ -204,14 +203,14 @@ export const edituserInfo = (data) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        //console.log('auth-header with store students', authHeader)
+
         const config = {
             url: `${location}/user/changeEmailOrUsername/${getUserId()}`,
             method: 'patch',
             headers: authHeader,
             data
         }
-        /// console.log(config)
+
         axios(config).then((resp) => {
             dispatch(redirect())
 

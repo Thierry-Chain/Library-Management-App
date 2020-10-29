@@ -242,7 +242,7 @@ export const deleteAllBooks = () => {
             headers: authHeader,
 
         }
-        console.log(config)
+
         axios(config).then(() => {
             dispatch(studentActions.connectionIsBack())
             dispatch(fetchList())
@@ -285,7 +285,7 @@ export const deleteFinalistsData = () => {
             headers: authHeader,
 
         }
-        console.log(config)
+
         axios(config).then(() => {
             dispatch(studentActions.fetchFinalists())
         }).catch((resp) => {

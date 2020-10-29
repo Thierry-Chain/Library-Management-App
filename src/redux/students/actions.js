@@ -155,7 +155,7 @@ export const addNewStudent = (student) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        //console.log('auth-header with store students', authHeader)
+
         const config = {
             url: `${location}/student/${getUserId()}`,
             method: 'post',
@@ -191,7 +191,7 @@ export const deleteTheStudent = (studentId) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        //console.log('auth-header with store students', authHeader)
+
         const config = {
             url: `${location}/student/${getUserId()}/${studentId}`,
             method: 'delete',
@@ -266,7 +266,7 @@ export const lendbook = (data, studentId) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        //  console.log('auth-header with store students', authHeader)
+
         const config = {
             url: `${location}/student/lend/${getUserId()}/${studentId}`,
             method: 'post',
@@ -333,7 +333,7 @@ export const returnBook = (data, studentId) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        /// console.log('auth-header with store students', authHeader)
+
         const config = {
             url: `${location}/student/record/${getUserId()}/${studentId}`,
             method: 'post',
@@ -488,7 +488,7 @@ export const deleteStudentList = () => {
             headers: authHeader,
 
         }
-        console.log(config)
+
         axios(config).then(() => {
             dispatch(connectionIsBack())
             dispatch(fetchList())
@@ -557,7 +557,7 @@ export const deleteFinalist = (studentId) => {
             'Content-Type': 'application/json',
             'auth-token': `${token}`
         }
-        //console.log('auth-header with store students', authHeader)
+
         const config = {
             url: `${location}/studentSettings/deleteFinalist/${getUserId()}/${studentId}`,
             method: 'delete',
