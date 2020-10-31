@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 import * as bookActions from '../../../redux/books/actions'
 import ConnectionFail from '../connectionError'
-import {BiMessageSquareAdd,BiSearchAlt} from 'react-icons/bi'
+import {BiAddToQueue, BiMessageSquareAdd,BiSearchAlt, BiTaskX, BiTrashAlt,BiEditAlt} from 'react-icons/bi'
 
 class BookList extends Component {
     state = { search:'',modal:false,bookType:'',numOfBooks:'',trash:'',editBookType:'',editNumOfBooks:'',modalEdit:false,modalDelete:false,bookId:'' }
@@ -14,6 +14,7 @@ class BookList extends Component {
     componentDidUpdate(prevProps) {
       if (prevProps.books.length < this.props.books.length) {
         this.toggle()
+        this.setState({bookType:'',numOfBooks:''})
       }
     }
 
@@ -45,9 +46,9 @@ this.setState({modalDelete:!this.state.modalDelete})
     handleSubmit=(e)=>{
 e.preventDefault()
 const {bookType,numOfBooks}=this.state
-const data={ typeOfBooks:bookType.toLocaleLowerCase(),numOfBooks }
+const data={ typeOfBooks:bookType,numOfBooks }
 this.props.createNewBook(data)
-
+this.setState({bookType:'',numOfBooks:''})
     }
 
     handleDelete=()=>{
@@ -59,7 +60,7 @@ this.props.createNewBook(data)
     handleEdit=(e)=>{
       e.preventDefault()
       const {editBookType,editNumOfBooks}=this.state
-    const data={typeOfBooks:editBookType.toLowerCase(),numOfBooks:editNumOfBooks}
+    const data={typeOfBooks:editBookType,numOfBooks:editNumOfBooks}
     const bookId=this.state.bookId
     this.props.editBook(data,bookId)
     this.toggleEdit()
@@ -97,15 +98,15 @@ this.props.createNewBook(data)
      <td className="p-1">{book.numOfBooks}</td>
      <td className="p-1">{moment(book.date).format("L")}</td>
     
-       <td className="py-1" onClick={()=>{
+       <td className="py-1 text-nowrap" onClick={()=>{
            this.toggleEdit()
            this.setState({editNumOfBooks:book.numOfBooks,editBookType:book.typeOfBooks,bookId:book._id})
-       }}><button className="btn btn-outline-primary w-100 py-0">Edit</button></td>
+       }}><button className="btn btn-outline-primary w-100 py-0"><i><BiEditAlt/></i>Edit</button></td>
       
        <td onClick={()=>{
          this.putInTrash(book._id)
          this.toggleDelete()
-       }} className="py-1"><button className="btn btn-outline-danger w-100 py-0">Delete</button></td>
+       }} className="py-1 text-nowrap"><button className="btn btn-outline-danger w-100 py-0"><i><BiTaskX/></i>Delete</button></td>
     
      </tr>
      )
@@ -167,8 +168,8 @@ this.props.createNewBook(data)
   </div>
         </ModalBody>
         <ModalFooter>
-          <button type="submit" className="btn btn-md btn-success"><b>Add</b></button>
-          <Button color="danger" onClick={this.toggle}><b>Abort</b></Button>
+          <button type="submit" className="btn btn-md btn-success"><b><i><BiAddToQueue/></i>Add</b></button>
+          <Button color="danger" onClick={this.toggle}><b><i><BiTaskX/></i>Abort</b></Button>
         </ModalFooter>
         </form>
       </Modal>
@@ -182,8 +183,8 @@ this.props.createNewBook(data)
     </Alert>
        </div>
         <div className="d-flex my-5 mx-3 text-big">
-<button onClick={this.handleDelete} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
-<button type="button" onClick={this.toggleDelete} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+<button onClick={this.handleDelete} className="btn btn-md pull-left btn-success mr-2 w-75"><i><BiTrashAlt/></i>Delete</button>
+<button type="button" onClick={this.toggleDelete} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiTaskX/></i>Abort</button>
         </div>
         
        

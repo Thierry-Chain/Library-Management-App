@@ -61,7 +61,7 @@ if( isNaN(numOfBooks)){
   console.log('not a number')
   this.props.error='Book Number Must Be A Number'
 }
-const data={ numOfBooks,bookType:bookType.toLowerCase(),bookName }
+const data={ numOfBooks,bookType,bookName }
 this.props.lendBook(data,teacherId)
 
 }

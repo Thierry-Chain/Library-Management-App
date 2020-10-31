@@ -11,21 +11,30 @@ const saveUser = (user) => {
 
 }
 const getUser = () => {
-  return localStorage.getItem('state')
+  if (localStorage.getItem('state')) {
+    return localStorage.getItem('state')
+  }
 }
 
 const getUserName = () => {
-  const userObj = JSON.parse(localStorage.getItem('state'))
-  return userObj.more.user.name
+  if (localStorage.getItem('state')) {
+    const userObj = JSON.parse(localStorage.getItem('state'))
+    return userObj.more.user.name
+  }
 }
 
 const getUserId = () => {
-  const userObj = JSON.parse(localStorage.getItem('state'))
-  return userObj.more.user._id
+  if (localStorage.getItem('state')) {
+
+    const userObj = JSON.parse(localStorage.getItem('state'))
+    return userObj.more.user._id
+  }
 }
 const getUserEmail = () => {
-  const userObj = JSON.parse(localStorage.getItem('state'))
-  return userObj.more.user.email
+  if (localStorage.getItem('state')) {
+    const userObj = JSON.parse(localStorage.getItem('state'))
+    return userObj.more.user.email
+  }
 }
 
 

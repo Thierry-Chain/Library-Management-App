@@ -9,15 +9,15 @@ import * as teacherActions from '../../redux/teachers/actions'
 import * as bookActions from '../../redux/books/actions'
 import * as userActions from '../../redux/users/action'
 import {getUserName,getUserEmail} from '../../redux/users/saveUser'
-import {BiMoveVertical,BiTrashAlt,BiUser,BiPaint,BiMessageError,BiCoinStack} from 'react-icons/bi'
-
+import {BiMoveVertical,BiTrashAlt,BiUser,BiPaint,BiMessageError,BiCoinStack, BiWindowClose, BiUpload, BiMessageEdit,BiSave} from 'react-icons/bi'
+import {AiFillCloseSquare, AiFillDelete} from 'react-icons/ai'
 
 class Main extends Component {
 state={ popoverOpen:false,modalPromote:false,modalDelRecords:false,modalDelFinalists:false,modalDelBorrowers:false,modalDelStudents:false,modalDelBooks:false,modalDelTeacherBorrowers:false,modalDelTeacherRecords:false,modalDelTeacherList:false,modalChangePassword:false,newPassword:'',oldPassword:'',modalErase:false,modalEdit:false,editUserName:'',editEmail:''}
   componentDidMount() {
     if (this.props.authAccess === false) {
-      this.props.history.push('/loggedIn')
-      this.props.logout()
+     // this.props.history.push('/loggedIn')
+     // this.props.logout()
     }
   }
   handleChangePassword=()=>{
@@ -149,15 +149,15 @@ setPopoverOpen =()=>{
         <ModalHeader toggle={this.togglePromote}>Are You Sure To promote ?</ModalHeader>
        
        <div className="text-center">
-    
+    <Alert color="warning" className="text-big">After promoting all students will be promoted and you will manual delete or remove those who are gone or repeated in same class !</Alert>
        </div>
         <div className="d-flex my-5 mx-3 text-big">
 <button onClick={()=>{
   this.props.promoteStudents()
   this.togglePromote()
 }
-} className="btn btn-md pull-left btn-success mr-2 w-75">Promote</button>
-<button type="button" onClick={this.togglePromote} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+} className="btn btn-md pull-left btn-success mr-2 w-75"><i><BiUpload/></i>Promote</button>
+<button type="button" onClick={this.togglePromote} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -173,8 +173,8 @@ setPopoverOpen =()=>{
 <button onClick={()=>{
   this.props.deleteRecords()
   this.toggleDelRecords()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
-<button type="button" onClick={this.toggleDelRecords} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i> Delete</button>
+<button type="button" onClick={this.toggleDelRecords} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -190,8 +190,8 @@ setPopoverOpen =()=>{
 <button onClick={()=>{
   this.props.deleteFinalists()
   this.toggleDelFinalists()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
-<button type="button" onClick={this.toggleDelFinalists} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete</button>
+<button type="button" onClick={this.toggleDelFinalists} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -207,8 +207,8 @@ setPopoverOpen =()=>{
 <button onClick={()=>{
   this.props.deleteBorrowers()
   this.toggleDelBorrowers()
-}} className="btn btn-md pull{-left btn-success mr-2 w-75">Delete</button>
-<button type="button" onClick={this.toggleDelBorrowers} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull{-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete</button>
+<button type="button" onClick={this.toggleDelBorrowers} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -224,8 +224,8 @@ setPopoverOpen =()=>{
 <button onClick={()=>{
   this.props.deleteStudents()
   this.toggleDelStudents()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete</button>
-<button type="button" onClick={this.toggleDelStudents} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete</button>
+<button type="button" onClick={this.toggleDelStudents} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -241,8 +241,8 @@ setPopoverOpen =()=>{
 <button onClick={()=>{
   this.props.deleteAllBooks()
   this.toggleDelBooks()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete all</button>
-<button type="button" onClick={this.toggleDelBooks} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete all</button>
+<button type="button" onClick={this.toggleDelBooks} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -258,8 +258,8 @@ setPopoverOpen =()=>{
 <button onClick={()=>{
   this.props.deleteTeacherBorrowers()
   this.toggleDelTeacherBorrowers()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete all</button>
-<button type="button" onClick={this.toggleDelTeacherBorrowers} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete all</button>
+<button type="button" onClick={this.toggleDelTeacherBorrowers} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -274,8 +274,8 @@ setPopoverOpen =()=>{
         <div className="d-flex my-5 mx-3 text-big">
 <button onClick={()=>{this.props.deleteTeacherRecords()
 this.toggleDelTeacherRecords()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete Records</button>
-<button type="button" onClick={this.toggleDelTeacherRecords} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete Records</button>
+<button type="button" onClick={this.toggleDelTeacherRecords} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -288,8 +288,8 @@ this.toggleDelTeacherRecords()
 <button onClick={()=>{
   this.props.deleteTeachersList()
   this.toggleDelTeacherList()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Delete Teachers</button>
-<button type="button" onClick={this.toggleDelTeacherList} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Delete Teachers</button>
+<button type="button" onClick={this.toggleDelTeacherList} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -306,7 +306,7 @@ this.toggleDelTeacherRecords()
   this.handleEdit()
   this.toggleChangePassword()
 }} 
-className="btn btn-md pull-left btn-success mx-auto w-75">Edit</button>
+className="btn btn-md pull-left btn-success mx-auto w-75"><i><BiSave/></i> Edit</button>
 
         </div>
         
@@ -320,8 +320,8 @@ className="btn btn-md pull-left btn-success mx-auto w-75">Edit</button>
 <button onClick={()=>{
   this.props.eraseAll()
   this.toggleErase()
-}} className="btn btn-md pull-left btn-success mr-2 w-75">Confirm </button>
-<button type="button" onClick={this.toggleErase} className="btn btn-md pull-right btn-danger ml-2 w-75">Abort</button>
+}} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Confirm </button>
+<button type="button" onClick={this.toggleErase} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>
         
        
@@ -338,7 +338,7 @@ className="btn btn-md pull-left btn-success mx-auto w-75">Edit</button>
   this.handleEdit()
   this.toggleEdit()
 }} 
-className="btn btn-md pull-left btn-success mx-auto w-75">Save changes</button>
+className="btn btn-md pull-left btn-success mx-auto w-75"><i><BiMessageEdit/></i> Save changes</button>
 
         </div>
         

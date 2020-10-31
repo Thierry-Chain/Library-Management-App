@@ -11,7 +11,7 @@ import {location} from '../locations'
 import {getUserId} from '../redux/users/saveUser'
 import {withRouter} from 'react-router-dom'
 import {loginAdvanced} from '../redux/users/action'
-import { BiAward,BiLogIn,BiUserPlus,BiHomeHeart,BiShapePolygon,BiFileFind,BiLogOut,BiXCircle,BiUserCheck,BiUserPin,BiWalk,BiUserVoice,BiListUl,BiBook,BiCog,BiLogInCircle } from "react-icons/bi";
+import { BiAward,BiLogIn,BiUserPlus,BiHomeHeart,BiShapePolygon,BiFileFind,BiLogOut,BiXCircle,BiUserCheck,BiUserPin,BiWalk,BiUserVoice,BiListUl,BiBook,BiCog,BiLogInCircle, BiLoader, BiLoaderAlt, BiLoaderCircle } from "react-icons/bi";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,12 +85,24 @@ const NavBar = (props) => {
   const [dropdownOpenB, setDropdownOpenB] = useState(false);
 
   const toggleDropB = () => setDropdownOpenB(prevState => !prevState);
-  const allStudents=useSelector(state => state.students.list.length)
+  const currentStudents=useSelector(state => state.students.list.length)
+  let allStudents
+  (isNaN(currentStudents))  ? (allStudents=<i><BiLoaderCircle/></i>):(allStudents=currentStudents)
+const currentStudentBorrowers=useSelector(state => state.students.borrowers.length)
+  let allStdBorrowed
+  (isNaN(currentStudentBorrowers))  ? (allStdBorrowed=<i><BiLoaderCircle/></i>):(allStdBorrowed=currentStudents)
+ 
+  const currentAllTeachers=useSelector(state => state.teachers.list.length)
+  let allTeachers
+  (isNaN(currentAllTeachers))  ? (allTeachers=<i><BiLoaderCircle/></i>):(allTeachers=currentAllTeachers)
 
-  const allStdBorrowed=useSelector(state => state.students.borrowers.length)
-  const allTeachers=useSelector(state => state.teachers.list.length)
-  const alltchBorrowed=useSelector(state => state.teachers.borrowers.length)
-  const allBooks=useSelector(state => state.books.list.length)
+const currentAlltchBorrowed=useSelector(state => state.teachers.borrowers.length)
+  let alltchBorrowed
+(isNaN(currentAlltchBorrowed))  ? (alltchBorrowed=<i><BiLoaderCircle/></i>):(alltchBorrowed=currentAlltchBorrowed)
+
+const currentAllBooks=useSelector(state => state.books.list.length)
+  let allBooks
+(isNaN(currentAllBooks))  ? (allBooks=<i><BiLoaderCircle/></i>):(allBooks=currentAllBooks)
   
 const brand =auth ?  <NavbarBrand className="text-brand" to="/">
  

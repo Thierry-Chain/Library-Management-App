@@ -4,11 +4,18 @@ import { connect } from 'react-redux'
 import Footer from '../footer'
 import {BiTask,BiSelection,BiShow} from 'react-icons/bi'
 class Home extends Component {
-    render() { 
-      const allStudents=this.props.allStudents
-      const allTeachers=this.props.allTeachers
-      const allBooks=this.props.allBooks
-      const allBorrowedBooks=this.props.allBorrowedBooks
+  render() { 
+    let allStudents
+    (isNaN(this.props.allStudents))  ? (allStudents='Loading...'):(allStudents=this.props.allStudents)
+      
+      let allTeachers
+  (isNaN(this.props.allTeachers))  ? (allTeachers='Loading...'):(allTeachers=this.props.allTeachers)
+      
+  let allBooks
+  (isNaN(this.props.allBooks))  ? (allBooks='Loading...'):(allBooks=this.props.allBooks)
+  
+      let allBorrowedBooks
+  (isNaN(this.props.allBorrowedBooks))  ? (allBorrowedBooks='Loading...'):(allBorrowedBooks=this.props.allBorrowedBooks)
 
       return ( <section className="mt-5 bg-light mt-body">
   <div className="text-center ">
@@ -68,7 +75,7 @@ class Home extends Component {
   <p className="text-big">Firstly click to the student or teacher menu in the navigation bar and select student or teacher and then search student or teacher you want and click to <span className="text-info">Lend</span> button and type the books informations .</p>
     </div> <br/>
     <div className="col-12 col-sm-11 box mx-auto py-3 mb-4">
-  <p className="h3 text-sucess text-center">How to lend a return a book  ?</p>
+  <p className="h3 text-sucess text-center">How to return a book  ?</p>
   <p className="text-big">Firstly click to the student or teacher menu in the navigation bar and select borrowers and then search student or teacher you want and click to <span className="text-info">Return </span> button select the book returned . </p>
     </div><br/>
   
