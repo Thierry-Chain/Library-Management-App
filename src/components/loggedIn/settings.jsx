@@ -320,6 +320,7 @@ className="btn btn-md pull-left btn-success mx-auto w-75"><i><BiSave/></i> Edit<
 <button onClick={()=>{
   this.props.eraseAll()
   this.toggleErase()
+  this.props.history.push('/loggedIn')
 }} className="btn btn-md pull-left btn-success mr-2 w-75"><i><AiFillDelete/></i>Confirm </button>
 <button type="button" onClick={this.toggleErase} className="btn btn-md pull-right btn-danger ml-2 w-75"><i><BiWindowClose/></i>Abort</button>
         </div>

@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {  Modal, ModalHeader, ModalBody,Alert } from 'reactstrap';
 import * as userActions from '../../redux/users/action'
 import { withRouter } from 'react-router-dom'
-import ConnectionFails from '../loggedIn/connectionError' 
 import {BiLogIn, BiXCircle } from 'react-icons/bi'
 
 
@@ -45,7 +44,7 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
 
         return ( 
             <div>
-  {this.props.connectionError ? <ConnectionFails/>:<React.Fragment>
+ 
     
     
      
@@ -78,7 +77,7 @@ let alert=this.props.error ? <Alert color="danger"> {this.props.error} </Alert> 
             </form>
       </Modal>
    
-    </React.Fragment>}
+   
     </div>
          );
     }

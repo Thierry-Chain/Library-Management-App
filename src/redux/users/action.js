@@ -183,7 +183,7 @@ export const removeMyAccount = () => {
 
         }
         axios(config).then(() => {
-
+            localStorage.clear()
         }).catch((error) => {
             dispatch(loginError(error.response.data.message))
 

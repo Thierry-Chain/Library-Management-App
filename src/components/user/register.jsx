@@ -18,7 +18,7 @@ const [errors, seterrors] = useState('')
 const register = props.register
 const toggle =props.onToggle
 const notify=props.notify
-const connectionError = useSelector(state => state.students.connectionError)
+
 
 let alert= errors ? <Alert color="danger"> {errors} </Alert>:null
 
@@ -48,7 +48,17 @@ axios(config)
  }
 })
  .catch(function (err) {
-  seterrors(err.response.data.message)
+    if (err.message === 'Network Error') {
+               seterrors('Network error')
+            } else {
+
+                if (err.response.data.message === 'Ivalid user credentials!!') {
+                           seterrors('Invalid user')
+
+                }
+               seterrors(err.response.data.message)
+            }
+  
 });
  
 
@@ -56,7 +66,7 @@ axios(config)
 }
   return (
     <div>
-  {connectionError ? <ConnectionFails/>:<React.Fragment>
+ 
     
       <Modal isOpen={register} toggle={()=>{ toggle() }} >
       <form className="form" onSubmit={handleSubmit}>
@@ -89,7 +99,7 @@ axios(config)
             </div>
             </form>
       </Modal>
-    </React.Fragment>}
+  
     </div>
   );
 }
