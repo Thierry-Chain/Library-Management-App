@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserName } from "../redux/users/saveUser";
+import { getUserName, getUserEmail } from "../redux/users/saveUser";
 import {
   Collapse,
   Navbar,
@@ -65,7 +65,7 @@ const NavBar = (props) => {
       "auth-token": `${token}`,
     };
     let data = {
-      email: email,
+      email: getUserEmail(),
       password: password,
     };
     const config = {
@@ -103,7 +103,6 @@ const NavBar = (props) => {
   };
   const auth = useSelector((state) => state.user.auth);
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -455,16 +454,6 @@ const NavBar = (props) => {
         </ModalHeader>
         {error ? <Alert color="danger">{error}</Alert> : null}
         <div className="row">
-          <div className="col-11 mx-auto col-sm-6 my-2">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="form-control m-auto w-75"
-              placeholder="Enter your email"
-            />
-          </div>
-
           <div className="col-11 mx-auto col-sm-6 my-2">
             <input
               type="password"
