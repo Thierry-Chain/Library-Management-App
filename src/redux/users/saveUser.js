@@ -4,11 +4,10 @@ const saveUser = (user) => {
     auth: true,
     more: user,
     error: '',
-    advancedAuth: false
+    advancedAuth: false,
   }
   localStorage.setItem('state', JSON.stringify(state))
   localStorage.setItem('token', JSON.stringify(user.token))
-
 }
 const getUser = () => {
   if (localStorage.getItem('state')) {
@@ -25,9 +24,11 @@ const getUserName = () => {
 
 const getUserId = () => {
   if (localStorage.getItem('state')) {
-
     const userObj = JSON.parse(localStorage.getItem('state'))
     return userObj.more.user._id
+  } else {
+    window.location.reload()
+    alert('Already logged out')
   }
 }
 const getUserEmail = () => {
@@ -37,12 +38,4 @@ const getUserEmail = () => {
   }
 }
 
-
-
-export {
-  saveUser,
-  getUser,
-  getUserName,
-  getUserId,
-  getUserEmail
-}
+export { saveUser, getUser, getUserName, getUserId, getUserEmail }
