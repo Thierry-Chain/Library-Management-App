@@ -1,88 +1,94 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useState } from "react";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import { Alert } from "reactstrap";
-import axios from "axios";
-import { location } from "../../locations";
-import ConnectionFails from "../loggedIn/connectionError";
-import { BiUserPlus, BiUserCheck, BiUserX } from "react-icons/bi";
+import React, { useState } from 'react'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+import { Alert } from 'reactstrap'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { location } from '../../locations'
+import ConnectionFails from '../loggedIn/connectionError'
+import { BiUserPlus, BiUserCheck, BiUserX } from 'react-icons/bi'
 
 const Register = (props) => {
-  const [names, setNames] = useState("");
-  const [email, setEmail] = useState("");
-  const [pword, setPword] = useState("");
-  const [pword1, setPword1] = useState("");
-  const [errors, seterrors] = useState("");
-  const register = props.register;
-  const toggle = props.onToggle;
-  const notify = props.notify;
+  const [names, setNames] = useState('')
+  const [email, setEmail] = useState('')
+  const [pword, setPword] = useState('')
+  const [pword1, setPword1] = useState('')
+  const [errors, seterrors] = useState('')
+  const register = props.register
+  const toggle = props.onToggle
+  const notify = props.notify
 
-  let alert = errors ? <Alert color="danger"> {errors} </Alert> : null;
+  let alert = errors ? <Alert color="danger"> {errors} </Alert> : null
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (names === "" || email === "" || pword === "" || pword1 === "") {
-      seterrors("Fill Empty Space");
-      return false;
+    e.preventDefault()
+    if (names === '' || email === '' || pword === '' || pword1 === '') {
+      seterrors('Fill Empty Space')
+      return false
     } else if (names.length > 13) {
-      seterrors("Chose shorter name charcters less than 13");
-      return false;
+      seterrors('Chose shorter name')
+      return false
     } else {
       const data = JSON.stringify({
         name: names,
         email,
         password: pword,
         password1: pword1,
-      });
+      })
       const config = {
         url: `${location}/user/register`,
-        method: "post",
-        headers: { "Content-Type": "application/json" },
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
         data,
-      };
+      }
       axios(config)
         .then(function (resp) {
           if (resp.data) {
-            toggle();
-            notify("Registered Successfully");
-            setNames("");
-            setEmail("");
-            setPword("");
-            setPword1("");
-            seterrors("");
+            toggle()
+            notify('Registered Successfully')
+            setNames('')
+            setEmail('')
+            setPword('')
+            setPword1('')
+            seterrors('')
           }
         })
         .catch(function (err) {
-          if (err.message === "Network Error") {
-            seterrors("Network error");
+          if (err.message === 'Network Error') {
+            seterrors('Network error')
           } else {
-            if (err.response.data.message === "Ivalid user credentials!!") {
-              seterrors("Invalid user");
+            if (err.response.data.message === 'Ivalid user credentials!!') {
+              seterrors('Invalid user')
             }
-            seterrors(err.response.data.message);
+            seterrors(err.response.data.message)
           }
-        });
+        })
     }
-  };
+  }
   return (
     <div>
       <Modal
         isOpen={register}
         toggle={() => {
-          toggle();
+          toggle()
+          setNames('')
+          setEmail('')
+          setPword('')
+          setPword1('')
+          seterrors('')
         }}
       >
         <form className="form" onSubmit={handleSubmit}>
           <ModalHeader
             toggle={() => {
-              toggle();
+              toggle()
             }}
           >
             <p className="text-center text-info mx-auto">
               <i>
                 <BiUserPlus />
-              </i>{" "}
+              </i>{' '}
               Register As User
             </p>
           </ModalHeader>
@@ -91,15 +97,14 @@ const Register = (props) => {
             <div className="row">
               <div className="col-11 mt-2 col-md-6 mx-auto">
                 <input
-                  title="Enter less than  13 characters"
                   type="text"
                   name="names"
                   value={names}
                   onChange={(e) => {
-                    setNames(e.target.value);
+                    setNames(e.target.value)
                   }}
                   className="form-control"
-                  placeholder="Username"
+                  placeholder="Your names"
                 />
               </div>
               <div className="col-11 mt-2 col-md-6 mx-auto">
@@ -108,7 +113,7 @@ const Register = (props) => {
                   name="email"
                   value={email}
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    setEmail(e.target.value)
                   }}
                   className="form-control"
                   placeholder="Email"
@@ -121,7 +126,7 @@ const Register = (props) => {
                   name="pword"
                   value={pword}
                   onChange={(e) => {
-                    setPword(e.target.value);
+                    setPword(e.target.value)
                   }}
                   className="form-control"
                   placeholder="Password"
@@ -134,7 +139,7 @@ const Register = (props) => {
                   name="pword1"
                   value={pword1}
                   onChange={(e) => {
-                    setPword1(e.target.value);
+                    setPword1(e.target.value)
                   }}
                   className="form-control"
                   placeholder="Confirm password"
@@ -148,24 +153,31 @@ const Register = (props) => {
             <button type="submit" className="btn btn-success btn-md text-big">
               <i>
                 <BiUserCheck />
-              </i>{" "}
-              Register{" "}
+              </i>{' '}
+              Register{' '}
             </button>
             <button
               type="button"
               className="btn btn-warning btn-md text-big"
-              onClick={() => toggle()}
+              onClick={() => {
+                toggle()
+                setNames('')
+                setEmail('')
+                setPword('')
+                setPword1('')
+                seterrors('')
+              }}
             >
               <i>
                 <BiUserX />
-              </i>{" "}
+              </i>{' '}
               Cancel
             </button>
           </div>
         </form>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register
