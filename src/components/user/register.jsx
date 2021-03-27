@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useState } from 'react'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+
+import { Modal, ModalHeader, ModalBody, Spinner } from 'reactstrap'
+
 import { Alert } from 'reactstrap'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
@@ -15,6 +17,9 @@ const Register = (props) => {
   const [pword, setPword] = useState('')
   const [pword1, setPword1] = useState('')
   const [errors, seterrors] = useState('')
+
+  const [loadingUser, setloadingUser] = useState(false)
+
   const register = props.register
   const toggle = props.onToggle
   const notify = props.notify
@@ -30,6 +35,9 @@ const Register = (props) => {
       seterrors('Chose shorter name')
       return false
     } else {
+
+      setloadingUser(true)
+
       const data = JSON.stringify({
         name: names,
         email,
@@ -43,10 +51,18 @@ const Register = (props) => {
         data,
       }
       axios(config)
+
+        .then((resp) => {
+          if (resp.data) {
+            toggle()
+            notify('Registered Successfully')
+            setloadingUser(false)
+
         .then(function (resp) {
           if (resp.data) {
             toggle()
             notify('Registered Successfully')
+
             setNames('')
             setEmail('')
             setPword('')
@@ -72,11 +88,15 @@ const Register = (props) => {
         isOpen={register}
         toggle={() => {
           toggle()
+
+          setloadingUser(false)
+
           setNames('')
           setEmail('')
           setPword('')
           setPword1('')
           seterrors('')
+
         }}
       >
         <form className="form" onSubmit={handleSubmit}>
@@ -154,11 +174,18 @@ const Register = (props) => {
               <i>
                 <BiUserCheck />
               </i>{' '}
+
+              Register {loadingUser && <Spinner size="sm" color="light" />}
+
               Register{' '}
+
             </button>
             <button
               type="button"
               className="btn btn-warning btn-md text-big"
+
+              onClick={() => toggle()}
+
               onClick={() => {
                 toggle()
                 setNames('')
@@ -167,6 +194,7 @@ const Register = (props) => {
                 setPword1('')
                 seterrors('')
               }}
+
             >
               <i>
                 <BiUserX />
