@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import uuid from "uuid/v1";
-import Loading from "../loading";
-import { Alert, UncontrolledAlert } from "reactstrap";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import * as teacherActions from "../../../redux/teachers/actions";
-import moment from "moment";
-import ConnectionFails from "../connectionError";
-import { BiPlusCircle, BiSearch, BiScan } from "react-icons/bi";
+import React, { Component } from "react" 
+import { connect } from "react-redux" 
+import uuid from "uuid/v1" 
+import Loading from "../loading" 
+import { Alert, UncontrolledAlert } from "reactstrap" 
+import { Modal, ModalHeader, ModalBody } from "reactstrap" 
+import * as teacherActions from "../../../redux/teachers/actions" 
+import moment from "moment" 
+import ConnectionFails from "../connectionError" 
+import { BiSearch, BiScan } from "react-icons/bi" 
 
 class TeachersBorrowers extends Component {
   state = {
@@ -19,39 +19,40 @@ class TeachersBorrowers extends Component {
     teacherNameToReturn: "",
     numOfBooks: "",
     modal: false,
-  };
+  } 
   toggle = () => {
-    this.setState({ modal: !this.state.modal });
-  };
+    this.setState({ modal: !this.state.modal, numOfBooks: "" }) 
+    this.props.clearErrors() 
+  } 
   handleReturn = () => {
     let {
       teacherIdToReturn,
       bookTypeToReturn: bookType,
       bookNameToReturn: bookName,
       numOfBooks,
-    } = this.state;
+    } = this.state 
     if (numOfBooks === "") {
-      return false;
+      return false 
     }
-    const data = { bookType, bookName, numOfBooks };
-    this.props.returnBook(data, teacherIdToReturn);
-    this.setState({ numOfBooks: "" });
+    const data = { bookType, bookName, numOfBooks } 
+    this.props.returnBook(data, teacherIdToReturn) 
+    this.setState({ numOfBooks: "" }) 
 
-    this.toggle();
+    this.toggle() 
     /*   if (this.props.error === "") {
-      this.toggle();
+      this.toggle()
     }*/
-  };
+  } 
   handleChange = (e) => {
-    let { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+    let { name, value } = e.target 
+    this.setState({ [name]: value }) 
+  } 
   printPage = () => {
-    window.print();
-  };
+    window.print() 
+  } 
   render() {
-    let filteredData;
-    const allborrowers = this.props.borrowers;
+    let filteredData 
+    const allborrowers = this.props.borrowers 
     allborrowers.length
       ? (filteredData = allborrowers.filter((borrower) => {
           return (
@@ -61,9 +62,9 @@ class TeachersBorrowers extends Component {
             borrower.lastName
               .toLowerCase()
               .indexOf(this.state.word.toLowerCase()) !== -1
-          );
+          ) 
         }))
-      : (filteredData = []);
+      : (filteredData = []) 
     let table = filteredData.length ? (
       <table
         className="table table-bordered table-responsive w-100"
@@ -119,14 +120,14 @@ class TeachersBorrowers extends Component {
                 <td
                   className="p-1 d-print-none"
                   onClick={() => {
-                    this.toggle();
+                    this.toggle() 
                     this.setState({
                       teacherIdToReturn: borrower.teacherId,
                       bookTypeToReturn: borrower.bookType,
                       bookNameToReturn: borrower.bookName,
                       teacherNameToReturn:
                         borrower.firstName + "  " + borrower.lastName,
-                    });
+                    }) 
                   }}
                 >
                   <button className="btn btn-outline-info w-100 py-0">
@@ -134,7 +135,7 @@ class TeachersBorrowers extends Component {
                   </button>
                 </td>
               </tr>
-            );
+            ) 
           })}
         </tbody>
       </table>
@@ -145,7 +146,7 @@ class TeachersBorrowers extends Component {
           No borrower found !!
         </Alert>
       </div>
-    );
+    ) 
 
     let allTable = this.props.loading ? (
       <Loading />
@@ -160,7 +161,7 @@ class TeachersBorrowers extends Component {
         </div>
         {table}
       </div>
-    );
+    ) 
     return (
       <section className="mt-body bg-pc">
         {this.props.connectionError ? (
@@ -267,7 +268,7 @@ class TeachersBorrowers extends Component {
           </React.Fragment>
         )}
       </section>
-    );
+    ) 
   }
 }
 const mapStateToProps = (state) => {
@@ -276,12 +277,13 @@ const mapStateToProps = (state) => {
     borrowers: state.teachers.borrowers,
     loading: state.teachers.loadingBorrowers,
     error: state.teachers.errors,
-  };
-};
+  } 
+} 
 const mapDispatchToProps = (dispatch) => {
   return {
     returnBook: (data, teacherId) =>
       dispatch(teacherActions.returnBook(data, teacherId)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(TeachersBorrowers);
+    clearErrors: () => dispatch(teacherActions.clearErrors()),
+  } 
+} 
+export default connect(mapStateToProps, mapDispatchToProps)(TeachersBorrowers) 

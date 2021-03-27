@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Loading from "../loading";
-import Select from "react-select";
-import { Alert, Modal, ModalHeader, ModalBody, Button } from "reactstrap";
-import { optionGender } from "../student/classes";
-import * as teacherActions from "../../../redux/teachers/actions";
-import ConnectionFails from "../connectionError";
-import { BiSearch, BiPlusCircle } from "react-icons/bi";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import Loading from "../loading"
+import Select from "react-select"
+import { Alert, Modal, ModalHeader, ModalBody, Button } from "reactstrap"
+import { optionGender } from "../student/classes"
+import * as teacherActions from "../../../redux/teachers/actions"
+import ConnectionFails from "../connectionError"
+import { BiSearch, BiPlusCircle } from "react-icons/bi"
 
 class TeachersList extends Component {
   state = {
@@ -29,107 +29,111 @@ class TeachersList extends Component {
     gender: "",
     phone: "",
     validationMessage: "",
-  };
+  }
   componentDidUpdate(prevProps) {
     if (
       prevProps.teachersList.length !== 0 &&
       prevProps.teachersList.length < this.props.teachersList.length
     ) {
-      this.toggleAddNew();
-      this.setState({ firstName: "", lastName: "", gender: "", phone: "" });
+      this.toggleAddNew()
+      this.setState({ firstName: "", lastName: "", gender: "", phone: "" })
     }
     if (
       prevProps.borrowers.length !== 0 &&
       prevProps.borrowers.length < this.props.borrowers.length
     ) {
-      this.toggleLend();
-      console.log("changed now");
+      this.toggleLend()
+      console.log("changed now")
       this.setState({
         modalLend: !this.state.modalLend,
         numOfBooks: "",
         bookType: "",
         bookName: "",
-      });
-      // this.setState({ firstName: "", lastName: "", gender: "", phone: "" });
+      })
+      // this.setState({ firstName: "", lastName: "", gender: "", phone: "" })
     }
   }
   toggleDelete = () => {
-    this.setState({ modalDelete: !this.state.modalDelete });
-  };
+    this.setState({ modalDelete: !this.state.modalDelete })
+  }
   toggleLend = () => {
-    this.setState({ modalLend: !this.state.modalLend });
-  };
+    this.setState({ modalLend: !this.state.modalLend })
+    this.props.clearErrors()
+    this.setState({ numOfBooks: "", bookType: "", bookName: "" })
+  }
   toggleAddNew = () => {
-    this.setState({ modalAddNew: !this.state.modalAddNew });
-  };
+    this.setState({ modalAddNew: !this.state.modalAddNew })
+    this.props.clearErrors()
+    this.setState({ firstName: "", lastName: "", gender: "", phone: "" })
+  }
 
   handleChangeNew = (selectedOption) => {
-    this.setState({ editGender: selectedOption.value });
-  };
+    this.setState({ editGender: selectedOption.value })
+  }
   handleChangeGender = (selectedOption) => {
-    this.setState({ gender: selectedOption.value });
-  };
+    this.setState({ gender: selectedOption.value })
+  }
 
   handleDelete = (e) => {
-    e.preventDefault();
-    this.props.deleteTeacher(this.state.trash);
-    this.toggleDelete();
-  };
+    e.preventDefault()
+    this.props.deleteTeacher(this.state.trash)
+    this.toggleDelete()
+  }
 
   handleEdit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     let {
       editFirstName: firstName,
       editLastName: lastName,
       editGender: gender,
       editPhone: phone,
       teacherId,
-    } = this.state;
-    const data = { firstName, lastName, gender, phone };
-    this.props.editTeacher(data, teacherId);
+    } = this.state
+    const data = { firstName, lastName, gender, phone }
+    this.props.editTeacher(data, teacherId)
     if (!this.props.error) {
-      this.toggle();
+      this.toggle()
     }
-  };
+  }
   handleLend = (e) => {
-    e.preventDefault();
-    const { numOfBooks, bookType, bookName, teacherId } = this.state;
+    e.preventDefault()
+    const { numOfBooks, bookType, bookName, teacherId } = this.state
     if (isNaN(numOfBooks)) {
-      this.props.error = "Book Number Must Be A Number";
+      this.props.error = "Book Number Must Be A Number"
     }
-    const data = { numOfBooks, bookType, bookName };
-    this.props.lendBook(data, teacherId);
+    const data = { numOfBooks, bookType, bookName }
+    this.props.lendBook(data, teacherId)
     //clear data from state
-    //this.setState({ numOfBooks: "", bookType: "", bookName: "" });
-  };
+    //this.setState({ numOfBooks: "", bookType: "", bookName: "" })
+  }
   handleAddNew = (e) => {
-    e.preventDefault();
-    let { firstName, lastName, gender, phone } = this.state;
-    const data = { firstName, lastName, gender, phone };
-    this.props.addNewTeacher(data);
-  };
+    e.preventDefault()
+    let { firstName, lastName, gender, phone } = this.state
+    const data = { firstName, lastName, gender, phone }
+    this.props.addNewTeacher(data)
+  }
 
   toggle = () => {
-    this.setState({ modal: !this.state.modal });
-  };
+    this.setState({ modal: !this.state.modal })
+  }
   handleAllChanges = (e) => {
-    let { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+    let { name, value } = e.target
+    this.setState({ [name]: value })
+  }
 
   render() {
     const errorMessage = this.props.error ? (
       <Alert color="danger">{this.props.error}</Alert>
-    ) : null;
-    let gender;
+    ) : null
+    let gender
     this.state.editGender
       ? (gender = {
           value: this.state.editGender,
           label: this.state.editGender,
         })
-      : (gender = 0);
-    const list = this.props.teachersList;
-    let filteredData;
+      : (gender = 0)
+    const list = this.props.teachersList
+    let filteredData
     list.length
       ? (filteredData = list.filter((teacher) => {
           return (
@@ -139,9 +143,9 @@ class TeachersList extends Component {
             teacher.lastName
               .toLowerCase()
               .indexOf(this.state.search.toLowerCase()) !== -1
-          );
+          )
         }))
-      : (filteredData = []);
+      : (filteredData = [])
 
     let table = filteredData.length ? (
       <table
@@ -190,8 +194,8 @@ class TeachersList extends Component {
                       editGender: teacher.gender,
                       editPhone: teacher.phone,
                       teacherId: teacher._id,
-                    });
-                    this.toggle();
+                    })
+                    this.toggle()
                   }}
                 >
                   <button className="btn-sm btn-info w-100">Edit</button>
@@ -199,8 +203,8 @@ class TeachersList extends Component {
                 <td
                   className="p-1"
                   onClick={() => {
-                    this.setState({ teacherId: teacher._id });
-                    this.toggleLend();
+                    this.setState({ teacherId: teacher._id })
+                    this.toggleLend()
                   }}
                 >
                   <button className="btn-sm btn-info w-100">Lend</button>
@@ -209,14 +213,14 @@ class TeachersList extends Component {
                 <td
                   className="p-1"
                   onClick={() => {
-                    this.setState({ trash: teacher._id });
-                    this.toggleDelete();
+                    this.setState({ trash: teacher._id })
+                    this.toggleDelete()
                   }}
                 >
                   <button className="btn-sm btn-danger w-100">Delete</button>
                 </td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
@@ -227,13 +231,13 @@ class TeachersList extends Component {
           No teacher found !!
         </Alert>
       </div>
-    );
+    )
 
     let allTable = this.props.loadingTeachers ? (
       <Loading />
     ) : (
       <div className="row">{table}</div>
-    );
+    )
 
     return (
       <section className="mt-5 mt-body bg-pc">
@@ -531,7 +535,7 @@ class TeachersList extends Component {
           </React.Fragment>
         )}
       </section>
-    );
+    )
   }
 }
 
@@ -542,8 +546,8 @@ const mapStateToProps = (state) => {
     teachersList: state.teachers.list,
     borrowers: state.teachers.borrowers,
     error: state.teachers.errors,
-  };
-};
+  }
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     addNewTeacher: (data) => dispatch(teacherActions.addNewTeacher(data)),
@@ -553,7 +557,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(teacherActions.editTeacherData(data, teacherId)),
     lendBook: (data, teacherdId) =>
       dispatch(teacherActions.lendbook(data, teacherdId)),
-  };
-};
+    clearErrors: () => dispatch(teacherActions.clearErrors()),
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeachersList);
+export default connect(mapStateToProps, mapDispatchToProps)(TeachersList)
