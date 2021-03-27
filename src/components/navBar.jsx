@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getUserName, getUserEmail } from "../redux/users/saveUser";
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getUserName, getUserEmail } from '../redux/users/saveUser'
 import {
   Collapse,
   Navbar,
@@ -18,14 +18,14 @@ import {
   Modal,
   ModalHeader,
   Alert,
-} from "reactstrap";
-import { NavLink } from "react-router-dom";
-import { fullLogout } from "../redux/users/action";
-import axios from "axios";
-import { location } from "../locations";
-import { getUserId } from "../redux/users/saveUser";
-import { withRouter } from "react-router-dom";
-import { loginAdvanced } from "../redux/users/action";
+} from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import { fullLogout } from '../redux/users/action'
+import axios from 'axios'
+import { location } from '../locations'
+import { getUserId } from '../redux/users/saveUser'
+import { withRouter } from 'react-router-dom'
+import { loginAdvanced } from '../redux/users/action'
 import {
   BiAward,
   BiLogIn,
@@ -46,130 +46,132 @@ import {
   BiLoader,
   BiLoaderAlt,
   BiLoaderCircle,
-} from "react-icons/bi";
+} from 'react-icons/bi'
 
 const NavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [modalVerify, setModalVerify] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const [error, setError] = useState("");
+  const [isOpen, setIsOpen] = useState(false)
+  const [modalVerify, setModalVerify] = useState(false)
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+  const [error, setError] = useState('')
   const toggleSmart = () => {
-    if (isOpen === true) setIsOpen(!isOpen);
-  };
-  const token = useSelector((state) => state.user.more.token);
-  const dispatch = useDispatch();
+    if (isOpen === true) setIsOpen(!isOpen)
+  }
+  const token = useSelector((state) => state.user.more.token)
+  const dispatch = useDispatch()
 
   const verifyPassword = () => {
     const authHeader = {
-      "Content-Type": "application/json",
-      "auth-token": `${token}`,
-    };
+      'Content-Type': 'application/json',
+      'auth-token': `${token}`,
+    }
     let data = {
       email: getUserEmail(),
       password: password,
-    };
+    }
     const config = {
       url: `${location}/user/checkPassword/${getUserId()}`,
-      method: "post",
+      method: 'post',
       headers: authHeader,
       data,
-    };
+    }
 
     axios(config)
       .then(() => {
-        dispatch(loginAdvanced());
-        setModalVerify(!modalVerify);
-        props.history.push("/loggedIn/settings");
+        dispatch(loginAdvanced())
+        setModalVerify(!modalVerify)
+        props.history.push('/loggedIn/settings')
       })
       .catch((error) => {
-        if (error.message === "Network Error") {
-          setError("Network Problem");
+        if (error.message === 'Network Error') {
+          setError('Network Problem')
         } else {
-          if (error.response.data.message === "Ivalid user credentials!!") {
-            setError("Ivalid user");
+          if (error.response.data.message === 'Ivalid user credentials!!') {
+            setError('Invalid user')
           }
-          setError(error.response.data.message);
+          setError(error.response.data.message)
         }
-      });
-  };
-  const login = props.login;
-  const register = props.register;
+      })
+  }
+  const login = props.login
+  const register = props.register
 
   const logout = () => {
-    props.history.push("/");
-    dispatch(fullLogout());
-    toggleModal();
-    toggle();
-  };
-  const auth = useSelector((state) => state.user.auth);
-  const [password, setPassword] = useState("");
+    props.history.push('/')
+    dispatch(fullLogout())
+    toggleModal()
+    toggle()
+  }
+  const auth = useSelector((state) => state.user.auth)
+  const [password, setPassword] = useState('')
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [modal, setModal] = useState(false)
 
-  const toggleModal = () => setModal(!modal);
-  const toggleDrop = () => setDropdownOpen((prevState) => !prevState);
+  const toggleModal = () => setModal(!modal)
+  const toggleDrop = () => setDropdownOpen((prevState) => !prevState)
 
-  const [dropdownOpenT, setDropdownOpenT] = useState(false);
+  const [dropdownOpenT, setDropdownOpenT] = useState(false)
 
-  const toggleDropT = () => setDropdownOpenT((prevState) => !prevState);
+  const toggleDropT = () => setDropdownOpenT((prevState) => !prevState)
 
-  const [dropdownOpenB, setDropdownOpenB] = useState(false);
+  const [dropdownOpenB, setDropdownOpenB] = useState(false)
 
-  const toggleDropB = () => setDropdownOpenB((prevState) => !prevState);
-  const currentStudents = useSelector((state) => state.students.list.length);
-  let allStudents;
+  const toggleDropB = () => setDropdownOpenB((prevState) => !prevState)
+  const currentStudents = useSelector((state) => state.students.list.length)
+  let allStudents
   isNaN(currentStudents)
     ? (allStudents = (
         <i>
           <BiLoaderCircle />
         </i>
       ))
-    : (allStudents = currentStudents);
+    : (allStudents = currentStudents)
   const currentStudentBorrowers = useSelector(
     (state) => state.students.borrowers.length
-  );
+  )
 
-  let allStdBorrowed;
+  let allStdBorrowed
   isNaN(currentStudentBorrowers)
     ? (allStdBorrowed = (
         <i>
           <BiLoaderCircle />
         </i>
       ))
-    : (allStdBorrowed = currentStudentBorrowers);
+    : (allStdBorrowed = currentStudentBorrowers)
 
-  const currentAllTeachers = useSelector((state) => state.teachers.list.length);
-  let allTeachers;
+  const currentAllTeachers = useSelector((state) => state.teachers.list.length)
+  let allTeachers
   isNaN(currentAllTeachers)
     ? (allTeachers = (
         <i>
           <BiLoaderCircle />
         </i>
       ))
-    : (allTeachers = currentAllTeachers);
+    : (allTeachers = currentAllTeachers)
 
   const currentAlltchBorrowed = useSelector(
     (state) => state.teachers.borrowers.length
-  );
-  let alltchBorrowed;
+  )
+  let alltchBorrowed
   isNaN(currentAlltchBorrowed)
     ? (alltchBorrowed = (
         <i>
           <BiLoaderCircle />
         </i>
       ))
-    : (alltchBorrowed = currentAlltchBorrowed);
+    : (alltchBorrowed = currentAlltchBorrowed)
 
-  const currentAllBooks = useSelector((state) => state.books.list.length);
-  let allBooks;
+  const currentAllBooks = useSelector((state) => state.books.list.length)
+  let allBooks
   isNaN(currentAllBooks)
     ? (allBooks = (
         <i>
           <BiLoaderCircle />
         </i>
       ))
-    : (allBooks = currentAllBooks);
+    : (allBooks = currentAllBooks)
 
   const brand = auth ? (
     <NavbarBrand className="text-brand" to="/">
@@ -178,17 +180,17 @@ const NavBar = (props) => {
       </span>
       <i>
         <BiUserPin />
-      </i>{" "}
+      </i>{' '}
       {getUserName()}
     </NavbarBrand>
   ) : (
     <NavbarBrand className="text-brand" to="/">
       <i>
         <BiFileFind />
-      </i>{" "}
+      </i>{' '}
       My Library
     </NavbarBrand>
-  );
+  )
   const collapse = auth ? (
     <Collapse isOpen={isOpen} navbar>
       <Nav className="mr-auto bg-nav" navbar>
@@ -196,7 +198,7 @@ const NavBar = (props) => {
           <NavLink className="nav-link nav-item p-2" to="/loggedIn">
             <i>
               <BiHomeHeart />
-            </i>{" "}
+            </i>{' '}
             Home
           </NavLink>
         </NavItem>
@@ -211,7 +213,7 @@ const NavBar = (props) => {
               <p className="nav-link nav-item p-2">
                 <i>
                   <BiWalk />
-                </i>{" "}
+                </i>{' '}
                 Students <sup className="badge badge-danger">{allStudents}</sup>
               </p>
             </DropdownToggle>
@@ -225,7 +227,7 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
+                  </i>{' '}
                   List <sup className="badge badge-danger">{allStudents}</sup>
                 </DropdownItem>
               </NavLink>
@@ -234,8 +236,8 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
-                  Borrowers{" "}
+                  </i>{' '}
+                  Borrowers{' '}
                   <sup className="badge badge-danger">{allStdBorrowed}</sup>
                 </DropdownItem>
               </NavLink>
@@ -244,7 +246,7 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
+                  </i>{' '}
                   Records
                 </DropdownItem>
               </NavLink>
@@ -262,7 +264,7 @@ const NavBar = (props) => {
               <p className="nav-link nav-item p-2">
                 <i>
                   <BiUserVoice />
-                </i>{" "}
+                </i>{' '}
                 Teachers <sup className="badge badge-danger">{allTeachers}</sup>
               </p>
             </DropdownToggle>
@@ -276,7 +278,7 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
+                  </i>{' '}
                   List <sup className="badge badge-danger">{allTeachers}</sup>
                 </DropdownItem>
               </NavLink>
@@ -285,8 +287,8 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
-                  Borrowers{" "}
+                  </i>{' '}
+                  Borrowers{' '}
                   <sup className="badge badge-danger">{alltchBorrowed}</sup>
                 </DropdownItem>
               </NavLink>
@@ -295,7 +297,7 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
+                  </i>{' '}
                   Records
                 </DropdownItem>
               </NavLink>
@@ -313,7 +315,7 @@ const NavBar = (props) => {
               <p className="nav-link nav-item p-2">
                 <i>
                   <BiBook />
-                </i>{" "}
+                </i>{' '}
                 Books <sup className="badge badge-danger">{allBooks}</sup>
               </p>
             </DropdownToggle>
@@ -327,7 +329,7 @@ const NavBar = (props) => {
                 <DropdownItem>
                   <i>
                     <BiListUl />
-                  </i>{" "}
+                  </i>{' '}
                   List <sup className="badge badge-danger">{allBooks}</sup>
                 </DropdownItem>
               </NavLink>
@@ -337,14 +339,14 @@ const NavBar = (props) => {
 
         <NavItem
           onClick={() => {
-            toggleSmart();
-            setModalVerify(!modalVerify);
+            toggleSmart()
+            setModalVerify(!modalVerify)
           }}
         >
           <button className="nav-link nav-item p-2 bg-none">
             <i>
               <BiCog />
-            </i>{" "}
+            </i>{' '}
             Settings
           </button>
         </NavItem>
@@ -353,7 +355,7 @@ const NavBar = (props) => {
           <button className="nav-link nav-item p-2 bg-none">
             <i>
               <BiLogOut />
-            </i>{" "}
+            </i>{' '}
             Logout
           </button>
         </NavItem>
@@ -366,7 +368,7 @@ const NavBar = (props) => {
           <NavLink className="nav-link nav-item p-2" to="/">
             <i>
               <BiHomeHeart />
-            </i>{" "}
+            </i>{' '}
             Home
           </NavLink>
         </NavItem>
@@ -375,7 +377,7 @@ const NavBar = (props) => {
           <NavLink className="nav-link nav-item p-2" to="/about">
             <i>
               <BiAward />
-            </i>{" "}
+            </i>{' '}
             About us
           </NavLink>
         </NavItem>
@@ -384,21 +386,21 @@ const NavBar = (props) => {
           <button className="nav-link nav-item p-2 bg-none">
             <i>
               <BiUserPlus />
-            </i>{" "}
+            </i>{' '}
             Register
           </button>
         </NavItem>
 
         <NavItem
           onClick={() => {
-            login();
-            localStorage.clear();
+            login()
+            localStorage.clear()
           }}
         >
           <button className="nav-link nav-item p-2 bg-none">
             <i>
               <BiLogIn />
-            </i>{" "}
+            </i>{' '}
             Login
           </button>
         </NavItem>
@@ -407,7 +409,7 @@ const NavBar = (props) => {
           <NavLink className="nav-link nav-item p-2" to="/developers">
             <i>
               <BiShapePolygon />
-            </i>{" "}
+            </i>{' '}
             Developers
           </NavLink>
         </NavItem>
@@ -415,7 +417,7 @@ const NavBar = (props) => {
 
       <NavbarText>Online library management</NavbarText>
     </Collapse>
-  );
+  )
   return (
     <div className="container-fluid px-0 d-print-none">
       <Navbar light expand="lg">
@@ -433,7 +435,7 @@ const NavBar = (props) => {
             <b className="text-light">
               <i>
                 <BiLogOut />
-              </i>{" "}
+              </i>{' '}
               Logout
             </b>
           </button>
@@ -441,14 +443,21 @@ const NavBar = (props) => {
             <b className="text-light">
               <i>
                 <BiXCircle />
-              </i>{" "}
+              </i>{' '}
               Cancel
             </b>
           </button>
         </div>
       </Modal>
 
-      <Modal isOpen={modalVerify} toggle={() => setModalVerify(!modalVerify)}>
+      <Modal
+        isOpen={modalVerify}
+        toggle={() => {
+          setModalVerify(!modalVerify)
+          setError('')
+          setPassword('')
+        }}
+      >
         <ModalHeader toggle={() => setModalVerify(!modalVerify)}>
           <div className="text-center text-info">Enter the following </div>
         </ModalHeader>
@@ -471,13 +480,13 @@ const NavBar = (props) => {
           >
             <i>
               <BiUserCheck />
-            </i>{" "}
+            </i>{' '}
             Verify
           </button>
         </div>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default withRouter(NavBar);
+export default withRouter(NavBar)
