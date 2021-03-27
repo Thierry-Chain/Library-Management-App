@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+./src/locations.js
 /.pnp
 .pnp.js
 
@@ -21,3 +22,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+#new 
+/.vscode/tasks.json
