@@ -35,7 +35,6 @@ const Register = (props) => {
       seterrors('Chose shorter name')
       return false
     } else {
-
       setloadingUser(true)
 
       const data = JSON.stringify({
@@ -51,18 +50,11 @@ const Register = (props) => {
         data,
       }
       axios(config)
-
         .then((resp) => {
           if (resp.data) {
             toggle()
             notify('Registered Successfully')
             setloadingUser(false)
-
-        .then(function (resp) {
-          if (resp.data) {
-            toggle()
-            notify('Registered Successfully')
-
             setNames('')
             setEmail('')
             setPword('')
@@ -70,7 +62,7 @@ const Register = (props) => {
             seterrors('')
           }
         })
-        .catch(function (err) {
+        .catch((err) => {
           if (err.message === 'Network Error') {
             seterrors('Network error')
           } else {
@@ -82,6 +74,7 @@ const Register = (props) => {
         })
     }
   }
+
   return (
     <div>
       <Modal
@@ -96,7 +89,6 @@ const Register = (props) => {
           setPword('')
           setPword1('')
           seterrors('')
-
         }}
       >
         <form className="form" onSubmit={handleSubmit}>
@@ -174,18 +166,12 @@ const Register = (props) => {
               <i>
                 <BiUserCheck />
               </i>{' '}
-
               Register {loadingUser && <Spinner size="sm" color="light" />}
-
               Register{' '}
-
             </button>
             <button
               type="button"
               className="btn btn-warning btn-md text-big"
-
-              onClick={() => toggle()}
-
               onClick={() => {
                 toggle()
                 setNames('')
@@ -194,7 +180,6 @@ const Register = (props) => {
                 setPword1('')
                 seterrors('')
               }}
-
             >
               <i>
                 <BiUserX />
