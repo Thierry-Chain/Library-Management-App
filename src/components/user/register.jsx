@@ -167,7 +167,6 @@ const Register = (props) => {
                 <BiUserCheck />
               </i>{' '}
               Register {loadingUser && <Spinner size="sm" color="light" />}
-              Register{' '}
             </button>
             <button
               type="button"
