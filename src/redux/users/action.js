@@ -8,20 +8,20 @@ import * as studentActions from '../students/actions'
 const frontendLogin = (user) => {
   return {
     type: actionNames.USER_LOGIN,
-    payload: user,
+    payload: user
   }
 }
 
 const loginError = (msg) => {
   return {
     type: actionNames.USER_ERROR,
-    payload: msg,
+    payload: msg
   }
 }
 
 const logoutFrontend = () => {
   return {
-    type: actionNames.USER_LOGOUT,
+    type: actionNames.USER_LOGOUT
   }
 }
 
@@ -33,7 +33,7 @@ const fullLogin = (user) => {
       url: `${location}/user/login`,
       method: 'post',
       headers,
-      data,
+      data
     }
     axios(config)
       .then((resp) => {
@@ -66,19 +66,19 @@ const fullLogout = () => {
 }
 const redirect = () => {
   return {
-    type: actionNames.INVALID_CREDENTIALS,
+    type: actionNames.INVALID_CREDENTIALS
   }
 }
 const checkUserCredentials = () => {
   return (dispatch) => {
     const authHeader = {
       'Content-Type': 'application/json',
-      'auth-token': `${JSON.parse(localStorage.getItem('token'))}`,
+      'auth-token': `${JSON.parse(localStorage.getItem('token'))}`
     }
     const config = {
       url: `${location}/user/`,
       method: 'get',
-      headers: authHeader,
+      headers: authHeader
     }
 
     axios(config)
@@ -99,12 +99,12 @@ const checkUserCredentials = () => {
 }
 const loginAdvanced = () => {
   return {
-    type: actionNames.LOGIN_ADVANCED,
+    type: actionNames.LOGIN_ADVANCED
   }
 }
 const logoutAdvanced = () => {
   return {
-    type: actionNames.LOGOUT_ADVANCED,
+    type: actionNames.LOGOUT_ADVANCED
   }
 }
 export const editUserPassword = (data) => {
@@ -113,30 +113,30 @@ export const editUserPassword = (data) => {
     const { token } = allData.user.more
     const authHeader = {
       'Content-Type': 'application/json',
-      'auth-token': `${token}`,
+      'auth-token': `${token}`
     }
 
     let oldData = {
       email: getUserEmail(),
-      password: data.oldPassword,
+      password: data.oldPassword
     }
     const config = {
       url: `${location}/user/checkPassword/${getUserId()}`,
       method: 'post',
       headers: authHeader,
-      data: oldData,
+      data: oldData
     }
 
     axios(config)
       .then(() => {
         const newData = {
-          password: data.newPassword,
+          password: data.newPassword
         }
         const configs = {
           url: `${location}/user/changePassword/${getUserId()}`,
           method: 'patch',
           headers: authHeader,
-          data: newData,
+          data: newData
         }
 
         axios(configs)
@@ -159,12 +159,12 @@ export const removeMyAccount = () => {
     const { token } = allData.user.more
     const authHeader = {
       'Content-Type': 'application/json',
-      'auth-token': `${token}`,
+      'auth-token': `${token}`
     }
     const config = {
       url: `${location}/user/deleteAccount/${getUserId()}`,
       method: 'delete',
-      headers: authHeader,
+      headers: authHeader
     }
     axios(config)
       .then(() => {
@@ -183,14 +183,14 @@ export const edituserInfo = (data) => {
     const { token } = allData.user.more
     const authHeader = {
       'Content-Type': 'application/json',
-      'auth-token': `${token}`,
+      'auth-token': `${token}`
     }
 
     const config = {
       url: `${location}/user/changeEmailOrUsername/${getUserId()}`,
       method: 'patch',
       headers: authHeader,
-      data,
+      data
     }
 
     axios(config)
@@ -211,7 +211,12 @@ export const edituserInfo = (data) => {
 }
 const loadingUser = () => {
   return {
-    type: actionNames.LOADING_USER,
+    type: actionNames.LOADING_USER
+  }
+}
+const clearErrors = () => {
+  return {
+    type: actionNames.CLEAR_ERRORS
   }
 }
 export {
@@ -223,4 +228,5 @@ export {
   loginAdvanced,
   logoutAdvanced,
   loadingUser,
+  clearErrors
 }

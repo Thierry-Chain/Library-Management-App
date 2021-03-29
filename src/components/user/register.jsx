@@ -41,13 +41,13 @@ const Register = (props) => {
         name: names,
         email,
         password: pword,
-        password1: pword1,
+        password1: pword1
       })
       const config = {
         url: `${location}/user/register`,
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        data,
+        data
       }
       axios(config)
         .then((resp) => {
@@ -65,11 +65,15 @@ const Register = (props) => {
         .catch((err) => {
           if (err.message === 'Network Error') {
             seterrors('Network error')
+            setTimeout(() => {
+              window.location.reload()
+            }, 950)
           } else {
             if (err.response.data.message === 'Ivalid user credentials!!') {
               seterrors('Invalid user')
             }
             seterrors(err.response.data.message)
+            setloadingUser(false)
           }
         })
     }

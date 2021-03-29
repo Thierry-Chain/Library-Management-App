@@ -49,6 +49,7 @@ class Login extends Component {
           isOpen={this.props.login}
           toggle={() => {
             this.props.onToggle()
+            this.props.clearErrors()
             this.setState({ email: '', pword: '' })
           }}
         >
@@ -129,12 +130,13 @@ const mapStateToProps = (state) => {
     connectionError: state.students.connectionError,
     error: state.user.error,
     auth: state.user.auth,
-    loading: state.user.loading,
+    loading: state.user.loading
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     fullLogin: (user) => dispatch(userActions.fullLogin(user)),
+    clearErrors: () => dispatch(userActions.clearErrors())
   }
 }
 
