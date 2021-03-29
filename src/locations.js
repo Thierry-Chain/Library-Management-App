@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export const location = 'https://quiet-river-33450.herokuapp.com/api' //backend links
+export const location = 'https://quiet-river-33450.herokuapp.com/user/api' //backend links
 export const headers = {
   'Content-Type': 'application/json',
 }
