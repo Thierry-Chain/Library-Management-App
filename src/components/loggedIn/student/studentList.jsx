@@ -8,12 +8,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
+  Button
 } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import Classes, { optionGender } from './classes'
-import * as studentActions from '../../../redux/students/actions'
+import * as studentActions from 'redux/students/actions'
 import ConnectionFails from '../connectionError'
 import {
   BiEdit,
@@ -21,7 +21,7 @@ import {
   BiArrowFromLeft,
   BiArrowFromRight,
   BiCommentAdd,
-  BiSearchAlt,
+  BiSearchAlt
 } from 'react-icons/bi'
 
 class StudentList extends Component {
@@ -34,7 +34,7 @@ class StudentList extends Component {
     age: '',
     firstName: '',
     lastName: '',
-    trash: '',
+    trash: ''
   }
 
   componentDidUpdate(prevProps) {
@@ -45,7 +45,7 @@ class StudentList extends Component {
         age: '',
         firstName: '',
         lastName: '',
-        selectedOption: null,
+        selectedOption: null
       })
     }
   }
@@ -62,7 +62,7 @@ class StudentList extends Component {
       age: '',
       firstName: '',
       lastName: '',
-      selectedOption: null,
+      selectedOption: null
     })
   }
   toggleDelete = () => {
@@ -91,7 +91,7 @@ class StudentList extends Component {
       lastName: this.state.lastName,
       Class: this.state.selectedOption,
       gender: this.state.gender,
-      age: this.state.age,
+      age: this.state.age
     }
     this.props.addNewStudent(data)
   }
@@ -411,7 +411,7 @@ const mapStateToProps = (state) => {
     auth: state.user.auth,
     students: state.students.list,
     loading: state.students.loadingList,
-    error: state.students.errors,
+    error: state.students.errors
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -419,7 +419,7 @@ const mapDispatchToProps = (dispatch) => {
     addNewStudent: (student) => dispatch(studentActions.addNewStudent(student)),
     deleteStudent: (studentId) =>
       dispatch(studentActions.deleteTheStudent(studentId)),
-    addPassed: () => dispatch(studentActions.addStudentPassed()),
+    addPassed: () => dispatch(studentActions.addStudentPassed())
   }
 }
 

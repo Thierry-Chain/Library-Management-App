@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody, Alert, Spinner } from 'reactstrap'
-import * as userActions from '../../redux/users/action'
+import * as userActions from 'redux/users/action'
 import { withRouter } from 'react-router-dom'
 import { BiLogIn, BiXCircle } from 'react-icons/bi'
 

@@ -6,9 +6,9 @@ import { Modal, ModalHeader, ModalBody, Spinner } from 'reactstrap'
 
 import { Alert } from 'reactstrap'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
-import { location } from '../../locations'
-import ConnectionFails from '../loggedIn/connectionError'
+// import { useSelector } from 'react-redux'
+import { location } from 'locations'
+// import ConnectionFails from 'components/loggedIn/connectionError'
 import { BiUserPlus, BiUserCheck, BiUserX } from 'react-icons/bi'
 
 const Register = (props) => {
