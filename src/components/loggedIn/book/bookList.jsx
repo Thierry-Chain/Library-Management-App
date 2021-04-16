@@ -7,12 +7,12 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  UncontrolledAlert,
+  UncontrolledAlert
 } from 'reactstrap'
 import Loading from '../loading'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import * as bookActions from '../../../redux/books/actions'
+import * as bookActions from 'redux/books/actions'
 import ConnectionFail from '../connectionError'
 import {
   BiAddToQueue,
@@ -20,7 +20,7 @@ import {
   BiSearchAlt,
   BiTaskX,
   BiTrashAlt,
-  BiEditAlt,
+  BiEditAlt
 } from 'react-icons/bi'
 
 class BookList extends Component {
@@ -34,7 +34,7 @@ class BookList extends Component {
     editNumOfBooks: '',
     modalEdit: false,
     modalDelete: false,
-    bookId: '',
+    bookId: ''
   }
 
   componentDidUpdate(prevProps) {
@@ -62,7 +62,7 @@ class BookList extends Component {
     this.setState({
       modal: !this.state.modal,
       bookType: '',
-      numOfBooks: '',
+      numOfBooks: ''
     })
     this.props.clean()
   }
@@ -153,7 +153,7 @@ class BookList extends Component {
                     this.setState({
                       editNumOfBooks: book.numOfBooks,
                       editBookType: book.typeOfBooks,
-                      bookId: book._id,
+                      bookId: book._id
                     })
                   }}
                 >
@@ -405,7 +405,7 @@ const mapStateToProps = (state) => {
     auth: state.user.auth,
     books: state.books.list,
     loading: state.books.loadingList,
-    error: state.books.errors,
+    error: state.books.errors
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -414,7 +414,7 @@ const mapDispatchToProps = (dispatch) => {
     editBook: (data, bookId) =>
       dispatch(bookActions.editBookData(data, bookId)),
     deleteBook: (bookId) => dispatch(bookActions.deleteBook(bookId)),
-    clean: () => dispatch(bookActions.clearErros()),
+    clean: () => dispatch(bookActions.clearErros())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BookList)

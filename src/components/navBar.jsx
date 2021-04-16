@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserName, getUserEmail } from '../redux/users/saveUser'
+import { getUserName, getUserEmail } from 'redux/users/saveUser'
 import {
   Collapse,
   Navbar,
@@ -17,15 +17,15 @@ import {
   DropdownItem,
   Modal,
   ModalHeader,
-  Alert,
+  Alert
 } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
-import { fullLogout } from '../redux/users/action'
+import { fullLogout } from 'redux/users/action'
 import axios from 'axios'
-import { location } from '../locations'
-import { getUserId } from '../redux/users/saveUser'
+import { location } from 'locations'
+import { getUserId } from 'redux/users/saveUser'
 import { withRouter } from 'react-router-dom'
-import { loginAdvanced } from '../redux/users/action'
+import { loginAdvanced } from 'redux/users/action'
 import {
   BiAward,
   BiLogIn,
@@ -45,7 +45,7 @@ import {
   BiLogInCircle,
   BiLoader,
   BiLoaderAlt,
-  BiLoaderCircle,
+  BiLoaderCircle
 } from 'react-icons/bi'
 
 const NavBar = (props) => {
@@ -64,17 +64,17 @@ const NavBar = (props) => {
   const verifyPassword = () => {
     const authHeader = {
       'Content-Type': 'application/json',
-      'auth-token': `${token}`,
+      'auth-token': `${token}`
     }
     let data = {
       email: getUserEmail(),
-      password: password,
+      password: password
     }
     const config = {
       url: `${location}/user/checkPassword/${getUserId()}`,
       method: 'post',
       headers: authHeader,
-      data,
+      data
     }
 
     axios(config)

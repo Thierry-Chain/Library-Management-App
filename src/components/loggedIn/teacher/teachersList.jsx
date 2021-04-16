@@ -1,34 +1,34 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import Loading from "../loading"
-import Select from "react-select"
-import { Alert, Modal, ModalHeader, ModalBody, Button } from "reactstrap"
-import { optionGender } from "../student/classes"
-import * as teacherActions from "../../../redux/teachers/actions"
-import ConnectionFails from "../connectionError"
-import { BiSearch, BiPlusCircle } from "react-icons/bi"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Loading from '../loading'
+import Select from 'react-select'
+import { Alert, Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
+import { optionGender } from '../student/classes'
+import * as teacherActions from 'redux/teachers/actions'
+import ConnectionFails from '../connectionError'
+import { BiSearch, BiPlusCircle } from 'react-icons/bi'
 
 class TeachersList extends Component {
   state = {
-    search: "",
-    trash: "",
-    editFirstName: "",
-    editLastName: "",
-    editGender: "",
-    editPhone: "",
+    search: '',
+    trash: '',
+    editFirstName: '',
+    editLastName: '',
+    editGender: '',
+    editPhone: '',
     modal: false,
     modalDelete: false,
-    teacherId: "",
-    numOfBooks: "",
-    bookType: "",
-    bookName: "",
+    teacherId: '',
+    numOfBooks: '',
+    bookType: '',
+    bookName: '',
     modalLend: false,
     modalAddNew: false,
-    firstName: "",
-    lastName: "",
-    gender: "",
-    phone: "",
-    validationMessage: "",
+    firstName: '',
+    lastName: '',
+    gender: '',
+    phone: '',
+    validationMessage: ''
   }
   componentDidUpdate(prevProps) {
     if (
@@ -36,19 +36,19 @@ class TeachersList extends Component {
       prevProps.teachersList.length < this.props.teachersList.length
     ) {
       this.toggleAddNew()
-      this.setState({ firstName: "", lastName: "", gender: "", phone: "" })
+      this.setState({ firstName: '', lastName: '', gender: '', phone: '' })
     }
     if (
       prevProps.borrowers.length !== 0 &&
       prevProps.borrowers.length < this.props.borrowers.length
     ) {
       this.toggleLend()
-      console.log("changed now")
+      console.log('changed now')
       this.setState({
         modalLend: !this.state.modalLend,
-        numOfBooks: "",
-        bookType: "",
-        bookName: "",
+        numOfBooks: '',
+        bookType: '',
+        bookName: ''
       })
       // this.setState({ firstName: "", lastName: "", gender: "", phone: "" })
     }
@@ -59,12 +59,12 @@ class TeachersList extends Component {
   toggleLend = () => {
     this.setState({ modalLend: !this.state.modalLend })
     this.props.clearErrors()
-    this.setState({ numOfBooks: "", bookType: "", bookName: "" })
+    this.setState({ numOfBooks: '', bookType: '', bookName: '' })
   }
   toggleAddNew = () => {
     this.setState({ modalAddNew: !this.state.modalAddNew })
     this.props.clearErrors()
-    this.setState({ firstName: "", lastName: "", gender: "", phone: "" })
+    this.setState({ firstName: '', lastName: '', gender: '', phone: '' })
   }
 
   handleChangeNew = (selectedOption) => {
@@ -87,7 +87,7 @@ class TeachersList extends Component {
       editLastName: lastName,
       editGender: gender,
       editPhone: phone,
-      teacherId,
+      teacherId
     } = this.state
     const data = { firstName, lastName, gender, phone }
     this.props.editTeacher(data, teacherId)
@@ -99,7 +99,7 @@ class TeachersList extends Component {
     e.preventDefault()
     const { numOfBooks, bookType, bookName, teacherId } = this.state
     if (isNaN(numOfBooks)) {
-      this.props.error = "Book Number Must Be A Number"
+      this.props.error = 'Book Number Must Be A Number'
     }
     const data = { numOfBooks, bookType, bookName }
     this.props.lendBook(data, teacherId)
@@ -129,7 +129,7 @@ class TeachersList extends Component {
     this.state.editGender
       ? (gender = {
           value: this.state.editGender,
-          label: this.state.editGender,
+          label: this.state.editGender
         })
       : (gender = 0)
     const list = this.props.teachersList
@@ -193,7 +193,7 @@ class TeachersList extends Component {
                       editLastName: teacher.lastName,
                       editGender: teacher.gender,
                       editPhone: teacher.phone,
-                      teacherId: teacher._id,
+                      teacherId: teacher._id
                     })
                     this.toggle()
                   }}
@@ -227,7 +227,7 @@ class TeachersList extends Component {
     ) : (
       <div className="w-100 text-center">
         <Alert className="text-center text-big text-dark" color="danger">
-          {" "}
+          {' '}
           No teacher found !!
         </Alert>
       </div>
@@ -248,14 +248,14 @@ class TeachersList extends Component {
             <div className="bg-secodary pt-2 head-1">
               <div className="d-flex bg-head justify-content-center">
                 <p className="text-center text-dark h2">
-                  Teachers List{" "}
+                  Teachers List{' '}
                   <span
                     onClick={this.toggleAddNew}
                     title="Add New Teacher"
                     className="ml-1 badge badge-bg dropdown-pointer add"
                   >
-                    {" "}
-                    Add{" "}
+                    {' '}
+                    Add{' '}
                     <i>
                       <BiPlusCircle />
                     </i>
@@ -545,7 +545,7 @@ const mapStateToProps = (state) => {
     loadingTeachers: state.teachers.loadingList,
     teachersList: state.teachers.list,
     borrowers: state.teachers.borrowers,
-    error: state.teachers.errors,
+    error: state.teachers.errors
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -557,7 +557,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(teacherActions.editTeacherData(data, teacherId)),
     lendBook: (data, teacherdId) =>
       dispatch(teacherActions.lendbook(data, teacherdId)),
-    clearErrors: () => dispatch(teacherActions.clearErrors()),
+    clearErrors: () => dispatch(teacherActions.clearErrors())
   }
 }
 
