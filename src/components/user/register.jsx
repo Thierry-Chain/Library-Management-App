@@ -27,6 +27,7 @@ const Register = (props) => {
   let alert = errors ? <Alert color="danger"> {errors} </Alert> : null
 
   const handleSubmit = (e) => {
+    seterrors('')
     e.preventDefault()
     if (names === '' || email === '' || pword === '' || pword1 === '') {
       seterrors('Fill Empty Space')
@@ -65,9 +66,7 @@ const Register = (props) => {
         .catch((err) => {
           if (err.message === 'Network Error') {
             seterrors('Network error')
-            setTimeout(() => {
-              window.location.reload()
-            }, 950)
+            setloadingUser(false)
           } else {
             if (err.response.data.message === 'Ivalid user credentials!!') {
               seterrors('Invalid user')
@@ -87,12 +86,11 @@ const Register = (props) => {
           toggle()
 
           setloadingUser(false)
-
+          seterrors('')
           setNames('')
           setEmail('')
           setPword('')
           setPword1('')
-          seterrors('')
         }}
       >
         <form className="form" onSubmit={handleSubmit}>
