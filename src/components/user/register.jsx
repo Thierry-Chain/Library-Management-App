@@ -23,6 +23,7 @@ const Register = (props) => {
   let alert = errors ? <Alert color="danger"> {errors} </Alert> : null
 
   const handleSubmit = (e) => {
+    seterrors('')
     e.preventDefault()
     if (names === '' || email === '' || pword === '' || pword1 === '') {
       seterrors('Fill Empty Space')
@@ -36,13 +37,13 @@ const Register = (props) => {
         name: names,
         email,
         password: pword,
-        password1: pword1,
+        password1: pword1
       })
       const config = {
         url: `${location}/user/register`,
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        data,
+        data
       }
       axios(config)
         .then((resp) => {
@@ -60,6 +61,7 @@ const Register = (props) => {
         .catch(function (err) {
           if (err.message === 'Network Error') {
             seterrors('Network error')
+            setloadingUser(false)
           } else {
             if (err.response.data.message === 'Ivalid user credentials!!') {
               seterrors('Invalid user')
@@ -76,6 +78,11 @@ const Register = (props) => {
         toggle={() => {
           toggle()
           setloadingUser(false)
+          seterrors('')
+          setNames('')
+          setEmail('')
+          setPword('')
+          setPword1('')
         }}
       >
         <form className="form" onSubmit={handleSubmit}>
