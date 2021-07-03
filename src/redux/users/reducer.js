@@ -13,7 +13,7 @@ const initialState = oldData
       more: {},
       error: '',
       advancedAuth: false,
-      loading: false,
+      loading: false
     }
 
 const userReducer = (state = initialState, action) => {
@@ -21,7 +21,7 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.USER_ERROR:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload
       }
     case actionTypes.USER_LOGIN:
       return {
@@ -29,7 +29,7 @@ const userReducer = (state = initialState, action) => {
         auth: true,
         error: '',
         more: action.payload,
-        loading: false,
+        loading: false
       }
 
     case actionTypes.USER_LOGOUT:
@@ -37,28 +37,38 @@ const userReducer = (state = initialState, action) => {
         auth: false,
         more: {},
         error: '',
-        advancedAuth: false,
+        advancedAuth: false
       }
     case actionTypes.INVALID_CREDENTIALS:
       return {
         auth: false,
         more: {},
-        error: '',
+        error: ''
       }
     case actionTypes.LOGIN_ADVANCED:
       return {
         ...state,
-        advancedAuth: true,
+        advancedAuth: true
       }
     case actionTypes.LOGOUT_ADVANCED:
       return {
         ...state,
-        advancedAuth: false,
+        advancedAuth: false
       }
     case actionTypes.LOADING_USER:
       return {
         ...state,
-        loading: true,
+        loading: true
+      }
+    case actionTypes.PAUSE_LOADING_USER:
+      return {
+        ...state,
+        loading: false
+      }
+    case actionTypes.CLEAR_ERRORS:
+      return {
+        ...state,
+        error: ''
       }
     default:
       return state
