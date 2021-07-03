@@ -44,6 +44,7 @@ const fullLogin = (user) => {
       .catch((err) => {
         if (err.message === 'Network Error') {
           dispatch(studentActions.connectionError())
+          dispatch(pauseLoadingUser())
           setTimeout(() => {
             window.location.reload()
           }, 810)
@@ -214,7 +215,12 @@ const loadingUser = () => {
     type: actionNames.LOADING_USER
   }
 }
-const clearErrors = () => {
+const pauseLoadingUser = () => {
+  return {
+    type: actionNames.PAUSE_LOADING_USER
+  }
+}
+const clearUserErrors = () => {
   return {
     type: actionNames.CLEAR_ERRORS
   }
@@ -228,5 +234,6 @@ export {
   loginAdvanced,
   logoutAdvanced,
   loadingUser,
-  clearErrors
+  pauseLoadingUser,
+  clearUserErrors
 }

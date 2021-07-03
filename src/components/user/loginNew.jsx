@@ -51,6 +51,8 @@ class Login extends Component {
             this.props.onToggle()
             this.props.clearErrors()
             this.setState({ email: '', pword: '' })
+            this.props.pauseLoadingUser()
+            this.props.clearErrors()
           }}
         >
           <form className="form" onSubmit={this.handleSubmit}>
@@ -136,7 +138,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fullLogin: (user) => dispatch(userActions.fullLogin(user)),
-    clearErrors: () => dispatch(userActions.clearErrors())
+    pauseLoadingUser: () => dispatch(userActions.pauseLoadingUser()),
+    clearErrors: () => dispatch(userActions.clearUserErrors)
   }
 }
 

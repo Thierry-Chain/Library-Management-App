@@ -21,8 +21,7 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.USER_ERROR:
       return {
         ...state,
-        error: action.payload,
-        loading: false
+        error: action.payload
       }
     case actionTypes.USER_LOGIN:
       return {
@@ -60,6 +59,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      }
+    case actionTypes.PAUSE_LOADING_USER:
+      return {
+        ...state,
+        loading: false
       }
     case actionTypes.CLEAR_ERRORS:
       return {
