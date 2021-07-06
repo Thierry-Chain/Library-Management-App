@@ -28,6 +28,7 @@ class Login extends Component {
     let user = { email: this.state.email, password: this.state.pword }
     localStorage.clear()
     this.props.fullLogin(user)
+    this.props.clearErrors()
   }
 
   handleChange = (e) => {
@@ -139,7 +140,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fullLogin: (user) => dispatch(userActions.fullLogin(user)),
     pauseLoadingUser: () => dispatch(userActions.pauseLoadingUser()),
-    clearErrors: () => dispatch(userActions.clearUserErrors)
+    clearErrors: () => dispatch(userActions.clearUserErrors())
   }
 }
 

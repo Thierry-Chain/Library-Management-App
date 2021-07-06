@@ -53,6 +53,7 @@ const fullLogin = (user) => {
             dispatch(redirect())
           }
           dispatch(loginError(err.response.data.message))
+          dispatch(pauseLoadingUser())
         }
       })
   }
