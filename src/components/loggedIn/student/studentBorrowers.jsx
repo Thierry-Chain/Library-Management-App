@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import uuid from 'uuid/v1'
-import Loading from '../loading'
-import { Alert } from 'reactstrap'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
-import * as studentActions from 'redux/students/actions'
-import moment from 'moment'
-import ConnectionFails from '../connectionError'
-import { BiArrowFromRight, BiSearchAlt, BiScan } from 'react-icons/bi'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { v1 } from 'uuid';
+import Loading from '../loading';
+import { Alert } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import * as studentActions from 'redux/students/actions';
+import moment from 'moment';
+import ConnectionFails from '../connectionError';
+import { BiArrowFromRight, BiSearchAlt, BiScan } from 'react-icons/bi';
 
 class StudentBorrowers extends Component {
   state = {
@@ -18,35 +18,35 @@ class StudentBorrowers extends Component {
     bookIdToReturn: '',
     bookNameToReturn: '',
     studentNameToReturn: '',
-    modal: false
-  }
+    modal: false,
+  };
   toggle = () => {
-    this.setState({ modal: !this.state.modal })
-  }
+    this.setState({ modal: !this.state.modal });
+  };
   handleReturn = () => {
     let {
       studentIdToReturn,
       bookTypeToReturn: bookType,
       bookIdToReturn: bookId,
-      bookNameToReturn: bookName
-    } = this.state
+      bookNameToReturn: bookName,
+    } = this.state;
     const data = {
       bookType,
       bookId,
-      bookName
-    }
-    this.props.returnBook(data, studentIdToReturn)
-    this.toggle()
-  }
+      bookName,
+    };
+    this.props.returnBook(data, studentIdToReturn);
+    this.toggle();
+  };
   handleChange = (e) => {
-    this.setState({ word: e.target.value })
-  }
+    this.setState({ word: e.target.value });
+  };
   printPage = () => {
-    window.print()
-  }
+    window.print();
+  };
   render() {
-    let filteredData
-    const allborrowers = this.props.borrowers
+    let filteredData;
+    const allborrowers = this.props.borrowers;
     allborrowers.length
       ? (filteredData = allborrowers.filter((borrower) => {
           return (
@@ -59,9 +59,9 @@ class StudentBorrowers extends Component {
             borrower.Class.toLowerCase().indexOf(
               this.state.word.toLowerCase()
             ) !== -1
-          )
+          );
         }))
-      : (filteredData = [])
+      : (filteredData = []);
     let table = filteredData.length ? (
       <table
         className="table table-bordered table-responsive w-100"
@@ -103,7 +103,7 @@ class StudentBorrowers extends Component {
         <tbody>
           {filteredData.map((borrower) => {
             return (
-              <tr key={uuid()}>
+              <tr key={v1()}>
                 <td className="p-1">{borrower.firstName}</td>
                 <td className="p-1">{borrower.lastName}</td>
                 <td className="p-1 text-nowrap">{borrower.Class}</td>
@@ -118,15 +118,15 @@ class StudentBorrowers extends Component {
                 <td
                   className="p-1 d-print-none text-nowrap"
                   onClick={() => {
-                    this.toggle()
+                    this.toggle();
                     this.setState({
                       studentIdToReturn: borrower.studentId,
                       bookTypeToReturn: borrower.bookType,
                       bookIdToReturn: borrower.bookId,
                       bookNameToReturn: borrower.bookName,
                       studentNameToReturn:
-                        borrower.firstName + '  ' + borrower.lastName
-                    })
+                        borrower.firstName + '  ' + borrower.lastName,
+                    });
                   }}
                 >
                   <button className="btn btn-outline-info w-100 py-0">
@@ -137,7 +137,7 @@ class StudentBorrowers extends Component {
                   </button>
                 </td>
               </tr>
-            )
+            );
           })}
         </tbody>
       </table>
@@ -148,13 +148,13 @@ class StudentBorrowers extends Component {
           No borrower found !!
         </Alert>
       </div>
-    )
+    );
 
     let allTable = this.props.loading ? (
       <Loading />
     ) : (
       <div className="row">{table}</div>
-    )
+    );
     return (
       <section className="mt-body bg-pc">
         {this.props.connectionError ? (
@@ -252,20 +252,20 @@ class StudentBorrowers extends Component {
           </React.Fragment>
         )}
       </section>
-    )
+    );
   }
 }
 const mapStateToProps = (state) => {
   return {
     connectionError: state.students.connectionError,
     borrowers: state.students.borrowers,
-    loading: state.students.loadingBorrowers
-  }
-}
+    loading: state.students.loadingBorrowers,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     returnBook: (data, studentId) =>
-      dispatch(studentActions.returnBook(data, studentId))
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(StudentBorrowers)
+      dispatch(studentActions.returnBook(data, studentId)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(StudentBorrowers);
