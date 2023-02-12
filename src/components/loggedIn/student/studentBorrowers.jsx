@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { v1 } from 'uuid';
+import uuid from 'react-uuid';
 import Loading from '../loading';
 import { Alert } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
@@ -103,7 +103,7 @@ class StudentBorrowers extends Component {
         <tbody>
           {filteredData.map((borrower) => {
             return (
-              <tr key={v1()}>
+              <tr key={uuid()}>
                 <td className="p-1">{borrower.firstName}</td>
                 <td className="p-1">{borrower.lastName}</td>
                 <td className="p-1 text-nowrap">{borrower.Class}</td>
