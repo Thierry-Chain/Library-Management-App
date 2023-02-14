@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export const location = 'https://manage-library-api.onrender.com'; //backend links
+export const location = 'https://manage-library-api.onrender.com/user/api'; //backend links
 export const headers = {
   'Content-Type': 'application/json',
 };
