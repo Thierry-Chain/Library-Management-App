@@ -20,7 +20,7 @@
     "react-loading": "^2.0.3",
     "react-player": "^2.9.0",
     "react-redux": "^7.2.3",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.0.0",
     "react-scripts": "5.0.0",
     "react-select": "^3.2.0",
     "react-toastify": "^6.2.0",
